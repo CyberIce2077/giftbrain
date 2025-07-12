@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  background-color: #464646;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+}
+
+.nav-logo {
+  margin: 4px 0 0 4px;
+  height: 100px;
+  width: auto;
+  border-radius: 20px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.center-element {
+  float: left;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.center-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.medium-panel {
+  margin: auto;
+  width: 50%;
+}
+
+a {
+  color: white;
+}
+
+.is-button, input {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  background: #f1f1f1;
+  padding: 13px;
+  margin: 10px;
+  border: none;
+}
+
+input:invalid + .is-button {
+  background-color: #6e6e6e;
+  pointer-events: none;
+}
+
+input:valid + .is-button {
+  background-color: white;
+  pointer-events: auto;
+}
+
+.is-button:hover {
+  background-color: #6e6e6e;
+}
+
+.footer {
+  background-color: white;
+  text-align: center;
+  color: #555;
+}
+
+.footer img {
+  vertical-align: middle;
+  margin: 10px;
+}
+
+.hint {
+  color: gray;
+  padding: 5px;
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1;
+}
+
+@media screen and (max-width: 1250px) {
+  .medium-panel {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .medium-panel {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .medium-panel {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .medium-panel {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .medium-panel {
+    width: 97%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .medium-panel {
+    width: 99%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

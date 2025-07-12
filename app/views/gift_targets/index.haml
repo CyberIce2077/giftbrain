@@ -1,0 +1,4 @@
+= link_to('New Chat', [:new, :gift_target], class: 'is-button')
+= link_to('Show target 2', [:gift_target, {id: 2}], class: 'is-button')
+
+= render partial: '/gift_targets/gift_target', collection: gift_targets, as: :gift_target
