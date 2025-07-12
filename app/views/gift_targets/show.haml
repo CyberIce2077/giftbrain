@@ -1,0 +1,8 @@
+= render '/gift_targets/gift_target', gift_target:
+
+- gift_ideas.each do |gift_idea|
+  .box-container
+    .box
+      %h1=gift_idea["name"]
+      .box-description
+        = gift_idea["description"]

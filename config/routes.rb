@@ -1,5 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users
+
+  authenticate :user, ->(user) { user.confirmed? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,5 +18,9 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "gift_targets#index"
+
+  get 'about', to: 'home#about'
+
+  resources :gift_targets
 end

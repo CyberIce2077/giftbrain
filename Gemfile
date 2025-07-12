@@ -67,3 +67,5 @@ end
 gem "haml"
 gem "devise"
 gem "pry"
+gem "sidekiq"
+gem "http"
