@@ -22,6 +22,8 @@ module GiftIdeas
     end
 
     def call
+      gift_target.processing_status!
+
       raise UnsafePrompt unless prompt_safe?
 
       response = HTTP.headers("Content-Type" => "application/json")
@@ -46,13 +48,16 @@ module GiftIdeas
       # {"name"=>"Smart Fishing GPS", "description"=>"Navigational tool to locate fishing spots with GPS."},
       # {"name"=>"Fishermen's Journal", "description"=>"Journal with fishing tips and a personalized entry section."}]
 
-      GiftIdeas::CreateService.new(gift_ideas, gift_target).call
+      GiftIdeas::CreateService.new(gift_target, gift_ideas).call
 
-      gift_ideas
-    # rescue StandardError
-    #   errors.add(:base, 'Something went wrong')
+      gift_target.success_status!
+      success!
     rescue JSON::ParserError
       binding.pry
+      gift_target.failed_status!
+    rescue StandardError
+      errors.add(:base, 'Something went wrong')
+      gift_target.failed_status!
     end
 
     private

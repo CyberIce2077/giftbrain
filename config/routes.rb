@@ -22,5 +22,7 @@ Rails.application.routes.draw do
 
   get 'about', to: 'home#about'
 
-  resources :gift_targets
+  resources :gift_targets do
+    patch :retry, on: :member
+  end
 end

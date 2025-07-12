@@ -8,7 +8,12 @@ class GiftTargetsController < ApplicationController
   def show
     gift_target = find_gift_target
 
-    gift_ideas = fetch_gift_ideas(gift_target)
+    if gift_target.draft_status?
+      gift_target.pending_status!
+      ::GiftIdeas::GeneratorJob.perform_later(gift_target)
+    end
+
+    gift_ideas = gift_target.gift_ideas.order(id: :desc)
 
     render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
   end
@@ -24,9 +29,9 @@ class GiftTargetsController < ApplicationController
 
     gift_target.user = current_user
 
-    if gift_target.save
-      gift_ideas = fetch_gift_ideas(gift_target)
+    gift_ideas = gift_target.gift_ideas.order(id: :desc)
 
+    if gift_target.save
       render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
     else
       render 'gift_targets/new', locals: { gift_target: }
@@ -42,9 +47,9 @@ class GiftTargetsController < ApplicationController
   def update
     gift_target = find_gift_target
 
-    if gift_target.update(gift_target_params)
-      gift_ideas = fetch_gift_ideas(gift_target)
+    gift_ideas = gift_target.gift_ideas.order(id: :desc)
 
+    if gift_target.update(gift_target_params)
       render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
     else
       render 'gift_targets/edit', locals: { gift_target: }
@@ -61,6 +66,17 @@ class GiftTargetsController < ApplicationController
     end
   end
 
+  def retry
+    gift_target = find_gift_target
+
+    gift_target.pending_status!
+    ::GiftIdeas::GeneratorJob.perform_later(gift_target)
+
+    gift_ideas = gift_target.gift_ideas.order(id: :desc)
+
+    render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
+  end
+
   private
 
   def find_gift_target
@@ -73,15 +89,5 @@ class GiftTargetsController < ApplicationController
 
   def gift_target_attrs
     %i[name description]
-  end
-
-  def fetch_gift_ideas(gift_target)
-    gift_ideas = gift_target.gift_ideas
-
-    if gift_ideas.empty?
-      gift_ideas = ::GiftIdeas::GeneratorService.new(gift_target).call
-    end
-
-    gift_target.gift_ideas.order(id: :desc)
   end
 end

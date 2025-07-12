@@ -1,6 +1,14 @@
 -# - gift_ideas = local_assigns.fetch(:gift_ideas, [])
 
-= render '/gift_targets/gift_target', gift_target:
+.box-container
+  .box
+    %h1= gift_target.name
+    = gift_target.status
+    - if gift_target.failed_status? || gift_target.success_status?
+      = form_tag([:retry, gift_target], method: :patch) do
+        = submit_tag('Retry', class: 'is-button')
+    %p= gift_target.description
+
 
 - gift_ideas.each do |gift_idea|
   .box-container

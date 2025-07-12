@@ -23,8 +23,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_151113) do
   end
 
   create_table "gift_target_gift_ideas", force: :cascade do |t|
-    t.integer "gift_target_id", null: false
-    t.integer "gift_idea_id", null: false
+    t.bigint "gift_target_id", null: false
+    t.bigint "gift_idea_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["gift_idea_id"], name: "index_gift_target_gift_ideas_on_gift_idea_id"
@@ -34,7 +34,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_151113) do
   create_table "gift_targets", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
-    t.integer "user_id", null: false
+    t.integer "status", default: 0, null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_gift_targets_on_user_id"
