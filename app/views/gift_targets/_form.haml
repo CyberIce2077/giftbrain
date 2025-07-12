@@ -1,5 +1,5 @@
-.post-container
-  .post
+.box-container
+  .box
     - if gift_target.errors.any?
       %h3= "#{pluralize(gift_target.errors.count, 'error')} prohibited this gift target from being saved:"
       %ul

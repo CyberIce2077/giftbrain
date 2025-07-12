@@ -1,4 +1,6 @@
-.post-container
-  .post
+.box-container
+  .box
+    = link_to('Show', [gift_target], class: 'is-button')
+
     %h1= gift_target.name
     = gift_target.description
