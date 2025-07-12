@@ -8,20 +8,6 @@ class GiftTargetsController < ApplicationController
   def show
     gift_target = find_gift_target
 
-    response = HTTP.headers("Content-Type" => "application/json")
-                  .post("http://localhost:8080/v1/chat/completions", json: {
-                    model: "phi-3-mini",
-                    messages: [
-                      {
-                        role: "user",
-                        content: build_prompt(gift_target)
-                      }
-                    ]
-                  })
-
-    json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
-    gift_ideas = JSON.parse(json_string)
-
     render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
   end
 
@@ -37,9 +23,35 @@ class GiftTargetsController < ApplicationController
     gift_target.user = current_user
 
     if gift_target.save
-      render 'gift_targets/show', locals: { gift_target: }
+      render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
     else
       render 'gift_targets/new', locals: { gift_target: }
+    end
+  end
+
+  def edit
+    gift_target = find_gift_target
+
+    render 'gift_targets/edit', locals: { gift_target: }
+  end
+
+  def update
+    gift_target = find_gift_target
+
+    if gift_target.update(gift_target_params)
+      render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
+    else
+      render 'gift_targets/edit', locals: { gift_target:, gift_ideas: }
+    end
+  end
+
+  def destroy
+    gift_target = find_gift_target
+
+    if gift_target.destroy
+      redirect_to [:gift_targets]
+    else
+      render 'gift_targets/edit', locals: { gift_target:, gift_ideas: }
     end
   end
 
@@ -53,6 +65,25 @@ class GiftTargetsController < ApplicationController
     permitted = [:name, :description]
 
     params.require(:gift_target).permit(permitted)
+  end
+
+  def gift_ideas
+    return []
+
+    response = HTTP.headers("Content-Type" => "application/json")
+                  .gift_target("http://localhost:8080/v1/chat/completions", json: {
+                    model: "phi-3-mini",
+                    messages: [
+                      {
+                        role: "user",
+                        content: build_prompt(gift_target)
+                      }
+                    ]
+                  })
+
+    json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
+
+    JSON.parse(json_string)
   end
 
   def build_prompt(gift_target)
