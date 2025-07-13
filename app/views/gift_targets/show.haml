@@ -10,4 +10,5 @@
     %p= gift_ideas.size
     %p= gift_target.description
 
-= render partial: '/gift_targets/gift_ideas/gift_idea', collection: gift_ideas, as: :gift_idea, locals: { gift_target: }
+.gift-cards-wrapper
+  = render partial: '/gift_targets/gift_ideas/gift_idea', collection: gift_ideas, as: :gift_idea, locals: { gift_target: gift_target }
