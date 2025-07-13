@@ -1,0 +1,9 @@
+= turbo_frame_tag(gift_idea) do
+  .box-container
+    .box
+      %h4
+        = gift_idea.name
+        = form_tag([gift_target, gift_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure you want to remove this gift idea?" }) do
+          = submit_tag('Remove', class: 'is-button')
+      .box-description
+        = gift_idea.description

@@ -1,18 +1,13 @@
--# - gift_ideas = local_assigns.fetch(:gift_ideas, [])
-
 .box-container
+  .box.center-elements
+    - if gift_target.failed_status? || gift_target.success_status?
+      = link_to('Edit', [:edit, gift_target], class: 'is-button')
+      = form_tag([:retry, gift_target], method: :patch) do
+        = submit_tag('Retry', class: 'is-button')
   .box
     %h1= gift_target.name
     = gift_target.status
-    - if gift_target.failed_status? || gift_target.success_status?
-      = form_tag([:retry, gift_target], method: :patch) do
-        = submit_tag('Retry', class: 'is-button')
+    %p= gift_ideas.size
     %p= gift_target.description
 
-
-- gift_ideas.each do |gift_idea|
-  .box-container
-    .box
-      %h1=gift_idea.name
-      .box-description
-        = gift_idea.description
+= render partial: '/gift_targets/gift_ideas/gift_idea', collection: gift_ideas, as: :gift_idea, locals: { gift_target: }

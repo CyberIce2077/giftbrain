@@ -61,8 +61,6 @@ class GiftTargetsController < ApplicationController
 
     if gift_target.destroy
       redirect_to [:gift_targets]
-    else
-      render 'gift_targets/edit', locals: { gift_target: }
     end
   end
 
