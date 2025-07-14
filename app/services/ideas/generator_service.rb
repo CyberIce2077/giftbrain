@@ -1,4 +1,4 @@
-module GiftIdeas
+module Ideas
   class GeneratorService < BaseService
     attr_reader :recipient
 
@@ -26,35 +26,35 @@ module GiftIdeas
 
       raise UnsafePrompt unless prompt_safe?
 
-      response = HTTP.headers("Content-Type" => "application/json")
-                    .post("http://localhost:8080/v1/chat/completions", json: {
-                      model: "phi-3-mini",
-                      messages: [
-                        {
-                          role: "user",
-                          content: build_prompt
-                        }
-                      ]
-                    })
+      # response = HTTP.headers("Content-Type" => "application/json")
+      #               .post("http://localhost:8080/v1/chat/completions", json: {
+      #                 model: "phi-3-mini",
+      #                 messages: [
+      #                   {
+      #                     role: "user",
+      #                     content: build_prompt
+      #                   }
+      #                 ]
+      #               })
 
-      json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
+      # json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
 
-      json_ideas = JSON.parse(json_string)
+      # json_ideas = JSON.parse(json_string)
 
-      # ideas = [{"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
-      # {"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
-      # {"name"=>"Fish Identification Guidebook", "description"=>"A comprehensive guide to regional fish species."},
-      # {"name"=>"Personalized Fishing Lure Kit", "description"=>"Customizable lures for various freshwater fish."},
-      # {"name"=>"Smart Fishing GPS", "description"=>"Navigational tool to locate fishing spots with GPS."},
-      # {"name"=>"Fishermen's Journal", "description"=>"Journal with fishing tips and a personalized entry section."}]
+      json_ideas = [{"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
+      {"name"=>"Professional Fishing Rod", "description"=>"High-quality"},
+      {"name"=>"Fish Identification Guidebook", "description"=>"A comprehensive guide to regional fish species."},
+      {"name"=>"Personalized Fishing Lure Kit", "description"=>"Customizable lures for various freshwater fish."},
+      {"name"=>"Smart Fishing GPS", "description"=>"Navigational tool to locate fishing spots with GPS."},
+      {"name"=>"Fishermen's Journal", "description"=>"Journal with fishing tips and a personalized entry section."}]
 
-      GiftIdeas::CreateService.new(recipient, json_ideas).call
+      Ideas::BulkCreateService.new(recipient, json_ideas).call
 
       recipient.success_status!
       success!
     rescue JSON::ParserError
-      binding.pry
       recipient.failed_status!
+      # TODO: log this
     rescue StandardError
       errors.add(:base, 'Something went wrong')
       recipient.failed_status!

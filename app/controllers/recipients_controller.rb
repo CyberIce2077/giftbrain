@@ -10,12 +10,10 @@ class RecipientsController < ApplicationController
 
     if recipient.draft_status?
       recipient.pending_status!
-      ::GiftIdeas::GeneratorJob.perform_later(recipient)
+      ::Ideas::GeneratorJob.perform_later(recipient)
     end
 
-    ideas = recipient.ideas
-                     .joins(:recipient_ideas)
-                     .order('recipient_ideas.priority ASC')
+    ideas = recipient.ideas.order('recipient_ideas.priority ASC')
 
     render 'recipients/show', locals: { recipient:, ideas: }
   end
@@ -70,7 +68,7 @@ class RecipientsController < ApplicationController
     recipient = find_recipient
 
     recipient.pending_status!
-    ::GiftIdeas::GeneratorJob.perform_later(recipient)
+    ::Ideas::GeneratorJob.perform_later(recipient)
 
     ideas = recipient.ideas.order(id: :desc)
 
