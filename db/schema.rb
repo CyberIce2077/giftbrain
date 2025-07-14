@@ -10,18 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_203637) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_14_080409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "gift_targets", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description", null: false
-    t.integer "status", default: 0, null: false
-    t.bigint "user_id", null: false
+  create_table "ideas", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_gift_targets_on_user_id"
+    t.index ["name"], name: "index_ideas_on_name", unique: true
+  end
+
+  create_table "recipient_ideas", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "idea_id", null: false
+    t.integer "priority", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_id"], name: "index_recipient_ideas_on_idea_id"
+    t.index ["recipient_id"], name: "index_recipient_ideas_on_recipient_id"
+  end
+
+  create_table "recipients", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "status", default: 0, null: false
+    t.bigint "creator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_recipients_on_creator_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,5 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_203637) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "gift_targets", "users"
+  add_foreign_key "recipient_ideas", "ideas"
+  add_foreign_key "recipient_ideas", "recipients"
+  add_foreign_key "recipients", "users", column: "creator_id"
 end

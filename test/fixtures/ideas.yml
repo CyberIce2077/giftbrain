@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  description: MyString
-  gift_target: one
+  description: MyText
 
 two:
   name: MyString
-  description: MyString
-  gift_target: two
+  description: MyText

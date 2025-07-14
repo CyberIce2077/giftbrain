@@ -1,16 +1,26 @@
 module GiftIdeas
   class CreateService < BaseService
-    attr_reader :gift_target, :gift_ideas
+    attr_reader :recipient, :json_ideas
 
-    def initialize(gift_target, gift_ideas)
+    def initialize(recipient, json_ideas)
       super
-      @gift_target = gift_target
-      @gift_ideas = gift_ideas
+      @recipient = recipient
+      @json_ideas = json_ideas
     end
 
     def call
-      gift_ideas.each do |gift_idea|
-        gift_target.gift_ideas.create!(gift_idea)
+      priority = 1
+
+      json_ideas.each do |json_idea|
+        ActiveRecord::Base.transaction do
+          idea = Idea.new(json_idea)
+          idea.save!
+
+          recipient_idea = RecipientIdea.new(idea:, recipient:, priority:)
+          recipient_idea.save!
+
+          priority += 1
+        end
       rescue ActiveRecord::RecordInvalid
         next
       end

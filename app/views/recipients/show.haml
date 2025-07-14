@@ -1,0 +1,17 @@
+-# .box-container
+-#   .box.center-elements
+-#     - if recipient.failed_status? || recipient.success_status?
+-#       = link_to('Edit', [:edit, recipient], class: 'is-button')
+-#       = form_tag([:retry, recipient], method: :patch) do
+-#         = submit_tag('Retry', class: 'is-button')
+-#   .box
+-#     %h1= recipient.name
+-#     = recipient.status
+-#     %p= ideas.size
+-#     %p= recipient.description
+
+.hint.center-element
+  You can move and order the ideas
+
+.gift-cards-wrapper{ data: { controller: "sortable", recipient_id: recipient.id } }
+  = render partial: '/recipients/idea', collection: ideas, as: :idea, locals: { recipient: }

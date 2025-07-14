@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  has_many :gift_targets, dependent: :destroy
+  has_many :recipients, dependent: :destroy, foreign_key: :creator_id
 end

@@ -1,6 +1,6 @@
 module GiftIdeas
   class GeneratorService < BaseService
-    attr_reader :gift_target
+    attr_reader :recipient
 
     class UnsafePrompt < StandardError; end
 
@@ -16,13 +16,13 @@ module GiftIdeas
       "sudo"
     ].freeze
 
-    def initialize(gift_target)
+    def initialize(recipient)
       super
-      @gift_target = gift_target
+      @recipient = recipient
     end
 
     def call
-      gift_target.processing_status!
+      recipient.processing_status!
 
       raise UnsafePrompt unless prompt_safe?
 
@@ -39,25 +39,25 @@ module GiftIdeas
 
       json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
 
-      gift_ideas = JSON.parse(json_string)
+      json_ideas = JSON.parse(json_string)
 
-      # gift_ideas = [{"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
+      # ideas = [{"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
       # {"name"=>"Professional Fishing Rod", "description"=>"High-quality, durable rod for serious angling."},
       # {"name"=>"Fish Identification Guidebook", "description"=>"A comprehensive guide to regional fish species."},
       # {"name"=>"Personalized Fishing Lure Kit", "description"=>"Customizable lures for various freshwater fish."},
       # {"name"=>"Smart Fishing GPS", "description"=>"Navigational tool to locate fishing spots with GPS."},
       # {"name"=>"Fishermen's Journal", "description"=>"Journal with fishing tips and a personalized entry section."}]
 
-      GiftIdeas::CreateService.new(gift_target, gift_ideas).call
+      GiftIdeas::CreateService.new(recipient, json_ideas).call
 
-      gift_target.success_status!
+      recipient.success_status!
       success!
     rescue JSON::ParserError
       binding.pry
-      gift_target.failed_status!
+      recipient.failed_status!
     rescue StandardError
       errors.add(:base, 'Something went wrong')
-      gift_target.failed_status!
+      recipient.failed_status!
     end
 
     private
@@ -91,13 +91,13 @@ module GiftIdeas
     end
 
     def sanitized_description
-      ActionController::Base.helpers.sanitize(gift_target.description.to_s)
+      ActionController::Base.helpers.sanitize(recipient.description.to_s)
         .gsub(/[^\w\s\-.,:;!?()'"&]/, '')
         .squish
     end
 
     def prompt_safe?
-      BLOCKED_PHRASES.none? { |phrase| gift_target.description.to_s.downcase.include?(phrase) }
+      BLOCKED_PHRASES.none? { |phrase| recipient.description.to_s.downcase.include?(phrase) }
     end
   end
 end

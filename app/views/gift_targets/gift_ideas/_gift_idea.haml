@@ -1,9 +1,0 @@
-- priority = gift_idea.gift_target_gift_ideas.find_by(gift_target:).priority
-
-= turbo_frame_tag(gift_idea, data: { priority: }) do
-  .gift-card
-    .card-remove
-      = form_tag([gift_target, gift_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
-        = submit_tag('Remove', class: 'is-button')
-    .card-title= gift_idea.name
-    .card-description= gift_idea.description

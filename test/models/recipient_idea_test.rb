@@ -1,6 +1,6 @@
 require "test_helper"
 
-class GiftTargetGiftIdeaTest < ActiveSupport::TestCase
+class RecipientIdeaTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

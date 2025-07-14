@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  gift_target: one
-  gift_idea: one
+  recipient: one
+  idea: one
+  priority: 1
 
 two:
-  gift_target: two
-  gift_idea: two
+  recipient: two
+  idea: two
+  priority: 1

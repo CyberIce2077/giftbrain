@@ -18,14 +18,14 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "gift_targets#index"
+  root "recipients#index"
 
   get 'about', to: 'home#about'
 
-  resources :gift_targets do
+  resources :recipients do
     patch :retry, on: :member
 
-    resources :gift_ideas, only: :destroy, controller: 'gift_targets/gift_ideas' do
+    resources :recipient_ideas, only: :destroy, controller: 'recipients/recipient_ideas' do
       post :reorder, on: :collection
     end
   end

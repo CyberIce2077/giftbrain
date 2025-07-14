@@ -1,7 +1,7 @@
 class GiftIdeas::GeneratorJob < ApplicationJob
   queue_as :default
 
-  def perform(gift_target)
-    ::GiftIdeas::GeneratorService.new(gift_target).call
+  def perform(recipient)
+    ::GiftIdeas::GeneratorService.new(recipient).call
   end
 end
