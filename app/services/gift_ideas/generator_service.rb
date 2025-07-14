@@ -78,7 +78,7 @@ module GiftIdeas
         - "description": a short one-line description
 
         Do not include any text before or after the JSON.
-        Example format:
+        Use only this example format and nothing else:
         [
           { "name": "Moon Lamp", "description": "A dimmable night light shaped like the moon." },
           { "name": "Retro Game Console", "description": "Nostalgic entertainment in a pocket-sized device." }

@@ -11,6 +11,15 @@ module GiftTargets
       end
     end
 
+    def reorder
+      gift_target = find_gift_target
+
+      gift_ideas = gift_target.gift_ideas
+                              .joins(:gift_target_gift_ideas)
+                              .order('gift_target_gift_ideas.priority ASC')
+      binding.pry
+    end
+
     private
 
     def find_gift_target

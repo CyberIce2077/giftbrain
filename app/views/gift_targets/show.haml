@@ -1,14 +1,14 @@
-.box-container
-  .box.center-elements
-    - if gift_target.failed_status? || gift_target.success_status?
-      = link_to('Edit', [:edit, gift_target], class: 'is-button')
-      = form_tag([:retry, gift_target], method: :patch) do
-        = submit_tag('Retry', class: 'is-button')
-  .box
-    %h1= gift_target.name
-    = gift_target.status
-    %p= gift_ideas.size
-    %p= gift_target.description
+-# .box-container
+-#   .box.center-elements
+-#     - if gift_target.failed_status? || gift_target.success_status?
+-#       = link_to('Edit', [:edit, gift_target], class: 'is-button')
+-#       = form_tag([:retry, gift_target], method: :patch) do
+-#         = submit_tag('Retry', class: 'is-button')
+-#   .box
+-#     %h1= gift_target.name
+-#     = gift_target.status
+-#     %p= gift_ideas.size
+-#     %p= gift_target.description
 
-.gift-cards-wrapper
-  = render partial: '/gift_targets/gift_ideas/gift_idea', collection: gift_ideas, as: :gift_idea, locals: { gift_target: gift_target }
+.gift-cards-wrapper{ data: { controller: "sortable", gift_target_id: gift_target.id } }
+  = render partial: '/gift_targets/gift_ideas/gift_idea', collection: gift_ideas, as: :gift_idea, locals: { gift_target: }

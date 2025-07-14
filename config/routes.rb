@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :gift_targets do
     patch :retry, on: :member
 
-    resources :gift_ideas, only: :destroy, controller: 'gift_targets/gift_ideas'
+    resources :gift_ideas, only: :destroy, controller: 'gift_targets/gift_ideas' do
+      post :reorder, on: :collection
+    end
   end
 end

@@ -13,7 +13,9 @@ class GiftTargetsController < ApplicationController
       ::GiftIdeas::GeneratorJob.perform_later(gift_target)
     end
 
-    gift_ideas = gift_target.gift_ideas.order(id: :desc)
+    gift_ideas = gift_target.gift_ideas
+                            .joins(:gift_target_gift_ideas)
+                            .order('gift_target_gift_ideas.priority ASC')
 
     render 'gift_targets/show', locals: { gift_target:, gift_ideas: }
   end

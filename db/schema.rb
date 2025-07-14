@@ -10,26 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_12_151113) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_203637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "gift_ideas", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_gift_ideas_on_name", unique: true
-  end
-
-  create_table "gift_target_gift_ideas", force: :cascade do |t|
-    t.bigint "gift_target_id", null: false
-    t.bigint "gift_idea_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["gift_idea_id"], name: "index_gift_target_gift_ideas_on_gift_idea_id"
-    t.index ["gift_target_id"], name: "index_gift_target_gift_ideas_on_gift_target_id"
-  end
 
   create_table "gift_targets", force: :cascade do |t|
     t.string "name", null: false
@@ -58,7 +41,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_151113) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "gift_target_gift_ideas", "gift_ideas"
-  add_foreign_key "gift_target_gift_ideas", "gift_targets"
   add_foreign_key "gift_targets", "users"
 end
