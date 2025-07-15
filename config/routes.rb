@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'about', to: 'home#about'
 
   resources :recipients do
-    patch :retry, on: :member
+    patch :generate_ideas, on: :member
 
     resources :recipient_ideas, only: :destroy, controller: 'recipients/recipient_ideas' do
       post :reorder, on: :collection
