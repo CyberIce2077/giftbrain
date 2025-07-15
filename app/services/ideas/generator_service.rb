@@ -23,6 +23,7 @@ module Ideas
 
     def call
       recipient.processing_status!
+      update_recipient_view
 
       raise UnsafePromptError unless prompt_safe?
 
@@ -48,16 +49,32 @@ module Ideas
       # {"name"=>"Smart Fishing GPS", "description"=>"Navigational tool to locate fishing spots with GPS."},
       # {"name"=>"Fishermen's Journal", "description"=>"Journal with fishing tips and a personalized entry section."}]
 
-      Ideas::BulkCreateService.new(recipient, json_ideas).call
+      create_service = Ideas::BulkCreateService.new(recipient, json_ideas)
+      create_service.call
 
-      recipient.success_status!
-      success!
+      if create_service.success?
+        recipient.success_status!
+
+        create_service.ideas.each do |idea|
+          idea.broadcast_append_to(
+            recipient,
+            target: 'ideas',
+            partial: "/recipients/idea",
+            locals: { idea:, recipient: }
+          )
+        end
+
+        update_recipient_view
+        success!
+      end
     rescue JSON::ParserError
       recipient.failed_status!
       # TODO: log this
+      update_recipient_view
     rescue StandardError
       errors.add(:base, 'Something went wrong')
       recipient.failed_status!
+      update_recipient_view
     end
 
     private
@@ -98,6 +115,15 @@ module Ideas
 
     def prompt_safe?
       BLOCKED_PHRASES.none? { |phrase| recipient.description.to_s.downcase.include?(phrase) }
+    end
+
+    def update_recipient_view
+      recipient.broadcast_update_to(
+        recipient,
+        target: recipient,
+        partial: "/recipients/recipient",
+        locals: { recipient: }
+      )
     end
   end
 end

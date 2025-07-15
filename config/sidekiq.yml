@@ -1,0 +1,6 @@
+---
+:concurrency: 5
+:queues:
+  - [default, 1]
+  - [generator, 3]
+  - [mailers, 1]

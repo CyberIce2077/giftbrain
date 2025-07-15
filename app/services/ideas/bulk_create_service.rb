@@ -1,6 +1,6 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :json_ideas
+    attr_reader :recipient, :json_ideas, :ideas
 
     class BulkCreateError < StandardError; end
 
@@ -8,6 +8,7 @@ module Ideas
       super
       @recipient = recipient
       @json_ideas = json_ideas
+      @ideas = []
     end
 
     def call
@@ -28,6 +29,7 @@ module Ideas
           recipient_idea.save!
 
           idea_names.push(json_idea["name"])
+          ideas.push(idea)
         rescue ActiveRecord::RecordInvalid
           next
         end

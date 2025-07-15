@@ -1,5 +1,5 @@
 class Ideas::GeneratorJob < ApplicationJob
-  queue_as :default
+  queue_as :generator
 
   def perform(recipient)
     ::Ideas::GeneratorService.new(recipient).call
