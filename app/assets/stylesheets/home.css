@@ -75,17 +75,6 @@ input:valid + .is-button {
   background-color: #6e6e6e;
 }
 
-.footer {
-  background-color: white;
-  text-align: center;
-  color: #555;
-}
-
-.footer img {
-  vertical-align: middle;
-  margin: 10px;
-}
-
 .hint {
   color: gray;
   padding: 5px;

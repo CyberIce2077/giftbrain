@@ -1,0 +1,8 @@
+= turbo_frame_tag(recipient) do
+  .box-container
+    .box
+      %h1= recipient.name
+      = recipient.status
+      %p= recipient.description
+      .box
+        = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
