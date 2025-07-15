@@ -9,7 +9,7 @@ module Recipients
         idea_ids = recipient.ideas.ids
         RecipientIdeas::ReorderService.new(recipient, idea_ids).call
 
-        render 'recipients/recipient_ideas/destroy', locals: { idea: }
+        render 'recipients/recipient_ideas/destroy', locals: { recipient:, idea: }
       end
     end
 
