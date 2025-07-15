@@ -10,7 +10,7 @@
     %h1 Describe the target
     %hr/
 
-    = form_with model: recipient, data: { turbo: false } do |f|
+    = form_with model: recipient, data: { turbo: recipient.persisted? ? true : false } do |f|
       = f.label :name, "Name"
       = f.text_field :name
       %hr/

@@ -24,10 +24,8 @@ class RecipientsController < ApplicationController
 
     recipient.creator = current_user
 
-    ideas = recipient.ideas.order(id: :desc)
-
     if recipient.save
-      render 'recipients/show', locals: { recipient:, ideas: }
+      redirect_to [recipient]
     else
       render 'recipients/new', locals: { recipient: }
     end
@@ -42,10 +40,8 @@ class RecipientsController < ApplicationController
   def update
     recipient = find_recipient
 
-    ideas = recipient.ideas.order(id: :desc)
-
     if recipient.update(recipient_params)
-      render 'recipients/show', locals: { recipient:, ideas: }
+      render 'recipients/update', locals: { recipient: }
     else
       render 'recipients/edit', locals: { recipient: }
     end
