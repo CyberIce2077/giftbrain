@@ -10,8 +10,9 @@
     %p= ideas.size
     %p= recipient.description
 
-.hint.center-element
-  You can move and order the ideas
+- if ideas.size > 0
+  .hint.center-element
+    You can now move and order the ideas
 
 .gift-cards-wrapper{ data: { controller: "sortable", recipient_id: recipient.id } }
   = render partial: '/recipients/idea', collection: ideas, as: :idea, locals: { recipient: }

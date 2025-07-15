@@ -2,6 +2,8 @@ module RecipientIdeas
   class ReorderService < BaseService
     attr_reader :recipient, :idea_ids
 
+    class NotSameCountError < StandardError; end
+
     def initialize(recipient, idea_ids)
       super
       @recipient = recipient
@@ -9,9 +11,9 @@ module RecipientIdeas
     end
 
     def call
-      raise "Not same count" if idea_ids.size != recipient.ideas.size
+      recipient_ideas = RecipientIdea.where(recipient:)
 
-      recipient_ideas = RecipientIdea.where(recipient:, idea: idea_ids)
+      raise NotSameCountError if idea_ids.size != recipient_ideas.size
 
       ActiveRecord::Base.transaction do
         idea_ids.each_with_index do |id, index|
@@ -19,6 +21,8 @@ module RecipientIdeas
           recipient_idea.update!(priority: index + 1)
         end
       end
+
+      success!
     rescue StandardError
       errors.add(:base, 'Something went wrong')
     end
