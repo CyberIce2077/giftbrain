@@ -7,7 +7,7 @@ export default class extends Controller {
 
     this.sortable = Sortable.create(this.element, {
       animation: 150,
-      handle: ".gift-card",
+      handle: ".idea-box",
       ghostClass: "sortable-ghost",
 
       onEnd: () => {
@@ -31,14 +31,14 @@ export default class extends Controller {
     return a.every((val, index) => val === b[index])
   }
 
-  sendOrderToServer(recipientId, ids) {
+  sendOrderToServer(recipientId, currentIds) {
     fetch(`/recipients/${recipientId}/recipient_ideas/reorder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
       },
-      body: JSON.stringify({ idea_ids: ids })
+      body: JSON.stringify({ idea_ids: currentIds })
     })
   }
 }

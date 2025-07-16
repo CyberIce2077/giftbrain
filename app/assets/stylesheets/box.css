@@ -14,14 +14,13 @@
   white-space: pre-line;
 }
 
-.gift-cards-wrapper {
+.idea-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1em;
 }
 
-.gift-card {
+.idea-box {
   background-color: #252525;
   color: white;
   width: 240px;
@@ -37,11 +36,11 @@
   transition: transform 0.2s ease;
 }
 
-.gift-card:hover {
+.idea-box:hover {
   transform: scale(1.03);
 }
 
-.card-title {
+.box-title {
   font-weight: bold;
   margin-top: 1em;
   font-size: 1.1em;
@@ -50,7 +49,7 @@
   white-space: nowrap;
 }
 
-.card-description {
+.box-description {
   font-size: 0.9em;
   color: #ddd;
   margin-top: 3em;
@@ -62,7 +61,7 @@
   white-space: normal;
 }
 
-.card-remove {
+.box-remove {
   position: absolute;
   top: 8px;
   right: 8px;

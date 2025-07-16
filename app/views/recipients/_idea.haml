@@ -1,9 +1,9 @@
 - recipient_idea = recipient.recipient_ideas.find { |i| i.idea_id == idea.id }
 
 = turbo_frame_tag(idea, data: { idea_id: idea.id }) do
-  .gift-card
-    .card-remove
+  .idea-box
+    .box-remove
       = form_tag([recipient, recipient_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
         = submit_tag('Remove', class: 'is-button')
-    .card-title= idea.name
-    .card-description= idea.description
+    .box-title= idea.name
+    .box-description= idea.description
