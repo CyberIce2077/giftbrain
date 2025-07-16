@@ -55,21 +55,17 @@ module Ideas
       if create_service.success?
         recipient.success_status!
 
-        create_service.ideas.each do |idea|
-          idea.broadcast_append_to(
-            recipient,
-            target: 'ideas',
-            partial: "/recipients/idea",
-            locals: { idea:, recipient: }
-          )
-        end
+        update_ideas_view(create_service.ideas)
 
-        update_recipient_view
         success!
+      else
+        recipient.failed_status!
       end
+
+      update_recipient_view
     rescue JSON::ParserError
-      recipient.failed_status!
       # TODO: log this
+      recipient.failed_status!
       update_recipient_view
     rescue StandardError
       errors.add(:base, 'Something went wrong')
@@ -124,6 +120,17 @@ module Ideas
         partial: "/recipients/recipient",
         locals: { recipient: }
       )
+    end
+
+    def update_ideas_view(ideas)
+      ideas.each do |idea|
+        idea.broadcast_append_to(
+          recipient,
+          target: 'ideas',
+          partial: "/recipients/idea",
+          locals: { idea:, recipient: }
+        )
+      end
     end
   end
 end
