@@ -1,6 +1,6 @@
 = turbo_stream_from(recipient)
 
-= turbo_frame_tag(recipient, class: 'medium-panel') do
+= turbo_frame_tag(recipient) do
   = render '/recipients/recipient', recipient:
 
 = turbo_frame_tag('ideas', class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do

@@ -6,7 +6,7 @@ module Recipients
       authorize(recipient_idea)
 
       if recipient_idea.destroy
-        idea_ids = recipient.ideas.order('recipient_ideas.priority ASC').ids
+        idea_ids = policy_scope(recipient.ideas).order('recipient_ideas.priority ASC').ids
         RecipientIdeas::ReorderService.new(recipient, idea_ids).call
 
         idea = recipient_idea.idea

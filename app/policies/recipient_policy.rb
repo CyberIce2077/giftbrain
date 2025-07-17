@@ -10,7 +10,7 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    scope.exists?(record.id)
   end
 
   def new?
@@ -21,19 +21,25 @@ class RecipientPolicy < ApplicationPolicy
     true
   end
 
+  def edit?
+    show? && allowed_status?
+  end
+
   def update?
-    true
+    edit?
   end
 
   def destroy?
-    true
-  end
-
-  def edit?
-    true
+    edit?
   end
 
   def generate_ideas?
-    true
+    edit?
+  end
+
+  private
+
+  def allowed_status?
+    record.draft_status? || record.failed_status? || record.success_status?
   end
 end

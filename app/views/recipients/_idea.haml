@@ -2,7 +2,8 @@
 
 = turbo_frame_tag(idea, data: { idea_id: idea.id }) do
   .idea-box
-    = form_tag([recipient, recipient_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
-      = submit_tag('Remove', class: 'is-button')
+    - if policy(recipient_idea).destroy?
+      = form_tag([recipient, recipient_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
+        = submit_tag('Remove', class: 'is-button')
     .box-title= idea.name
     .box-description= idea.description

@@ -6,7 +6,7 @@
     %p= recipient.status
     %p= ideas_count
     %p= recipient.description
-  - if recipient.draft_status? || recipient.failed_status? || recipient.success_status?
+  - if policy(recipient).generate_ideas?
     .box.center-elements
       = link_to('Edit', [:edit, recipient], class: 'is-button', data: { turbo_stream: true })
       = button_to('Generate new ideas', [:generate_ideas, recipient], method: :patch, class: 'is-button')
