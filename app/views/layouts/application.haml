@@ -20,8 +20,9 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  %body.medium-panel
-    = render('layouts/navbar')
+  %body
+    .medium-panel
+      = render('layouts/navbar')
     -# %p.notice= notice
     -# %p.alert= alert
 
