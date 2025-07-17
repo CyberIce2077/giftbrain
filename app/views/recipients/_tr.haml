@@ -5,4 +5,5 @@
       = recipient.status
       %p= recipient.description
       .box
-        = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
+        - if policy(recipient).show?
+          = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })

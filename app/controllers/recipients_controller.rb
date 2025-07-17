@@ -1,26 +1,31 @@
 class RecipientsController < ApplicationController
   def index
-    recipients = Recipient.order(id: :desc)
+    authorize(Recipient)
+
+    recipients = policy_scope(Recipient).order(id: :desc)
 
     render 'recipients/index', locals: { recipients: }
   end
 
   def show
     recipient = find_recipient
+    authorize(recipient)
 
-    ideas = recipient.ideas.order('recipient_ideas.priority ASC')
+    ideas =  policy_scope(recipient.ideas).order('recipient_ideas.priority ASC')
 
     render 'recipients/show', locals: { recipient:, ideas: }
   end
 
   def new
     recipient = Recipient.new
+    authorize(recipient)
 
     render 'recipients/new', locals: { recipient: }
   end
 
   def create
     recipient = Recipient.new(recipient_params)
+    authorize(recipient)
 
     recipient.creator = current_user
 
@@ -33,12 +38,14 @@ class RecipientsController < ApplicationController
 
   def edit
     recipient = find_recipient
+    authorize(recipient)
 
     render 'recipients/edit', locals: { recipient: }
   end
 
   def update
     recipient = find_recipient
+    authorize(recipient)
 
     if recipient.update(recipient_params)
       render 'recipients/update', locals: { recipient: }
@@ -49,6 +56,7 @@ class RecipientsController < ApplicationController
 
   def destroy
     recipient = find_recipient
+    authorize(recipient)
 
     if recipient.destroy
       redirect_to [:recipients]
@@ -57,6 +65,7 @@ class RecipientsController < ApplicationController
 
   def generate_ideas
     recipient = find_recipient
+    authorize(recipient)
 
     recipient.pending_status!
     ::Ideas::GeneratorJob.perform_later(recipient)
@@ -67,7 +76,7 @@ class RecipientsController < ApplicationController
   private
 
   def find_recipient
-    Recipient.find(params[:id])
+    policy_scope(Recipient).find(params[:id])
   end
 
   def recipient_params

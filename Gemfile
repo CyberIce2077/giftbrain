@@ -70,3 +70,4 @@ gem "pry"
 gem "sidekiq"
 gem "http"
 gem 'redis', '~> 5.4'
+gem "pundit"

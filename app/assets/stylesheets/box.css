@@ -14,14 +14,14 @@
   white-space: pre-line;
 }
 
-.gift-cards-wrapper {
+.idea-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1em;
 }
 
-.gift-card {
+.idea-box {
+  position: relative;
   background-color: #252525;
   color: white;
   width: 240px;
@@ -37,35 +37,27 @@
   transition: transform 0.2s ease;
 }
 
-.gift-card:hover {
+.idea-box:hover {
   transform: scale(1.03);
 }
 
-.card-title {
+.box-title {
   font-weight: bold;
-  margin-top: 1em;
-  font-size: 1.1em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.card-description {
+.box-description {
   font-size: 0.9em;
   color: #ddd;
-  margin-top: 3em;
+  margin-top: 2em;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   line-clamp: 3;
   white-space: normal;
-}
-
-.card-remove {
-  position: absolute;
-  top: 8px;
-  right: 8px;
 }
 
 @media screen and (max-width: 780px) {

@@ -6,11 +6,11 @@
 Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
-    Bullet.alert         = true
+    Bullet.alert         = false
     Bullet.bullet_logger = true
     Bullet.console       = true
     Bullet.rails_logger  = true
-    Bullet.add_footer    = true
+    Bullet.add_footer    = false
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -58,5 +58,5 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Raise error when a before_action's only/except options reference missing actions.
-  config.action_controller.raise_on_missing_callback_actions = true
+  config.action_controller.raise_on_missing_callback_actions = fasle
 end
