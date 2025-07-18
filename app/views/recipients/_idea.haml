@@ -2,8 +2,19 @@
 
 = turbo_frame_tag(idea, data: { idea_id: idea.id }) do
   .idea-box
-    - if policy(recipient_idea).destroy?
-      = form_tag([recipient, recipient_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
-        = submit_tag('Remove', class: 'is-button')
+    = form_tag([recipient, recipient_idea], method: :delete, data: { turbo_stream: true, turbo_confirm: "Are you sure?" }) do
+      = submit_tag('Remove', class: 'is-button')
     .box-title= idea.name
+
+    - amazon_search_url = "https://www.amazon.com/s?k=#{ERB::Util.url_encode(idea.name)}"
+    - etsy_search_url   = "https://www.etsy.com/search?q=#{ERB::Util.url_encode(idea.name)}"
+    - aliexpress_search_url = "https://www.aliexpress.com/wholesale?SearchText=#{ERB::Util.url_encode(idea.name)}"
+
+    %p
+      = link_to "Amazon", amazon_search_url, target: "_blank", rel: "noopener"
+      |
+      = link_to "Etsy", etsy_search_url, target: "_blank", rel: "noopener"
+      |
+      = link_to "AliExpress", aliexpress_search_url, target: "_blank", rel: "noopener"
+
     .box-description= idea.description

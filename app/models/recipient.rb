@@ -7,4 +7,8 @@ class Recipient < ApplicationRecord
   validates :name, :description, presence: true
 
   enum :status, { draft: 0, pending: 1, processing: 2, success: 3, failed: 4 }, suffix: true
+
+  def editable?
+    draft_status? || failed_status? || success_status?
+  end
 end

@@ -4,6 +4,7 @@
   width: 100%;
   background-color: #252525;
   border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 .box {
@@ -26,7 +27,7 @@
   color: white;
   width: 240px;
   height: 200px;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 1em;
   margin: 1em;
   text-align: center;
@@ -51,7 +52,7 @@
 .box-description {
   font-size: 0.9em;
   color: #ddd;
-  margin-top: 2em;
+  margin-top: 1em;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 5;
