@@ -62,12 +62,9 @@ module Ideas
       end
 
       update_recipient_view
-    rescue JSON::ParserError
-      # TODO: log this
-      recipient.failed_status!
-      update_recipient_view
-    rescue StandardError
-      errors.add(:base, 'Something went wrong')
+    rescue StandardError => e
+      general_error_message
+      log_error(e)
       recipient.failed_status!
       update_recipient_view
     end

@@ -23,8 +23,9 @@ module RecipientIdeas
       end
 
       success!
-    rescue StandardError
-      errors.add(:base, 'Something went wrong')
+    rescue StandardError => e
+      general_error_message
+      log_error(e)
     end
   end
 end
