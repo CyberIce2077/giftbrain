@@ -1,12 +1,11 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :json_ideas, :ideas
+    attr_reader :recipient, :json_ideas
 
     def initialize(recipient, json_ideas)
       super
       @recipient = recipient
       @json_ideas = json_ideas
-      @ideas = []
     end
 
     def call
@@ -14,7 +13,9 @@ module Ideas
         idea = Idea.create_with(description: json_idea["description"])
                    .find_or_create_by(name: json_idea["name"])
 
-        RecipientIdea.create!(idea:, recipient:)
+        RecipientIdea.create!(recipient:, idea:)
+
+        update_ideas_view(idea)
       rescue ActiveRecord::RecordInvalid
         next
       end
@@ -25,10 +26,20 @@ module Ideas
 
       recipient.reset_ideas_count!
 
-      @ideas = ideas
       success!
     rescue StandardError
       errors.add(:base, 'Something went wrong')
+    end
+
+    private
+
+    def update_ideas_view(idea)
+      idea.broadcast_prepend_to(
+        recipient,
+        target: 'ideas',
+        partial: "/recipients/idea",
+        locals: { idea:, recipient: }
+      )
     end
   end
 end

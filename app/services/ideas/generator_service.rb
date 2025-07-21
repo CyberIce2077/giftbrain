@@ -56,9 +56,6 @@ module Ideas
 
       if create_service.success?
         recipient.success_status!
-
-        update_ideas_view(create_service.ideas)
-
         success!
       else
         recipient.failed_status!
@@ -122,17 +119,6 @@ module Ideas
         partial: "/recipients/recipient",
         locals: { recipient: }
       )
-    end
-
-    def update_ideas_view(ideas)
-      ideas.each do |idea|
-        idea.broadcast_prepend_to(
-          recipient,
-          target: 'ideas',
-          partial: "/recipients/idea",
-          locals: { idea:, recipient: }
-        )
-      end
     end
   end
 end
