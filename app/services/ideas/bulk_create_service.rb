@@ -37,6 +37,8 @@ module Ideas
         reorder_service.call
 
         raise BulkCreateError unless reorder_service.success?
+
+        recipient.reset_ideas_count!
       end
 
       @ideas = ideas

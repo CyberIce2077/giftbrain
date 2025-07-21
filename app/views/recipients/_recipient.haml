@@ -1,12 +1,10 @@
-- ideas_count = recipient.ideas.count
-
 .box-container
   .box
     %h1= recipient.name
     Ideas
     |
     Count:
-    = ideas_count
+    = recipient.ideas_count
     |
     Status:
     = recipient.status
@@ -17,6 +15,6 @@
       = button_to('Generate new ideas', [:generate_ideas, recipient], method: :patch, class: 'is-button')
       = button_to('Destroy', [recipient], method: :delete, data: { turbo: false }, onClick: "return confirm('Are you sure you want to delete this recipient?');", class: 'is-button')
 
-- if ideas_count > 0
+- if recipient.ideas_count > 0
   .hint.center-elements
     You can now move and order the ideas

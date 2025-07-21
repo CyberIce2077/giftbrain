@@ -9,6 +9,8 @@ module Recipients
         idea_ids = policy_scope(recipient.ideas).order('recipient_ideas.priority ASC').ids
         RecipientIdeas::ReorderService.new(recipient, idea_ids).call
 
+        recipient.decrement_ideas_count!
+
         idea = recipient_idea.idea
 
         render 'recipients/recipient_ideas/destroy', locals: { recipient:, idea: }
