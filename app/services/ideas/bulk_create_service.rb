@@ -2,8 +2,6 @@ module Ideas
   class BulkCreateService < BaseService
     attr_reader :recipient, :json_ideas, :ideas
 
-    class BulkCreateError < StandardError; end
-
     def initialize(recipient, json_ideas)
       super
       @recipient = recipient
@@ -12,34 +10,17 @@ module Ideas
     end
 
     def call
-      ideas = recipient.ideas.to_a
-
-      ActiveRecord::Base.transaction do
-        json_ideas.each do |json_idea|
-          next if ideas.find { |idea| idea.name == json_idea["name"] }
-
-          idea = Idea.find_or_initialize_by(name: json_idea["name"])
-
-          if idea.new_record?
-            idea.description = json_idea["description"]
-            idea.save!
-          end
-
-          RecipientIdea.create!(idea:, recipient:)
-
-          ideas.push(idea)
-        rescue ActiveRecord::RecordInvalid
-          next
-        end
-
-        idea_ids = recipient.ideas.order('recipient_ideas.priority ASC').ids
-        reorder_service = RecipientIdeas::ReorderService.new(recipient, idea_ids)
-        reorder_service.call
-
-        raise BulkCreateError unless reorder_service.success?
-
-        recipient.reset_ideas_count!
+      json_ideas.each do |json_idea|
+        recipient.ideas.create!(json_idea)
+      rescue ActiveRecord::RecordInvalid
+        next
       end
+
+      ideas = recipient.ideas.order('recipient_ideas.priority ASC')
+      reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
+      reorder_service.call
+
+      recipient.reset_ideas_count!
 
       @ideas = ideas
       success!
