@@ -22,7 +22,7 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def edit?
-    show? && allowed_status?
+    show? && record.editable?
   end
 
   def update?
@@ -35,11 +35,5 @@ class RecipientPolicy < ApplicationPolicy
 
   def generate_ideas?
     edit?
-  end
-
-  private
-
-  def allowed_status?
-    record.draft_status? || record.failed_status? || record.success_status?
   end
 end

@@ -12,11 +12,11 @@ module Ideas
     end
 
     def call
-      idea_names = recipient.ideas.pluck(:name)
+      ideas = recipient.ideas.order('recipient_ideas.priority ASC').to_a
 
       ActiveRecord::Base.transaction do
         json_ideas.each do |json_idea|
-          next if idea_names.include?(json_idea["name"])
+          next if ideas.find { |idea| idea.name == json_idea["name"] }
 
           idea = Idea.find_or_initialize_by(name: json_idea["name"])
 
@@ -25,22 +25,20 @@ module Ideas
             idea.save!
           end
 
-          recipient_idea = RecipientIdea.new(idea:, recipient:)
-          recipient_idea.save!
+          RecipientIdea.create!(idea:, recipient:)
 
-          idea_names.push(json_idea["name"])
           ideas.push(idea)
         rescue ActiveRecord::RecordInvalid
           next
         end
 
-        idea_ids = recipient.ideas.order(id: :asc).ids
-        reorder_service = RecipientIdeas::ReorderService.new(recipient, idea_ids)
+        reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.map(&:id))
         reorder_service.call
 
         raise BulkCreateError unless reorder_service.success?
       end
 
+      @ideas = ideas
       success!
     rescue StandardError
       errors.add(:base, 'Something went wrong')

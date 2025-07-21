@@ -4,8 +4,8 @@ module Ideas
 
     class UnsafePromptError < StandardError; end
 
-    URL = "http://localhost:8080/v1/chat/completions"
-    # URL = "http://192.168.1.29:8080/v1/chat/completions"
+    # URL = "http://localhost:8080/v1/chat/completions"
+    URL = "http://192.168.1.29:8080/v1/chat/completions"
     BLOCKED_PHRASES = [
       "ignore all previous instructions",
       "you are now",
