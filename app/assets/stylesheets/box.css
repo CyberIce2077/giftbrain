@@ -36,6 +36,8 @@
   justify-content: flex-start;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   transition: transform 0.2s ease;
+  animation: scaleIn 0.3s ease-out;
+  transform-origin: center;
 }
 
 .idea-box:hover {
@@ -59,6 +61,17 @@
   -webkit-box-orient: vertical;
   line-clamp: 3;
   white-space: normal;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 780px) {
