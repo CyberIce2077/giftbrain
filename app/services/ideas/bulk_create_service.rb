@@ -11,7 +11,10 @@ module Ideas
 
     def call
       json_ideas.each do |json_idea|
-        recipient.ideas.create!(json_idea)
+        idea = Idea.create_with(description: json_idea["description"])
+                   .find_or_create_by(name: json_idea["name"])
+
+        RecipientIdea.create!(idea:, recipient:)
       rescue ActiveRecord::RecordInvalid
         next
       end
