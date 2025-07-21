@@ -20,6 +20,8 @@ export default class extends Controller {
         this.sendOrderToServer(recipientId, currentIds)
       }
     })
+
+    this.setupAutoScroll()
   }
 
   getCurrentIds() {
@@ -39,6 +41,66 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
       },
       body: JSON.stringify({ idea_ids: currentIds })
+    })
+  }
+
+  setupAutoScroll() {
+    let autoScrollInterval = null
+    let scrollDirection = null
+
+    const scrollStep = () => {
+      const scrollTop = window.scrollY
+      const scrollBottom = scrollTop + window.innerHeight
+      const pageHeight = document.documentElement.scrollHeight
+      const scrollSpeed = 10
+
+      if (scrollDirection === "up" && scrollTop > 0) {
+        window.scrollBy(0, -scrollSpeed)
+      } else if (scrollDirection === "down" && scrollBottom < pageHeight) {
+        window.scrollBy(0, scrollSpeed)
+      } else {
+        clearInterval(autoScrollInterval)
+        autoScrollInterval = null
+        scrollDirection = null
+      }
+    }
+
+    document.addEventListener("touchmove", (e) => {
+      const y = e.touches[0].clientY
+      const windowHeight = window.innerHeight
+      const threshold = 80
+
+      const scrollTop = window.scrollY
+      const scrollBottom = scrollTop + windowHeight
+      const pageHeight = document.documentElement.scrollHeight
+
+      if (y < threshold && scrollTop > 0) {
+        if (scrollDirection !== "up") {
+          if (autoScrollInterval) clearInterval(autoScrollInterval)
+          scrollDirection = "up"
+          autoScrollInterval = setInterval(scrollStep, 16)
+        }
+      } else if (y > windowHeight - threshold && scrollBottom < pageHeight) {
+        if (scrollDirection !== "down") {
+          if (autoScrollInterval) clearInterval(autoScrollInterval)
+          scrollDirection = "down"
+          autoScrollInterval = setInterval(scrollStep, 16)
+        }
+      } else {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval)
+          autoScrollInterval = null
+          scrollDirection = null
+        }
+      }
+    })
+
+    document.addEventListener("touchend", () => {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval)
+        autoScrollInterval = null
+        scrollDirection = null
+      }
     })
   }
 }
