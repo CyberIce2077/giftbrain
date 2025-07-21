@@ -11,7 +11,7 @@ module RecipientIdeas
     end
 
     def call
-      recipient_ideas = RecipientIdea.where(recipient:)
+      recipient_ideas = recipient.recipient_ideas
 
       raise NotSameCountError if idea_ids.size != recipient_ideas.size
 
