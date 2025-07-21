@@ -126,7 +126,7 @@ module Ideas
 
     def update_ideas_view(ideas)
       ideas.each do |idea|
-        idea.broadcast_append_to(
+        idea.broadcast_prepend_to(
           recipient,
           target: 'ideas',
           partial: "/recipients/idea",

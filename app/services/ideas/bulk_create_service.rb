@@ -12,7 +12,7 @@ module Ideas
     end
 
     def call
-      ideas = recipient.ideas.order('recipient_ideas.priority ASC').to_a
+      ideas = recipient.ideas.to_a
 
       ActiveRecord::Base.transaction do
         json_ideas.each do |json_idea|
@@ -32,7 +32,8 @@ module Ideas
           next
         end
 
-        reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.map(&:id))
+        idea_ids = recipient.ideas.order('recipient_ideas.priority ASC').ids
+        reorder_service = RecipientIdeas::ReorderService.new(recipient, idea_ids)
         reorder_service.call
 
         raise BulkCreateError unless reorder_service.success?
