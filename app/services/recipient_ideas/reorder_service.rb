@@ -2,7 +2,7 @@ module RecipientIdeas
   class ReorderService < BaseService
     attr_reader :recipient, :idea_ids
 
-    class NotSameCountError < StandardError; end
+    class ReorderError < StandardError; end
 
     def initialize(recipient, idea_ids)
       super
@@ -11,21 +11,34 @@ module RecipientIdeas
     end
 
     def call
-      recipient_ideas = recipient.recipient_ideas
+      validate_idea_ids!
 
-      raise NotSameCountError if idea_ids.size != recipient_ideas.size
+      id_priority_pairs = idea_ids.each_with_index.map { |id, index| [id, index + 1] }.to_h
 
-      ActiveRecord::Base.transaction do
-        idea_ids.each_with_index do |id, index|
-          recipient_idea = recipient_ideas.find { |r| r.idea_id == id }
-          recipient_idea.update!(priority: index + 1)
-        end
-      end
+      case_sql = id_priority_pairs.map { |key, value| "WHEN #{key} THEN #{value}" }.join(" ")
+
+      idea_ids_sql = id_priority_pairs.keys.join(",")
+
+      sql = <<~SQL
+        UPDATE recipient_ideas
+        SET priority = CASE idea_id #{case_sql} END
+        WHERE recipient_id = #{recipient.id} AND idea_id IN (#{idea_ids_sql})
+      SQL
+
+      ActiveRecord::Base.connection.execute(sql)
 
       success!
     rescue StandardError => e
       general_error_message
       log_error(e)
+    end
+
+    private
+
+    def validate_idea_ids!
+      return if idea_ids.all? { |id| id.is_a?(Integer) } && idea_ids.size == recipient.recipient_ideas.size
+
+      raise ReorderError, "Invalid idea_ids"
     end
   end
 end
