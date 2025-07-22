@@ -11,4 +11,16 @@ class Recipient < ApplicationRecord
   def editable?
     draft_status? || failed_status? || success_status?
   end
+
+  def increment_ideas_count!
+    update!(ideas_count: ideas_count + 1)
+  end
+
+  def decrement_ideas_count!
+    update!(ideas_count: ideas_count - 1) if ideas_count > 0
+  end
+
+  def reset_ideas_count!
+    update!(ideas_count: recipient_ideas.count)
+  end
 end

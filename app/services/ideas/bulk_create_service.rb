@@ -1,47 +1,46 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :json_ideas, :ideas
-
-    class BulkCreateError < StandardError; end
+    attr_reader :recipient, :json_ideas
 
     def initialize(recipient, json_ideas)
       super
       @recipient = recipient
       @json_ideas = json_ideas
-      @ideas = []
     end
 
     def call
-      ideas = recipient.ideas.order('recipient_ideas.priority ASC').to_a
+      json_ideas.each do |json_idea|
+        idea = Idea.create_with(description: json_idea["description"])
+                   .find_or_create_by(name: json_idea["name"])
 
-      ActiveRecord::Base.transaction do
-        json_ideas.each do |json_idea|
-          next if ideas.find { |idea| idea.name == json_idea["name"] }
+        RecipientIdea.create!(recipient:, idea:)
 
-          idea = Idea.find_or_initialize_by(name: json_idea["name"])
-
-          if idea.new_record?
-            idea.description = json_idea["description"]
-            idea.save!
-          end
-
-          RecipientIdea.create!(idea:, recipient:)
-
-          ideas.push(idea)
-        rescue ActiveRecord::RecordInvalid
-          next
-        end
-
-        reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.map(&:id))
-        reorder_service.call
-
-        raise BulkCreateError unless reorder_service.success?
+        update_ideas_view(idea)
+      rescue ActiveRecord::RecordInvalid
+        next
       end
 
-      @ideas = ideas
+      ideas = recipient.ideas.order('recipient_ideas.priority ASC')
+      reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
+      reorder_service.call
+
+      recipient.reset_ideas_count!
+
       success!
-    rescue StandardError
-      errors.add(:base, 'Something went wrong')
+    rescue StandardError => e
+      general_error_message
+      log_error(e)
+    end
+
+    private
+
+    def update_ideas_view(idea)
+      idea.broadcast_prepend_to(
+        recipient,
+        target: 'ideas',
+        partial: "/recipients/idea",
+        locals: { idea:, recipient: }
+      )
     end
   end
 end

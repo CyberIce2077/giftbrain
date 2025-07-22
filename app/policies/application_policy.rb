@@ -40,12 +40,14 @@ class ApplicationPolicy
     Pundit.policy_scope!(user, record.class)
   end
 
+  def exists?
+    scope.exists?(record.id)
+  end
+
   class Scope
     def initialize(user, scope)
-      raise Pundit::NotAuthorizedError, 'Not authorized!' unless user
-
       @user = user
-      @scope = scope
+      @scope = user ? scope : scope.none
     end
 
     def resolve

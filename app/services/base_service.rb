@@ -1,4 +1,6 @@
 class BaseService
+  GENERAL_ERROR_MESSAGE = "Something went wrong!"
+
   def initialize(*attrs); end
 
   def call
@@ -29,11 +31,19 @@ class BaseService
     @success = true
   end
 
-  # def extra
-  #   {}
-  # end
+  private
 
-  # private
+  def general_error_message
+    errors.add(:base, GENERAL_ERROR_MESSAGE)
+  end
+
+  def log_info(e)
+    Rails.logger.info("[#{self.class.name}] #{e.message}")
+  end
+
+  def log_error(e)
+    Rails.logger.error("[#{self.class.name}] #{e.message}")
+  end
 
   # def notify_error(error, extra: {})
   #   Sentry.capture_exception(error, extra:)

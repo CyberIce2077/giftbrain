@@ -10,7 +10,7 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def show?
-    scope.exists?(record.id)
+    true
   end
 
   def new?
@@ -22,7 +22,7 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def edit?
-    show? && record.editable?
+    exists? && record.editable?
   end
 
   def update?
