@@ -12,6 +12,11 @@ builder:
   local: true
   arch: amd64
 
+registry:
+  username: cyberice2077
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
 env:
   secret:
     - RAILS_MASTER_KEY
