@@ -14,7 +14,7 @@ test:
 production:
   primary:
     <<: *default
-    database: giftbrain_production
+    host: db
     username: giftbrain
     password: <%= ENV["GIFTBRAIN_DATABASE_PASSWORD"] %>
-    host: 127.0.0.1
+    database: giftbrain_production

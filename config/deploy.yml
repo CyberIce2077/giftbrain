@@ -1,11 +1,13 @@
 service: giftbrain
-image: cyberice2077/giftbrain:latest
+image: cyberice2077/giftbrain
 
 ssh:
   user: ice-server
 
 servers:
   web:
+    - 192.168.1.38
+  db:
     - 192.168.1.38
 
 builder:
@@ -21,11 +23,23 @@ env:
   secret:
     - RAILS_MASTER_KEY
   clear:
-    DB_HOST: 192.168.1.38
     RAILS_LOG_LEVEL: debug
     DB_USER: giftbrain
     DB_PASSWORD: ${GIFTBRAIN_DATABASE_PASSWORD}
     DB_NAME: giftbrain_production
+
+accessories:
+  db:
+    image: postgres:16
+    roles:
+      - db
+    env:
+      POSTGRES_USER: giftbrain
+      POSTGRES_PASSWORD: ${GIFTBRAIN_DATABASE_PASSWORD}
+      POSTGRES_DB: giftbrain_production
+    volumes:
+      - giftbrain_postgres:/var/lib/postgresql/data
+    port: 5432
 
 proxy:
   ssl: true
