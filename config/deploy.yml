@@ -5,10 +5,8 @@ servers:
   web:
     - ice-server@192.168.1.38
 
-registry:
-  username: cyberice2077
-  password:
-    - KAMAL_REGISTRY_PASSWORD
+builder:
+  local: true
 
 env:
   secret:
