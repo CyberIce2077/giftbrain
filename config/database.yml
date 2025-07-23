@@ -7,28 +7,16 @@ default: &default
 
 development:
   <<: *default
-  database: young_wings_development
+  database: giftbrain_development
 
 test:
   <<: *default
-  database: young_wings_test
+  database: giftbrain_test
 
 production:
   primary:
     <<: *default
-    database: young_wings_production
+    database: giftbrain_production
     username: rails
-    password: <%= ENV["YOUNG_WINGS_DATABASE_PASSWORD"] %>
+    password: <%= ENV["GIFTBRAIN_DATABASE_PASSWORD"] %>
     host: db
-  cache:
-    <<: *default
-    database: storage/production_cache.postgresql
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *default
-    database: storage/production_queue.postgresql
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *default
-    database: storage/production_cable.postgresql
-    migrations_paths: db/cable_migrate

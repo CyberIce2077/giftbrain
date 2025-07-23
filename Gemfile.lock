@@ -411,7 +411,7 @@ DEPENDENCIES
   jbuilder
   kamal
   letter_opener
-  pg (~> 1.5)
+  pg (~> 1.5.9)
   propshaft
   pry
   puma (>= 5.0)
