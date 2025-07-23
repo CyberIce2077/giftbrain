@@ -7,8 +7,6 @@ ssh:
 servers:
   web:
     - 192.168.1.38
-  db:
-    - 192.168.1.38
 
 builder:
   local: true
@@ -32,7 +30,7 @@ accessories:
   db:
     image: postgres:16
     roles:
-      - db
+      - web
     env:
       POSTGRES_USER: giftbrain
       POSTGRES_PASSWORD: ${GIFTBRAIN_DATABASE_PASSWORD}
