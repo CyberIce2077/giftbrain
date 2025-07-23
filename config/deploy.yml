@@ -1,12 +1,16 @@
 service: giftbrain
 image: cyberice2077/giftbrain
 
+ssh:
+  user: ice-server
+
 servers:
   web:
-    - ice-server@192.168.1.38
+    - 192.168.1.38
 
 builder:
   local: true
+  arch: amd64
 
 env:
   secret:
@@ -26,9 +30,6 @@ volumes:
   - "giftbrain_storage:/rails/storage"
 
 asset_path: /rails/public/assets
-
-builder:
-  arch: amd64
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
