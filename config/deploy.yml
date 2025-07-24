@@ -49,7 +49,10 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use giftbrain-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: giftbrain-db
+    # DB_HOST: giftbrain-db
+    DB_USER: giftbrain
+    DB_PASSWORD: ${GIFTBRAIN_DATABASE_PASSWORD}
+    DB_NAME: giftbrain_production
 
     # Log everything from Rails
     RAILS_LOG_LEVEL: debug
@@ -83,8 +86,8 @@ builder:
   # remote: ssh://docker@docker-builder-server
   #
   # # Pass arguments and secrets to the Docker build process
-  args:
-    RUBY_VERSION: 3.2.2
+  # args:
+  #   RUBY_VERSION: 3.2.2
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
@@ -94,22 +97,22 @@ ssh:
   user: ice-server
 
 # Use accessory services (secrets come from .kamal/secrets).
-accessories:
-  db:
-    image: postgres:16
-    host: 192.168.1.38
-    # Change to 5432 to expose port to the world instead of just local network.
-    port: "127.0.0.1:5432:5432"
-    env:
-      clear:
-        POSTGRES_ROOT_HOST: '%'
-      secret:
-        - POSTGRES_PASSWORD
-    files:
+# accessories:
+#   db:
+#     image: postgres:16
+#     host: 192.168.1.38
+#     # Change to 5432 to expose port to the world instead of just local network.
+#     port: "127.0.0.1:5432:5432"
+#     env:
+#       clear:
+#         POSTGRES_ROOT_HOST: '%'
+#       secret:
+#         - POSTGRES_PASSWORD
+    # files:
       # - config/postgresql/production.cnf:/etc/postgresql/my.cnf
-      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-    directories:
-      - data:/var/lib/postgresql
+      # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    # directories:
+    #   - data:/var/lib/postgresql
 #   redis:
 #     image: redis:7.0
 #     host: 192.168.0.2
