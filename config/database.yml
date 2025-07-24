@@ -1,34 +1,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: young_wings_development
+  database: giftbrain_development
 
 test:
   <<: *default
-  database: young_wings_test
+  database: giftbrain_test
 
 production:
   primary:
     <<: *default
-    database: young_wings_production
-    username: rails
-    password: <%= ENV["YOUNG_WINGS_DATABASE_PASSWORD"] %>
-    host: db
-  cache:
-    <<: *default
-    database: storage/production_cache.postgresql
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *default
-    database: storage/production_queue.postgresql
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *default
-    database: storage/production_cable.postgresql
-    migrations_paths: db/cable_migrate
+    database: giftbrain_production
+    username: giftbrain_production_user
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
+    port: 5432
