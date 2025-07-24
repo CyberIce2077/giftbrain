@@ -35,3 +35,4 @@
 
 /config/credentials/production.key
 .kamal/kamal_registry_password.key
+.kamal/postgres_password.key
