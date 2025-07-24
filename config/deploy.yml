@@ -35,11 +35,8 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-    # - RAILS_PRODUCTION_KEY
-    - POSTGRES_PASSWORD
+    # - POSTGRES_PASSWORD
   clear:
-    RAILS_ENV: production
-
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
     # SOLID_QUEUE_IN_PUMA: true
@@ -100,17 +97,17 @@ ssh:
   user: ice-server
 
 # Use accessory services (secrets come from .kamal/secrets).
-accessories:
-  db:
-    image: postgres:16
-    host: 192.168.1.38
-    # Change to 5432 to expose port to the world instead of just local network.
-    port: "127.0.0.1:5432:5432"
-    env:
-      clear:
-        POSTGRES_ROOT_HOST: '%'
-      secret:
-        - POSTGRES_PASSWORD
+# accessories:
+#   db:
+#     image: postgres:16
+#     host: 192.168.1.38
+#     # Change to 5432 to expose port to the world instead of just local network.
+#     port: "127.0.0.1:5432:5432"
+#     env:
+#       clear:
+#         POSTGRES_ROOT_HOST: '%'
+#       secret:
+#         - POSTGRES_PASSWORD
     # files:
     #   - config/postgresql/production.cnf:/etc/postgresql/my.cnf
     #   - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
