@@ -33,7 +33,7 @@ module RecipientIdeas
     private
 
     def validate_idea_ids!
-      return if idea_ids.all? { |id| id.is_a?(Integer) } && idea_ids.size == recipient.recipient_ideas.size
+      return if idea_ids.all? { |id| id.is_a?(Integer) }
 
       raise ReorderError, "Invalid idea_ids"
     end
