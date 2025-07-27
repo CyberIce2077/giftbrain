@@ -57,7 +57,7 @@ module Ideas
       # TODO move to admin panel
       if Rails.env.production?
         HTTP.headers("Content-Type" => "application/json")
-            .post("http://localhost:11434/api/pull", json: { name: model })
+            .post("http://giftbrain-ollama:11434/api/pull", json: { name: model })
       end
 
       response = HTTP.headers("Content-Type" => "application/json")
