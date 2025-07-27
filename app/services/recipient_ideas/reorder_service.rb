@@ -13,19 +13,16 @@ module RecipientIdeas
     def call
       validate_idea_ids!
 
-      id_priority_pairs = idea_ids.each_with_index.map { |id, index| [id, index + 1] }.to_h
+      recipient_ideas = RecipientIdea.where(recipient:)
 
-      case_sql = id_priority_pairs.map { |key, value| "WHEN #{key} THEN #{value}" }.join(" ")
+      raise NotSameCountError if idea_ids.size != recipient_ideas.size
 
-      idea_ids_sql = id_priority_pairs.keys.join(",")
-
-      sql = <<~SQL
-        UPDATE recipient_ideas
-        SET priority = CASE idea_id #{case_sql} END
-        WHERE recipient_id = #{recipient.id} AND idea_id IN (#{idea_ids_sql})
-      SQL
-
-      ActiveRecord::Base.connection.execute(sql)
+      ActiveRecord::Base.transaction do
+        idea_ids.each_with_index do |id, index|
+          recipient_idea = recipient_ideas.find { |r| r.idea_id == id }
+          recipient_idea.update!(priority: index + 1)
+        end
+      end
 
       success!
     rescue StandardError => e
