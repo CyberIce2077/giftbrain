@@ -55,10 +55,10 @@ module Ideas
       # json_ideas = JSON.parse(json_string)
 
       # TODO move to admin panel
-      if Rails.env.production?
-        HTTP.headers("Content-Type" => "application/json")
-            .post("http://giftbrain-ollama:11434/api/pull", json: { name: model })
-      end
+      # if Rails.env.production?
+      #   HTTP.headers("Content-Type" => "application/json")
+      #       .post("http://giftbrain-ollama:11434/api/pull", json: { name: model })
+      # end
 
       response = HTTP.headers("Content-Type" => "application/json")
                      .post(URL, json: {
