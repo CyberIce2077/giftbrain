@@ -91,7 +91,6 @@ accessories:
       - data:/var/lib/postgresql/data
   tunnel:
     image: cloudflare/cloudflared:latest
-    cmd: tunnel run
     roles:
       - web
     env:
@@ -100,11 +99,19 @@ accessories:
     files:
       - ./.kamal/cloudflare/credentials.json:/etc/cloudflared/credentials.json
       - ./.kamal/cloudflare/config.yml:/etc/cloudflared/config.yml
+    volumes:
+      - cloudflared_data:/etc/cloudflared
+    cmd: tunnel run
   redis:
     image: redis:latest
     roles:
       - web
       - job
-    cmd: "redis-server"
     volumes:
       - data:/data
+  ollama:
+    image: ollama/ollama:latest
+    roles:
+      - job
+    volumes:
+      - ollama_models:/models
