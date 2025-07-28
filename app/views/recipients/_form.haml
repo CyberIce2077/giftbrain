@@ -1,18 +1,11 @@
 .box-container
   .box
-    - if recipient.errors.any?
-      %h3= "#{pluralize(recipient.errors.count, 'error')} prohibited this gift target from being saved:"
-      %ul
-        - recipient.errors.full_messages.each do |message|
-          %li= message
-      %hr/
-
     %h1 Describe the target
     %hr/
-
     = form_with model: recipient, data: { turbo: recipient.persisted? ? true : false } do |f|
-      = f.label :name, "Name"
-      = f.text_field :name
+      .center-elements
+        = f.label :name, "Name"
+        = f.text_field :name, style: "width: 87%;"
       %hr/
 
       %h4 Description

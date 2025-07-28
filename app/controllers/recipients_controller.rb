@@ -30,8 +30,12 @@ class RecipientsController < ApplicationController
     recipient.creator = current_user
 
     if recipient.save
+      flash[:notice] = 'Recipient created successfully'
+
       redirect_to [recipient]
     else
+      flash[:warning] = recipient.errors.full_messages.to_sentence
+
       render 'recipients/new', locals: { recipient: }
     end
   end
@@ -48,8 +52,12 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.update(recipient_params)
+      flash[:notice] = 'Recipient updated successfully'
+
       render 'recipients/update', locals: { recipient: }
     else
+      flash[:warning] = recipient.errors.full_messages.to_sentence
+
       render 'recipients/edit', locals: { recipient: }
     end
   end
@@ -59,8 +67,12 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.destroy
-      redirect_to [:recipients]
+      flash[:notice] = 'Recipient deleted successfully'
+    else
+      flash[:warning] = recipient.errors.full_messages.to_sentence
     end
+
+    redirect_to [:recipients]
   end
 
   def generate_ideas
