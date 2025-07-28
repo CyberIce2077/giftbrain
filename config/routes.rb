@@ -29,4 +29,6 @@ Rails.application.routes.draw do
       post :reorder, on: :collection
     end
   end
+
+  get "dashboard", to: "dashboard#index"
 end
