@@ -4,9 +4,6 @@ module Ideas
 
     class UnsafePromptError < StandardError; end
 
-    # URL = "http://localhost:8080/v1/chat/completions"
-    # URL = "http://192.168.1.29:8080/v1/chat/completions"
-
     URL = if Rails.env.production?
             "http://giftbrain-ollama:11434/api/generate"
           else
