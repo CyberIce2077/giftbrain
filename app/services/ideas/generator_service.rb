@@ -5,7 +5,14 @@ module Ideas
     class UnsafePromptError < StandardError; end
 
     # URL = "http://localhost:8080/v1/chat/completions"
-    URL = "http://192.168.1.29:8080/v1/chat/completions"
+    # URL = "http://192.168.1.29:8080/v1/chat/completions"
+
+    URL = if Rails.env.production?
+            "http://giftbrain-ollama:11434/api/generate"
+          else
+            "http://localhost:11434/api/generate"
+          end
+
     BLOCKED_PHRASES = [
       "ignore all previous instructions",
       "you are now",
@@ -29,18 +36,40 @@ module Ideas
 
       raise UnsafePromptError unless prompt_safe?
 
-      response = HTTP.headers("Content-Type" => "application/json")
-                    .post(URL, json: {
-                      model: "phi-3-mini",
-                      messages: [
-                        {
-                          role: "user",
-                          content: build_prompt
-                        }
-                      ]
-                    })
+      model = "phi4-mini:3.8b"
+      # model = "phi3:mini"
 
-      json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
+      # response = HTTP.headers("Content-Type" => "application/json")
+      #               .post(URL, json: {
+      #                 model: "phi-3-mini",
+      #                 messages: [
+      #                   {
+      #                     role: "user",
+      #                     content: build_prompt
+      #                   }
+      #                 ]
+      #               })
+
+      # json_string = JSON.parse(response.body.to_s)["choices"].first["message"]["content"]
+
+      # json_ideas = JSON.parse(json_string)
+
+      # TODO move to admin panel
+      # if Rails.env.production?
+      #   HTTP.headers("Content-Type" => "application/json")
+      #       .post("http://giftbrain-ollama:11434/api/pull", json: { name: model })
+      # end
+
+      response = HTTP.headers("Content-Type" => "application/json")
+                     .post(URL, json: {
+                       model:,
+                       prompt: build_prompt,
+                       stream: false
+                     })
+
+      json_string = JSON.parse(response.body.to_s)["response"]
+
+      json_string = json_string.gsub(/\A```json\s*|\s*```\z/, '')
 
       json_ideas = JSON.parse(json_string)
 
@@ -63,7 +92,7 @@ module Ideas
 
       update_recipient_view
     rescue StandardError => e
-      general_error_message
+      errors.add(:base, e.message)
       log_error(e)
       recipient.failed_status!
       update_recipient_view
