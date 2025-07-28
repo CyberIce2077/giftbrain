@@ -47,6 +47,9 @@ module Ideas
                        stream: false
                      })
 
+      recipient.finishing_status!
+      update_recipient_view
+
       json_string = JSON.parse(response.body.to_s)["response"]
 
       json_ideas = JSON.parse(json_string.gsub(/\A```json\s*|\s*```\z/, ''))

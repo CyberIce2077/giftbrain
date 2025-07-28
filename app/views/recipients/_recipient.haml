@@ -9,15 +9,16 @@
     Status:
     = recipient.status
     %p= recipient.description
+  %div{ data: { controller: "progress", progress_status_value: recipient.status }, style: "height: 6px;" }
+  .box-description
+    .hint.center-element
+      %p Generating ideas may take a moment. Thank you for your patience!
+      %p (Note: The server is running on older hardware)
   - if recipient.editable?
     .center-elements
       = link_to('Edit', [:edit, recipient], class: 'is-button', data: { turbo_stream: true })
       = button_to('Generate new ideas', [:generate_ideas, recipient], method: :patch, class: 'is-button')
       = button_to('Destroy', [recipient], method: :delete, data: { turbo: false }, onClick: "return confirm('Are you sure you want to delete this recipient?');", class: 'is-button')
-  .box-description
-    .hint.center-element
-      %p Generating ideas may take a moment. Thank you for your patience!
-      %p (Note: The server is running on older hardware)
 - if recipient.ideas_count > 0
   .box
     .hint.center-element
