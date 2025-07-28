@@ -8,7 +8,7 @@ module Ideas
     # URL = "http://192.168.1.29:8080/v1/chat/completions"
 
     URL = if Rails.env.production?
-            "ollama://giftbrain-ollama:11434/api/generate"
+            "http://giftbrain-ollama:11434/api/generate"
           else
             "http://localhost:11434/api/generate"
           end
@@ -55,10 +55,10 @@ module Ideas
       # json_ideas = JSON.parse(json_string)
 
       # TODO move to admin panel
-      if Rails.env.production?
-        HTTP.headers("Content-Type" => "application/json")
-            .post("ollama://giftbrain-ollama:11434/api/pull", json: { name: model })
-      end
+      # if Rails.env.production?
+      #   HTTP.headers("Content-Type" => "application/json")
+      #       .post("http://giftbrain-ollama:11434/api/pull", json: { name: model })
+      # end
 
       response = HTTP.headers("Content-Type" => "application/json")
                      .post(URL, json: {
@@ -92,7 +92,7 @@ module Ideas
 
       update_recipient_view
     rescue StandardError => e
-      general_error_message
+      errors.add(:base, e.message)
       log_error(e)
       recipient.failed_status!
       update_recipient_view

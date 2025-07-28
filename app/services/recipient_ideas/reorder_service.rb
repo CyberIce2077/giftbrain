@@ -26,7 +26,7 @@ module RecipientIdeas
 
       success!
     rescue StandardError => e
-      general_error_message
+      errors.add(:base, e.message)
       log_error(e)
     end
 

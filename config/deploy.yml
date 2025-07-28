@@ -113,5 +113,8 @@ accessories:
     image: ollama/ollama:latest
     roles:
       - job
+    env:
+      clear:
+        OLLAMA_MODELS: /models
     volumes:
       - ollama_models:/models
