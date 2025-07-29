@@ -67,3 +67,18 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+@media (max-width: 500px) {
+  .fc-toolbar-title {
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

@@ -7,7 +7,6 @@ export default class extends Controller {
     const calendarEl = this.element;
 
     let selectedBackgroundEventId = "selected-date-highlight";
-    let fetchTimeout;
 
     const calendar = new Calendar(calendarEl, {
       initialView: "dayGridMonth",
