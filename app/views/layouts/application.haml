@@ -21,8 +21,7 @@
     = javascript_importmap_tags
 
   %body.medium-panel
+    = turbo_frame_tag('flash')
     = render('layouts/navbar')
-    -# %p.notice= notice
-    -# %p.alert= alert
 
     = yield

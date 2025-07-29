@@ -15,9 +15,10 @@ export default class extends Controller {
       color: '#F7BF6B',
       trailColor: '#eee',
       trailWidth: 1,
-      svgStyle: {width: '100%', height: '100%'},
-      from: {color: '#F7BF6B'},
-      to: {color: '#CC3C2E'},
+      svgStyle: { width: '100%', height: '100%' },
+      from: { color: '#F7BF6B' },
+      // to: {color: '#CC3C2E'},
+      to: { color: '#2ecc3bff' },
       step: (state, bar) => {
         bar.path.setAttribute('stroke', state.color);
       }
@@ -27,14 +28,23 @@ export default class extends Controller {
   }
 
   handleStatus(status) {
-    if (status === "processing") {
+    switch (status) {
+      case "processing":
       this.startFakeProgress()
-    } else if (status === "finishing") {
+      break
+      case "finishing":
       this.progress = 0.99
       this.bar.set(this.progress)
-    } else if (status === "success" || status === "failed") {
+      break
+      case "success":
       this.progress = 1
       this.bar.set(this.progress)
+      break
+      case "failed":
+      this.progress = 1
+      this.bar.set(this.progress)
+      this.bar.path.setAttribute("stroke", "#CC3C2E")
+      break
     }
   }
 

@@ -8,7 +8,7 @@
     |
     Status:
     = recipient.status
-    %p= recipient.description
+    .box-description= recipient.description
   %div{ data: { controller: "progress", progress_status_value: recipient.status }, style: "height: 6px;" }
   .box-description
     .hint.center-element
