@@ -1,0 +1,69 @@
+.fc {
+  --fc-event-border-color: #f1c40f;
+}
+
+.fc-popover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.fc-popover .fc-popover-header {
+  background-color: #2ecc71;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 20px;
+  padding: 0.5em;
+}
+
+.fc-popover .fc-event {
+  background-color: #f1c40f;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 20px;
+  margin-bottom: 0.3em;
+  padding: 0.5em;
+}
+
+.fc-event {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fc-event:hover {
+  filter: brightness(0.9);
+}
+
+.fc .fc-day-today {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.fc .fc-button {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  border-radius: 20px;
+  background: #f1f1f1;
+  padding: 13px;
+  border: none;
+  text-transform: capitalize;
+}
+
+.fc .fc-button:hover {
+  color: black;
+  background-color: #6e6e6e;
+}
+
+.fc .fc-button:active {
+  background-color: #6e6e6e !important;
+  color: black !important;
+}
+
+.fc .fc-button:disabled {
+  background-color: #6e6e6e;
+  pointer-events: none;
+}
+
+.fc .fc-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

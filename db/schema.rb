@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_173610) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_29_093650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -41,7 +41,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_173610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ideas_count", default: 0, null: false
+    t.date "event_date"
     t.index ["creator_id"], name: "index_recipients_on_creator_id"
+    t.index ["event_date"], name: "index_recipients_on_event_date"
   end
 
   create_table "users", force: :cascade do |t|

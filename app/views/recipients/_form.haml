@@ -8,6 +8,11 @@
         = f.text_field :name, style: "width: 87%;"
       %hr/
 
+      = f.label :event_date, "Event Date"
+      = f.hidden_field :event_date, id: "event-date-input"
+      %div{ data: { controller: "calendar" }, id: "calendar" }
+      %hr/
+
       %h4 Description
       = f.text_area :description, rows: 5, style: "width: 96%;"
       %hr/

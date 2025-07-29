@@ -36,4 +36,8 @@ class RecipientPolicy < ApplicationPolicy
   def generate_ideas?
     edit?
   end
+
+  def event_dates?
+    true
+  end
 end

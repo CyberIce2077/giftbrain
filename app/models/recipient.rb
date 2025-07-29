@@ -4,7 +4,7 @@ class Recipient < ApplicationRecord
   has_many :recipient_ideas, dependent: :destroy
   has_many :ideas, through: :recipient_ideas
 
-  validates :name, :description, presence: true
+  validates :name, :description, :event_date, presence: true
 
   enum :status, { draft: 0, pending: 1, processing: 2, finishing: 3, success: 4, failed: 5 }, suffix: true
 
