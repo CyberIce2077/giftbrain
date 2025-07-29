@@ -11,10 +11,6 @@
   margin: 2em;
 }
 
-.box-description {
-  white-space: pre-line;
-}
-
 .idea-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +53,7 @@
   margin-top: 1em;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   line-clamp: 3;
   white-space: normal;

@@ -1,0 +1,5 @@
+- flash.each do |key, value|
+  %div{ data: { controller: "flash" }, class: "flash-message" }
+    = content_tag :div, id: key, class: "flash-inner" do
+      = value
+      %button{ type: "button", data: { action: "flash#close" }, class: "flash-close", aria: { label: "Close" } } ×

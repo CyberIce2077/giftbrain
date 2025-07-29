@@ -1,0 +1,9 @@
+.box-container
+  .box
+    %h1 Dashboard
+    %p= "User count: #{user_count}"
+    %p= "Recipient count: #{recipient_count}"
+    %p= "Idea count: #{idea_count}"
+    %hr/
+    %h4 Sidekiq
+    %p= "Failed job count: #{failed_jobs_count}"

@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   devise_for :users
 
-  authenticate :user, ->(user) { user.confirmed? } do
+  authenticate :user, ->(user) { user.confirmed? && user.admin_role? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
@@ -29,4 +29,6 @@ Rails.application.routes.draw do
       post :reorder, on: :collection
     end
   end
+
+  get "dashboard", to: "dashboard#index"
 end

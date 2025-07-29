@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :recipients, dependent: :destroy, foreign_key: :creator_id
 
+  enum :role, { user: 0, admin: 1 }, suffix: true
+
   # def send_devise_notification(notification, *args)
   #   sleep 1 # Simulate a delay for the email to be sent
   #   devise_mailer.send(notification, self, *args).deliver_later(queue: :mailers, attempts: 5)
