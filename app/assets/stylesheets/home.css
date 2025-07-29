@@ -11,20 +11,6 @@ html, body {
   height: 100%;
 }
 
-.nav-logo {
-  margin: 4px 0 0 4px;
-  height: 100px;
-  width: auto;
-  border-radius: 20px;
-}
-
-.nav-menu {
-  margin: 0.5em 0 0.5em 0;
-  background-color: #252525;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
 .float-left {
   float: left;
 }
