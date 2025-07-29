@@ -6,6 +6,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   border-radius: 20px;
   padding: 8px;
+  max-width: 20em;
 }
 
 .fc-popover .fc-popover-header {
@@ -16,7 +17,7 @@
 }
 
 .fc-popover .fc-event {
-  background-color: #f1c40f;
+  background-color: #f1f1f1;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   border-radius: 20px;
   margin-bottom: 0.3em;
@@ -66,6 +67,27 @@
 .fc .fc-button:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.fc .fc-col-header {
+  background-color: #252525;
+}
+
+.fc-daygrid-event {
+  background: #f1f1f1;
+  color: black;
+  border-radius: 8px;
+  padding: 2px 6px;
+}
+
+.fc-daygrid-event:hover {
+  font-weight: none;
+  color: white;
+  background-color: #6e6e6e;
+}
+
+.fc-daygrid-event-dot {
+  display: none;
 }
 
 @media (max-width: 500px) {

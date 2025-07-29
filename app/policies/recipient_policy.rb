@@ -10,15 +10,15 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user
   end
 
   def new?
-    true
+    user
   end
 
   def create?
-    true
+    user
   end
 
   def edit?
@@ -35,9 +35,5 @@ class RecipientPolicy < ApplicationPolicy
 
   def generate_ideas?
     edit?
-  end
-
-  def event_dates?
-    true
   end
 end

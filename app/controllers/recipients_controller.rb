@@ -85,25 +85,6 @@ class RecipientsController < ApplicationController
     render 'recipients/generate_ideas', locals: { recipient: }
   end
 
-  def event_dates
-    authorize(Recipient)
-
-    recipients = policy_scope(Recipient).where(event_date: params[:start]..params[:end])
-
-    respond_to do |format|
-      format.json do
-        render json: recipients.map { |recipient|
-          {
-            id: recipient.id,
-            title: recipient.name,
-            start: recipient.event_date,
-            url: Rails.application.routes.url_helpers.recipient_path(recipient)
-          }
-        }
-      end
-    end
-  end
-
   private
 
   def find_recipient

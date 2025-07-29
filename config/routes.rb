@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "recipients#index"
 
-  get 'about', to: 'home#about'
+  get :about, to: 'home#about'
+  get :calendar, to: 'home#calendar'
 
   resources :recipients do
     patch :generate_ideas, on: :member

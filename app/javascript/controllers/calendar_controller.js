@@ -5,15 +5,15 @@ import { Calendar } from "fullcalendar";
 export default class extends Controller {
   connect() {
     const calendarEl = this.element;
-
     let selectedBackgroundEventId = "selected-date-highlight";
 
     const calendar = new Calendar(calendarEl, {
       initialView: "dayGridMonth",
       firstDay: 1,
-      events: "/recipients/event_dates.json",
+      height: "auto",
+      events: "/calendar.json",
       eventDisplay: "list-item",
-      dayMaxEvents: 3,
+      dayMaxEvents: 1,
       dateClick: (info) => {
         const selectedDate = info.dateStr;
         document.getElementById("event-date-input").value = selectedDate;
