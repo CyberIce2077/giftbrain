@@ -1,14 +1,15 @@
 = turbo_frame_tag(recipient) do
   .box-container
     .box
-      %h1= recipient.name
-      Ideas
-      - if policy(recipient).show?
+      .recipient-name= recipient.name
+      .recipient-stats
+        Ideas
+        - if policy(recipient).show?
+          |
+          = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
         |
-        = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
-      |
-      Status:
-      = recipient.status
+        Status:
+        = recipient.status
       .box-description= recipient.description
     %div{ data: { controller: "progress", progress_status_value: recipient.status }, style: "height: 6px;" }
     %br/

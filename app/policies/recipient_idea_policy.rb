@@ -6,10 +6,10 @@ class RecipientIdeaPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    user
   end
 
   def reorder?
-    true
+    user
   end
 end

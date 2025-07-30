@@ -1,18 +1,19 @@
 .box-container
   .box
-    %h1= recipient.name
-    Ideas
-    |
-    Count:
-    = recipient.ideas_count
-    |
-    Status:
-    = recipient.status
+    .recipient-name= recipient.name
+    .recipient-stats
+      Ideas
+      |
+      Count:
+      = recipient.ideas_count
+      |
+      Status:
+      = recipient.status
     .box-description= recipient.description
   %div{ data: { controller: "progress", progress_status_value: recipient.status }, style: "height: 6px;" }
   .box-description
     .hint.center-element
-      %p Generating ideas may take a moment. Thank you for your patience!
+      %p Generating ideas may take a moment
       %p (Note: The server is running on older hardware)
   - if recipient.editable?
     .center-elements

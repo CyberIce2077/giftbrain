@@ -12,13 +12,13 @@ export default class extends Controller {
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: 1400,
-      color: '#F7BF6B',
+      color: '#f1c40f',
       trailColor: '#eee',
       trailWidth: 1,
       svgStyle: { width: '100%', height: '100%' },
-      from: { color: '#F7BF6B' },
-      // to: {color: '#CC3C2E'},
-      to: { color: '#2ecc3bff' },
+      from: { color: '#f1c40f' },
+      // to: {color: '#e74c3c'},
+      to: { color: '#2ecc71' },
       step: (state, bar) => {
         bar.path.setAttribute('stroke', state.color);
       }

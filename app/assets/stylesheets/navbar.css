@@ -1,0 +1,58 @@
+.nav-logo {
+  margin: 4px 0 0 4px;
+  height: 100px;
+  width: auto;
+  border-radius: 20px;
+}
+
+.nav-menu {
+  margin: 0.5em 0 0.5em 0;
+  background-color: #252525;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width: 100%;
+}
+
+.nav-menu-hidden {
+  display: flex;
+}
+
+.hamburger-toggle-menu {
+  display: none;
+}
+
+@media screen and (max-width: 440px) {
+  .hamburger-toggle-menu {
+    display: block;
+  }
+
+  .nav-menu-hidden {
+    display: none;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav-menu .is-button {
+    width: 80%;
+    margin: 10px 0 10px 0;
+  }
+
+  .nav-menu form {
+    width: 100%;
+  }
+
+  .nav-menu input[type="submit"] {
+    width: 89%;
+    margin: 10px 0 10px 0;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .nav-logo {
+    display: none;
+  }
+}

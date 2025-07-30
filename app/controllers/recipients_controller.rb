@@ -1,4 +1,6 @@
 class RecipientsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index]
+
   def index
     authorize(Recipient)
 
@@ -96,6 +98,6 @@ class RecipientsController < ApplicationController
   end
 
   def recipient_attrs
-    %i[name description]
+    %i[name description event_date]
   end
 end
