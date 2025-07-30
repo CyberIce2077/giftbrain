@@ -17,7 +17,7 @@
 }
 
 .fc-popover .fc-event {
-  background-color: #f1f1f1;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   border-radius: 20px;
   margin-bottom: 0.3em;
@@ -43,7 +43,7 @@
   color: black;
   font-size: 14px;
   border-radius: 20px;
-  background: #f1f1f1;
+  background: white;
   padding: 13px;
   border: none;
   text-transform: capitalize;
@@ -74,7 +74,7 @@
 }
 
 .fc-daygrid-event {
-  background: #f1f1f1;
+  background: white;
   color: black;
   border-radius: 8px;
   padding: 2px 6px;
