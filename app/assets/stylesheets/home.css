@@ -11,6 +11,11 @@ html, body {
   height: 100%;
 }
 
+.turbo-progress-bar {
+  background-color: #f1c40f;
+  padding: 1px;
+}
+
 .float-left {
   float: left;
 }

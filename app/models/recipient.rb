@@ -5,6 +5,8 @@ class Recipient < ApplicationRecord
   has_many :ideas, through: :recipient_ideas
 
   validates :name, :description, :event_date, presence: true
+  validates :name, length: { maximum: 50 }
+  validates :description, length: { maximum: 300 }
 
   enum :status, { draft: 0, pending: 1, processing: 2, finishing: 3, success: 4, failed: 5 }, suffix: true
 
