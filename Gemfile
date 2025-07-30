@@ -66,3 +66,5 @@ gem "sidekiq"
 gem "http"
 gem 'redis', '~> 5.4'
 gem "pundit"
+gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
