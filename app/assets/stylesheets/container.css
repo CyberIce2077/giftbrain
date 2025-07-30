@@ -43,7 +43,7 @@
   margin-top: 1em;
 }
 
-.idea-wrapper {
+.idea-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
