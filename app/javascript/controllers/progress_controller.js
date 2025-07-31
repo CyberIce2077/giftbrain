@@ -27,6 +27,18 @@ export default class extends Controller {
     this.handleStatus(this.statusValue)
   }
 
+  disconnect() {
+    if (this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+
+    if (this.bar) {
+      this.bar.destroy()
+      this.bar = null
+    }
+  }
+
   handleStatus(status) {
     switch (status) {
       case "processing":

@@ -13,10 +13,12 @@ module Ideas
         idea = Idea.create_with(description: json_idea["description"])
                    .find_or_create_by(name: json_idea["name"])
 
-        RecipientIdea.create!(recipient:, idea:)
+        recipient_idea = RecipientIdea.create!(recipient:, idea:)
 
-        update_ideas_view(idea)
-      rescue ActiveRecord::RecordInvalid
+        update_ideas_view(idea, recipient_idea)
+      rescue ActiveRecord::RecordInvalid => e
+        errors.add(:base, e.message)
+        log_error(e)
         next
       end
 
@@ -34,12 +36,12 @@ module Ideas
 
     private
 
-    def update_ideas_view(idea)
+    def update_ideas_view(idea, recipient_idea)
       idea.broadcast_prepend_to(
         recipient,
-        target: 'ideas',
+        target: "ideas",
         partial: "/recipients/idea",
-        locals: { idea:, recipient: }
+        locals: { idea:, recipient:, recipient_idea: }
       )
     end
   end
