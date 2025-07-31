@@ -1,15 +1,15 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :json_ideas
+    attr_reader :recipient, :data
 
-    def initialize(recipient, json_ideas)
+    def initialize(recipient, data)
       super
       @recipient = recipient
-      @json_ideas = json_ideas
+      @data = data
     end
 
     def call
-      json_ideas.each do |json_idea|
+      data.each do |json_idea|
         idea = Idea.create_with(description: json_idea["description"])
                    .find_or_create_by(name: json_idea["name"])
 
