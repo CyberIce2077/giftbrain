@@ -13,9 +13,7 @@ module Ai
                          stream: false
                        })
 
-        json_string = JSON.parse(response.body.to_s)["response"]
-
-        @data = JSON.parse(json_string.gsub(/\A```json\s*|\s*```\z/, ''))
+        @data = JSON.parse(JSON.parse(response.body.to_s)["response"].gsub(/\A```json\s*|\s*```\z/, ''))
 
         success!
       rescue StandardError => e

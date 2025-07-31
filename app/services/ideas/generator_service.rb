@@ -12,8 +12,11 @@ module Ideas
     def call
       update_recipient(:processing)
 
-      ai_service = Ai::Local::Phi4MiniService.new(recipient)
+      ai_service = Ai::External::OpenAi::Gpt4oService.new(recipient)
       ai_service.call
+
+      # ai_service = Ai::Local::Phi4MiniService.new(recipient)
+      # ai_service.call
 
       unless ai_service.success?
         raise GenerationError, ai_service.errors.full_messages.to_sentence
