@@ -17,8 +17,6 @@ module Ideas
 
         update_ideas_view(idea, recipient_idea)
       rescue ActiveRecord::RecordInvalid => e
-        errors.add(:base, e.message)
-        log_error(e)
         next
       end
 
