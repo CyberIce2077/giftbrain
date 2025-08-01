@@ -17,7 +17,8 @@ module Ideas
     end
 
     def call
-      update_recipient(:processing)
+      start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      update_recipient_view(:processing)
 
       AI_SERVICES.each do |ai_service|
         break if ai_request { ai_service }
@@ -25,7 +26,7 @@ module Ideas
 
       raise GenerationError, "Data is empty" if @data.empty?
 
-      update_recipient(:finishing)
+      update_recipient_view(:finishing)
 
       create_service = Ideas::BulkCreateService.new(recipient, @data)
       create_service.call
@@ -34,12 +35,15 @@ module Ideas
         raise GenerationError, create_service.errors.full_messages.to_sentence
       end
 
-      update_recipient(:success)
+      end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      recipient.generation_duration = (end_time - start_time).to_i
+      update_recipient_view(:success)
+
       success!
     rescue StandardError => e
       errors.add(:base, e.message)
       log_error(e)
-      update_recipient(:failed)
+      update_recipient_view(:failed)
     end
 
     private
@@ -54,7 +58,7 @@ module Ideas
       service.success?
     end
 
-    def update_recipient(status)
+    def update_recipient_view(status)
       case status
       when :processing
         recipient.processing_status!
@@ -66,10 +70,6 @@ module Ideas
         recipient.failed_status!
       end
 
-      update_recipient_view
-    end
-
-    def update_recipient_view
       recipient.broadcast_update_to(
         recipient,
         target: recipient,

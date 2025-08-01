@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_142040) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_01_074418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_142040) do
     t.datetime "updated_at", null: false
     t.integer "ideas_count", default: 0, null: false
     t.date "event_date"
+    t.integer "generation_duration", default: 0, null: false
     t.index ["creator_id"], name: "index_recipients_on_creator_id"
     t.index ["event_date"], name: "index_recipients_on_event_date"
   end
