@@ -1,30 +1,33 @@
 module Ideas
   class GeneratorService < BaseService
     class GenerationError < StandardError; end
+    class MissingBlockError < StandardError; end
+
+    AI_SERVICES = [
+      Ai::External::OpenAi::Gpt4oService,
+      Ai::Local::Phi4MiniService
+    ].freeze
 
     attr_reader :recipient
 
     def initialize(recipient)
       super
       @recipient = recipient
+      @data = {}
     end
 
     def call
       update_recipient(:processing)
 
-      ai_service = Ai::External::OpenAi::Gpt4oService.new(recipient)
-      ai_service.call
-
-      # ai_service = Ai::Local::Phi4MiniService.new(recipient)
-      # ai_service.call
-
-      unless ai_service.success?
-        raise GenerationError, ai_service.errors.full_messages.to_sentence
+      AI_SERVICES.each do |ai_service|
+        break if ai_request { ai_service }
       end
+
+      raise GenerationError, "Data is empty" if @data.empty?
 
       update_recipient(:finishing)
 
-      create_service = Ideas::BulkCreateService.new(recipient, ai_service.data)
+      create_service = Ideas::BulkCreateService.new(recipient, @data)
       create_service.call
 
       unless create_service.success?
@@ -40,6 +43,16 @@ module Ideas
     end
 
     private
+
+    def ai_request
+      raise MissingBlockError unless block_given?
+
+      service = yield.new(recipient)
+      service.call
+
+      @data = service.data
+      service.success?
+    end
 
     def update_recipient(status)
       case status

@@ -15,6 +15,8 @@ module Ai
 
         @data = JSON.parse(JSON.parse(response.body.to_s)["response"].gsub(/\A```json\s*|\s*```\z/, ''))
 
+        raise EmptyDataError if @data.empty?
+
         success!
       rescue StandardError => e
         errors.add(:base, e.message)

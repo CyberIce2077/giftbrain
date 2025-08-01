@@ -24,6 +24,8 @@ module  Ai
 
           @data = JSON.parse(JSON.parse(response.body.to_s).dig("choices", 0, "message", "content"))
 
+          raise EmptyDataError if @data.empty?
+
           success!
         rescue StandardError => e
           errors.add(:base, e.message)
