@@ -1,60 +1,46 @@
 import { Controller } from "@hotwired/stimulus"
-import ProgressBar from "progressbar.js"
 
 // Connects to data-controller="progress"
 export default class extends Controller {
   static values = {
-    status: String
+    status: String,
+    duration: Number
   }
 
   connect() {
-    this.bar = new ProgressBar.Line(this.element, {
-      strokeWidth: 4,
-      easing: 'easeInOut',
-      duration: 1400,
-      color: '#f1c40f',
-      trailColor: '#eee',
-      trailWidth: 1,
-      svgStyle: { width: '100%', height: '100%' },
-      from: { color: '#f1c40f' },
-      // to: {color: '#e74c3c'},
-      to: { color: '#2ecc71' },
-      step: (state, bar) => {
-        bar.path.setAttribute('stroke', state.color);
-      }
-    });
-
-    this.handleStatus(this.statusValue)
-  }
-
-  handleStatus(status) {
-    switch (status) {
-      case "processing":
-      this.startFakeProgress()
-      break
-      case "finishing":
-      this.progress = 0.99
-      this.bar.set(this.progress)
-      break
-      case "success":
-      this.progress = 1
-      this.bar.set(this.progress)
-      break
-      case "failed":
-      this.progress = 1
-      this.bar.set(this.progress)
-      this.bar.path.setAttribute("stroke", "#CC3C2E")
-      break
+    if (this.statusValue === "processing") {
+      this.startProgress()
+    } else if (this.statusValue === "success") {
+      this.setProgress(100)
+    } else if (this.statusValue === "failed") {
+      this.setProgress(100)
+      this.barElement.style.backgroundColor = "#e74c3c"
+    } else {
+      this.setProgress(0)
     }
   }
 
-  startFakeProgress() {
-    this.progress = 0
+  startProgress() {
+    this.barElement.style.width = "0%"
+    const durationMs = this.durationValue * 1000
+    const start = Date.now()
+
     this.interval = setInterval(() => {
-      if (this.progress < 0.99) {
-        this.progress += 0.01
-        this.bar.animate(this.progress)
+      const elapsed = Date.now() - start
+      const percent = Math.min((elapsed / durationMs) * 100, 99)
+      this.setProgress(percent)
+
+      if (percent >= 99) {
+        clearInterval(this.interval)
       }
-    }, 1200) // it takes 2 minutes to complete the process
+    }, 10)
+  }
+
+  setProgress(percent) {
+    this.barElement.style.width = `${percent}%`
+  }
+
+  get barElement() {
+    return this.element.querySelector("[data-progress-target='bar']")
   }
 }

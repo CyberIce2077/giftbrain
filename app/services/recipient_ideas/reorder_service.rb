@@ -11,11 +11,9 @@ module RecipientIdeas
     end
 
     def call
-      validate_idea_ids!
-
       recipient_ideas = RecipientIdea.where(recipient:)
 
-      raise NotSameCountError if idea_ids.size != recipient_ideas.size
+      validate_idea_ids!(recipient_ideas)
 
       ActiveRecord::Base.transaction do
         idea_ids.each_with_index do |id, index|
@@ -32,8 +30,8 @@ module RecipientIdeas
 
     private
 
-    def validate_idea_ids!
-      return if idea_ids.all? { |id| id.is_a?(Integer) }
+    def validate_idea_ids!(recipient_ideas)
+      return if idea_ids.all? { |id| id.is_a?(Integer) } && idea_ids.size == recipient_ideas.size
 
       raise ReorderError, "Invalid idea_ids"
     end

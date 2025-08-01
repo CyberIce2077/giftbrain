@@ -11,6 +11,6 @@
         Status:
         = recipient.status
       .box-description= recipient.description
-    %div{ data: { controller: "progress", progress_status_value: recipient.status }, style: "height: 6px;" }
-    %br/
+    .progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
+      .progress-bar{ data: { progress_target: "bar" } }
     %br/

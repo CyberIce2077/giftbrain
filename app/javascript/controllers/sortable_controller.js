@@ -38,13 +38,13 @@ export default class extends Controller {
   }
 
   sendOrderToServer(recipientId, currentIds) {
-    fetch(`/recipients/${recipientId}/recipient_ideas/reorder`, {
+    fetch(`/recipient_ideas/reorder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name=csrf-token]").content
       },
-      body: JSON.stringify({ idea_ids: currentIds })
+      body: JSON.stringify({ reorder: { recipient_id: recipientId, idea_ids: currentIds } })
     })
   }
 }

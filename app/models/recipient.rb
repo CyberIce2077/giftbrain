@@ -1,4 +1,6 @@
 class Recipient < ApplicationRecord
+  AVERAGE_GENERATE_DURATION = 10
+
   belongs_to :creator, class_name: "User"
 
   has_many :recipient_ideas, dependent: :destroy
@@ -24,5 +26,11 @@ class Recipient < ApplicationRecord
 
   def reset_ideas_count!
     update!(ideas_count: recipient_ideas.count)
+  end
+
+  def estimated_generation
+    return AVERAGE_GENERATE_DURATION if generation_duration.zero?
+
+    generation_duration
   end
 end

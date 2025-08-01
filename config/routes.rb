@@ -29,10 +29,10 @@ Rails.application.routes.draw do
   resources :recipients do
     patch :generate_ideas, on: :member
     get :event_dates, on: :collection
+  end
 
-    resources :recipient_ideas, only: :destroy, controller: 'recipients/recipient_ideas' do
-      post :reorder, on: :collection
-    end
+  resources :recipient_ideas, only: :destroy do
+    post :reorder, on: :collection
   end
 
   get "dashboard", to: "dashboard#index"
