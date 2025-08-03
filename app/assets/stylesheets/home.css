@@ -33,7 +33,7 @@ html, body {
   gap: 10px;
 }
 
-.medium-panel {
+.panel {
   margin: auto;
   width: 50%;
 }
@@ -48,37 +48,37 @@ a {
 }
 
 @media screen and (max-width: 1250px) {
-  .medium-panel {
+  .panel {
     width: 60%;
   }
 }
 
 @media screen and (max-width: 1050px) {
-  .medium-panel {
+  .panel {
     width: 70%;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .medium-panel {
+  .panel {
     width: 80%;
   }
 }
 
 @media screen and (max-width: 780px) {
-  .medium-panel {
+  .panel {
     width: 90%;
   }
 }
 
 @media screen and (max-width: 690px) {
-  .medium-panel {
+  .panel {
     width: 93%;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .medium-panel {
+  .panel {
     width: 97%;
   }
 }
