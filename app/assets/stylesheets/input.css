@@ -101,3 +101,28 @@
   background-color: #303030;
   opacity: 8%;
 }
+
+.is-button, input {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  border-radius: 20px;
+  background: white;
+  padding: 13px;
+  margin: 10px;
+  border: none;
+}
+
+input:invalid + .is-button {
+  background-color: #6e6e6e;
+  pointer-events: none;
+}
+
+input:valid + .is-button {
+  background-color: white;
+  pointer-events: auto;
+}
+
+.is-button:hover {
+  background-color: #6e6e6e;
+}

@@ -16,14 +16,6 @@ html, body {
   padding: 1px;
 }
 
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
 .center-element {
   float: left;
   width: 100%;
@@ -47,44 +39,9 @@ a {
   color: white;
 }
 
-.is-button, input {
-  text-decoration: none;
-  color: black;
-  font-size: 14px;
-  border-radius: 20px;
-  background: white;
-  padding: 13px;
-  margin: 10px;
-  border: none;
-}
-
-input:invalid + .is-button {
-  background-color: #6e6e6e;
-  pointer-events: none;
-}
-
-input:valid + .is-button {
-  background-color: white;
-  pointer-events: auto;
-}
-
-.is-button:hover {
-  background-color: #6e6e6e;
-}
-
 .hint {
   color: gray;
   padding: 5px;
-}
-
-.search-bar {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-}
-
-.search-input {
-  flex: 1;
 }
 
 @media screen and (max-width: 1250px) {
@@ -120,12 +77,5 @@ input:valid + .is-button {
 @media screen and (max-width: 500px) {
   .medium-panel {
     width: 97%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .search-bar {
-    flex-direction: column;
-    align-items: stretch;
   }
 }
