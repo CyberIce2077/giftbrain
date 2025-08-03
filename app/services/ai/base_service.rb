@@ -2,6 +2,7 @@ module Ai
   class BaseService < BaseService
     class UnsafePromptError < StandardError; end
     class MissingModelError < StandardError; end
+    class NotPermittedModelError < StandardError; end
 
     WEB_SITES = "Amazon, Etsy or Aliexpress"
 
