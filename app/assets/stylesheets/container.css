@@ -12,12 +12,7 @@
 }
 
 .box-title {
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 3em;
-  margin-bottom: 0.5em;
+  font-size: 2em;
 }
 
 .box-description {
@@ -32,8 +27,7 @@
 }
 
 .recipient-name {
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 1.5em;
   margin-bottom: 0.5em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -72,14 +66,13 @@
 }
 
 .idea-name {
-  font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .idea-links {
-  margin-top: 1em;
+  margin-top: 0.65em;
 }
 
 @keyframes scaleIn {

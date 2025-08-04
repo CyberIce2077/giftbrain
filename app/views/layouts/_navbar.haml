@@ -2,7 +2,7 @@
   .box-container.center-elements
     = link_to('/') do
       = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
-    %h1= link_to('GiftBrain', '/')
+    .box-title= link_to('GiftBrain', '/')
     %button{ data: { action: "click->navbar#toggle" }, class: "is-button hamburger-toggle-menu" }
       ☰ Menu
   .nav-menu.center-elements.nav-menu-hidden{ data: { navbar_target: "menu" } }
