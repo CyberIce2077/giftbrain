@@ -1,4 +1,4 @@
-.is-button, input {
+.is-button {
   background-color: #f47c57;
   color: #ffffff;
   text-decoration: none;
@@ -9,12 +9,26 @@
   border: none;
 }
 
-input:invalid + .is-button {
+.is-input {
+  background-color: #fff6f4;
+  color: #2d2d2d;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: 2px solid #f47c57;
+  border-radius: 9999px;
+  margin: 10px auto;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.is-input:invalid + .is-button {
   background-color: #e2623fb9;
   pointer-events: none;
 }
 
-input:valid + .is-button {
+.is-input:valid + .is-button {
   background-color: white;
   pointer-events: auto;
 }

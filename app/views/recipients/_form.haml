@@ -5,7 +5,7 @@
     = form_with model: recipient, data: { turbo: recipient.persisted? ? true : false } do |f|
       .center-elements
         = f.label :name, "Name"
-        = f.text_field :name, style: "width: 87%;"
+        = f.text_field :name, class: "is-input"#, style: "width: 87%;"
       %hr/
 
       = f.label :event_date, "Event Date"
