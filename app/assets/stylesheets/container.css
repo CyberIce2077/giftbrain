@@ -2,7 +2,7 @@
   float: left;
   margin: 0.5em 0 0.5em 0;
   width: 100%;
-  background-color: #252525;
+  background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
@@ -50,7 +50,7 @@
 }
 
 .idea-box {
-  background-color: #252525;
+  background-color: #ffffff;
   width: 15em;
   height: 12em;
   border-radius: 20px;

@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  background-color: #464646;
-  color: white;
+  background-color: #fdfaf6;
+  color: #2d2d2d;
   font-family: 'Inter', 'Segoe UI', sans-serif;
   display: flex;
   flex-direction: column;
@@ -39,11 +39,11 @@ html, body {
 }
 
 a {
-  color: white;
+  color: #2d2d2d;
 }
 
 .hint {
-  color: gray;
+  color: #88857f;
   padding: 5px;
 }
 
