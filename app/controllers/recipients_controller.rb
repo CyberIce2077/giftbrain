@@ -32,7 +32,7 @@ class RecipientsController < ApplicationController
     recipient.creator = current_user
 
     if recipient.save
-      flash[:notice] = 'Recipient created successfully'
+      flash[:notice] = 'Created successfully'
 
       redirect_to [recipient]
     else
@@ -54,7 +54,7 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.update(recipient_params)
-      flash[:notice] = 'Recipient updated successfully'
+      flash[:notice] = 'Updated successfully'
 
       render 'recipients/update', locals: { recipient: }
     else
@@ -69,7 +69,7 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.destroy
-      flash[:notice] = 'Recipient deleted successfully'
+      flash[:notice] = 'Deleted successfully'
     else
       flash[:warning] = recipient.errors.full_messages.to_sentence
     end
