@@ -6,6 +6,8 @@ class RecipientsController < ApplicationController
 
     recipients = policy_scope(Recipient).order(id: :desc)
 
+    @toogle_menu = recipients.empty?
+
     render 'recipients/index', locals: { recipients: }
   end
 

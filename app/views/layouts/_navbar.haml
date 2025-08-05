@@ -1,4 +1,5 @@
-%div{ data: { controller: "navbar" } }
+-# locals: (toogle_menu: (@toogle_menu && request.fullpath == "/"))
+%div{ data: { controller: "navbar", toogle_menu: @toogle_menu } }
   .box-container.center-elements
     = link_to('/') do
       = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
