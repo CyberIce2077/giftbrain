@@ -68,11 +68,11 @@ class RecipientsController < ApplicationController
     recipient = find_recipient
     authorize(recipient)
 
-    if recipient.destroy
-      flash[:notice] = 'Recipient deleted successfully'
-    else
-      flash[:warning] = recipient.errors.full_messages.to_sentence
-    end
+    # if recipient.destroy
+    #   flash[:notice] = 'Recipient deleted successfully'
+    # else
+    #   flash[:warning] = recipient.errors.full_messages.to_sentence
+    # end
 
     redirect_to [:recipients]
   end
