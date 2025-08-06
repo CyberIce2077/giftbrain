@@ -2,8 +2,8 @@
   .box
     .recipient-name= recipient.name
     .recipient-stats
-      Status:
-      = recipient.status
+      Ideas count:
+      = recipient.ideas_count
       |
       = link_to("Return", "/", data: { turbo: false }, class: 'is-button')
     .box-description= recipient.description

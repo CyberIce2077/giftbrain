@@ -3,8 +3,8 @@
     .box
       .recipient-name= recipient.name
       .recipient-stats
-        Status:
-        = recipient.status
+        Ideas count:
+        = recipient.ideas_count
         - if policy(recipient).show?
           |
           = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
