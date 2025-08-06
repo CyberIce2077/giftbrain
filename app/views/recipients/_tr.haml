@@ -3,13 +3,11 @@
     .box
       .recipient-name= recipient.name
       .recipient-stats
-        Ideas
+        Status:
+        = recipient.status
         - if policy(recipient).show?
           |
           = link_to('Show', [recipient], class: 'is-button', data: { turbo: false })
-        |
-        Status:
-        = recipient.status
       .box-description= recipient.description
     .progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
       .progress-bar{ data: { progress_target: "bar" } }

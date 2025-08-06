@@ -1,4 +1,6 @@
 class Idea < ApplicationRecord
+  MAX_IDEA_COUNT = 20
+
   has_many :recipient_ideas, dependent: :destroy
   has_many :recipients, through: :recipient_ideas
 

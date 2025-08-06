@@ -1,12 +1,11 @@
 .box-container
   .box
     .box-title Describe the target
-    -# %h1 Describe the target
     %hr/
     = form_with model: recipient, data: { turbo: recipient.persisted? ? true : false } do |f|
       .center-elements
         = f.label :name, "Name"
-        = f.text_field :name, class: "is-input"
+        = f.text_field :name, maxlength: 50, class: "is-input"
       %hr/
 
       = f.label :event_date, "Event Date"
