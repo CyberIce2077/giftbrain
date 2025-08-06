@@ -1,11 +1,11 @@
 .box-container
   .box
-    %h1 Describe the target
+    .box-title Describe the target
     %hr/
     = form_with model: recipient, data: { turbo: recipient.persisted? ? true : false } do |f|
       .center-elements
         = f.label :name, "Name"
-        = f.text_field :name, style: "width: 87%;"
+        = f.text_field :name, maxlength: 50, class: "is-input"
       %hr/
 
       = f.label :event_date, "Event Date"
@@ -13,8 +13,8 @@
       %div{ data: { controller: "calendar" }, id: "calendar" }
       %hr/
 
-      %h4 Description
-      = f.text_area :description, rows: 5, style: "width: 96%;"
+      = f.label :description, "Description"
+      = f.text_area :description, maxlength: 300, class: "is-textarea"
       %hr/
 
       = f.submit "Save", class: 'is-button'

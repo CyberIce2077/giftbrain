@@ -93,15 +93,10 @@ accessories:
     image: cloudflare/cloudflared:latest
     roles:
       - web
-    env:
-      secret:
-        - TUNNEL_TOKEN
     files:
       - ./.kamal/cloudflare/credentials.json:/etc/cloudflared/credentials.json
       - ./.kamal/cloudflare/config.yml:/etc/cloudflared/config.yml
-    volumes:
-      - cloudflared_data:/etc/cloudflared
-    cmd: tunnel run
+    cmd: tunnel --config /etc/cloudflared/config.yml run
   redis:
     image: redis:latest
     roles:

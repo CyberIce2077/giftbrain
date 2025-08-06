@@ -1,3 +1,76 @@
+.is-button {
+  background-color: #f47c57; /* f24e1e */
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 13px;
+  margin: 10px;
+  border: none;
+}
+
+.is-input {
+  background-color: #fff6f4;
+  color: #2d2d2d;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: 2px solid #f47c57;
+  border-radius: 9999px;
+  margin: 10px auto;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.is-textarea {
+  background-color: #fff6f4;
+  color: #2d2d2d;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: 2px solid #f47c57;
+  border-radius: 20px;
+  margin: 10px auto;
+  width: 100%;
+  min-height: 120px;
+  max-height: 250px;
+  display: block;
+  box-sizing: border-box;
+  resize: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.4;
+  overflow-y: auto;
+}
+
+.is-textarea:focus {
+  border-color: #e2633f;
+  box-shadow: 0 0 0 3px rgba(244, 124, 87, 0.2);
+  outline: none;
+}
+
+.is-input:invalid + .is-button {
+  background-color: #e2623fb9;
+  pointer-events: none;
+}
+
+.is-input:valid + .is-button {
+  background-color: white;
+  pointer-events: auto;
+}
+
+.is-button:hover {
+  background-color: #e2633f;
+}
+
+.is-button:active {
+  transform: scale(0.97);
+}
+
+.is-button:focus {
+  outline: 3px solid rgba(244, 124, 87, 0.4);
+  outline-offset: 2px;
+}
+
 .gsi-material-button {
   -moz-user-select: none;
   -webkit-user-select: none;

@@ -33,6 +33,11 @@ export default class extends Controller {
         if (info.event.url === "") return;
         window.open(info.event.url, "_blank");
         info.jsEvent.preventDefault();
+      },
+      eventDidMount: function(info) {
+        if (info.el.tagName === "A") {
+          info.el.setAttribute("data-turbo", "false");
+        }
       }
     });
 

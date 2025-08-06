@@ -10,6 +10,8 @@ export default class extends Controller {
   connect() {
     if (this.statusValue === "processing") {
       this.startProgress()
+    } else if (this.statusValue === "finishing") {
+      this.setProgress(99)
     } else if (this.statusValue === "success") {
       this.setProgress(100)
     } else if (this.statusValue === "failed") {

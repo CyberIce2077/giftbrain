@@ -20,8 +20,9 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  %body.medium-panel
+  %body.panel
     = turbo_frame_tag('flash')
     = render('layouts/navbar')
+    = render('layouts/confirm')
 
     = yield

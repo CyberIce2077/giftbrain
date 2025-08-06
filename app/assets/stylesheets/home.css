@@ -1,27 +1,22 @@
 body {
   margin: 0;
-  background-color: #464646;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdfaf6;
+  color: #2d2d2d;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   display: flex;
   flex-direction: column;
 }
 
 html, body {
   height: 100%;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .turbo-progress-bar {
   background-color: #f1c40f;
   padding: 1px;
-}
-
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
 }
 
 .center-element {
@@ -38,94 +33,52 @@ html, body {
   gap: 10px;
 }
 
-.medium-panel {
+.panel {
   margin: auto;
   width: 50%;
 }
 
 a {
-  color: white;
-}
-
-.is-button, input {
-  text-decoration: none;
-  color: black;
-  font-size: 14px;
-  border-radius: 20px;
-  background: white;
-  padding: 13px;
-  margin: 10px;
-  border: none;
-}
-
-input:invalid + .is-button {
-  background-color: #6e6e6e;
-  pointer-events: none;
-}
-
-input:valid + .is-button {
-  background-color: white;
-  pointer-events: auto;
-}
-
-.is-button:hover {
-  background-color: #6e6e6e;
+  color: #2d2d2d;
 }
 
 .hint {
-  color: gray;
+  color: #88857f;
   padding: 5px;
 }
 
-.search-bar {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-}
-
-.search-input {
-  flex: 1;
-}
-
 @media screen and (max-width: 1250px) {
-  .medium-panel {
+  .panel {
     width: 60%;
   }
 }
 
 @media screen and (max-width: 1050px) {
-  .medium-panel {
+  .panel {
     width: 70%;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .medium-panel {
+  .panel {
     width: 80%;
   }
 }
 
 @media screen and (max-width: 780px) {
-  .medium-panel {
+  .panel {
     width: 90%;
   }
 }
 
 @media screen and (max-width: 690px) {
-  .medium-panel {
+  .panel {
     width: 93%;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .medium-panel {
+  .panel {
     width: 97%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .search-bar {
-    flex-direction: column;
-    align-items: stretch;
   }
 }
