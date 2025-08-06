@@ -99,6 +99,7 @@ accessories:
     files:
       - ./.kamal/cloudflare/credentials.json:/etc/cloudflared/credentials.json
       - ./.kamal/cloudflare/config.yml:/etc/cloudflared/config.yml
+      - ./.kamal/cloudflare/cert.pem:/etc/cloudflared/cert.pem
     volumes:
       - cloudflared_data:/etc/cloudflared
     cmd: tunnel run
