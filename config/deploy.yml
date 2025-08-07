@@ -43,13 +43,13 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use giftbrain-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: giftbrain-db
+    DB_HOST: 192.168.1.38
     POSTGRES_USER: giftbrain_production_user
     POSTGRES_DB: giftbrain_production
     REDIS_URL: redis://giftbrain-redis:6379/1
 
     # Log everything from Rails
-    RAILS_LOG_LEVEL: debug
+    RAILS_LOG_LEVEL: info
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
@@ -77,18 +77,18 @@ ssh:
   user: ice-server
 
 accessories:
-  db:
-    image: postgres:16
-    roles:
-      - web
-    env:
-      clear:
-        POSTGRES_USER: giftbrain_production_user
-        POSTGRES_DB: giftbrain_production
-      secret:
-        - POSTGRES_PASSWORD
-    directories:
-      - data:/var/lib/postgresql/data
+  # db:
+  #   image: postgres:16
+  #   roles:
+  #     - web
+  #   env:
+  #     clear:
+  #       POSTGRES_USER: giftbrain_production_user
+  #       POSTGRES_DB: giftbrain_production
+  #     secret:
+  #       - POSTGRES_PASSWORD
+  #   directories:
+  #     - data:/var/lib/postgresql/data
   tunnel:
     image: cloudflare/cloudflared:latest
     roles:
