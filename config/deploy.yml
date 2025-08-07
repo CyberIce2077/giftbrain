@@ -113,3 +113,4 @@ accessories:
         OLLAMA_MODELS: /models
     volumes:
       - ollama_models:/models
+    # RUN THIS: docker exec -it giftbrain-ollama ollama pull phi4-mini:3.8b
