@@ -17,5 +17,5 @@ production:
     database: giftbrain_production
     username: giftbrain_production_user
     password: <%= ENV["POSTGRES_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
+    host: 192.168.1.38
     port: 5432
