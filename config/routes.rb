@@ -34,6 +34,4 @@ Rails.application.routes.draw do
   resources :recipient_ideas, only: :destroy do
     post :reorder, on: :collection
   end
-
-  get "dashboard", to: "dashboard#index"
 end
