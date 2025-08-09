@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   enum :role, { user: 0, admin: 1 }, suffix: true
 
-  validate :email_not_taken_by_google_user
+  validate :email_not_taken_by_google_user, on: :create
 
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
@@ -30,7 +30,7 @@ class User < ApplicationRecord
     user = User.find_by(email:)
 
     if user&.provider == 'google_oauth2'
-      errors.add(:base, "The account is linked to a Google account. Please sign in with Google.")
+      errors.add(:base, "The account is linked to a Google account. Please sign in with Google")
     end
   end
 end
