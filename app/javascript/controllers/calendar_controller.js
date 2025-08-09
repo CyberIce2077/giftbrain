@@ -11,7 +11,19 @@ export default class extends Controller {
       initialView: "dayGridMonth",
       firstDay: 1,
       height: "auto",
-      events: "/calendar.json",
+      events: (fetchInfo, success) => {
+        const params = `start=${fetchInfo.startStr}&end=${fetchInfo.endStr}`;
+
+        fetch(`/calendar.json?${params}`)
+          .then(response => response.json())
+          .then(json => success(this.parseJson(json)));
+
+        if (this.element.dataset.turboStream === "") {
+          fetch(`/calendar?${params}`, { headers: { "Accept": "text/vnd.turbo-stream.html" } })
+            .then(response => response.text())
+            .then(html => Turbo.renderStreamMessage(html));
+        }
+      },
       eventDisplay: "list-item",
       dayMaxEvents: 1,
       dateClick: (info) => {
@@ -29,12 +41,12 @@ export default class extends Controller {
           backgroundColor: '#2ecc71'
         });
       },
-      eventClick: function(info) {
+      eventClick: function (info) {
         if (info.event.url === "") return;
         window.open(info.event.url, "_blank");
         info.jsEvent.preventDefault();
       },
-      eventDidMount: function(info) {
+      eventDidMount: function (info) {
         if (info.el.tagName === "A") {
           info.el.setAttribute("data-turbo", "false");
         }
@@ -42,5 +54,14 @@ export default class extends Controller {
     });
 
     calendar.render();
+  }
+
+  parseJson(json) {
+    return json.data.map(({ id, attributes }) => ({
+      id: id,
+      title: attributes.title,
+      start: attributes.start,
+      url: attributes.url
+    }))
   }
 }

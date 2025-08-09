@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Giftbrain
   class Application < Rails::Application
+    ActiveModelSerializers.config.adapter = :json_api
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 

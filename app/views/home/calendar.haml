@@ -1,4 +1,5 @@
 .box-container
   .box
-    %div{ data: { controller: "calendar" }, id: "calendar" }
+    %div{ data: { controller: "calendar", turbo_stream: true }, id: "calendar" }
   %br/
+= turbo_frame_tag("recipients")
