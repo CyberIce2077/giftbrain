@@ -11,9 +11,14 @@ export default class extends Controller {
     const url = event.currentTarget.href
     const recipientContainer = event.currentTarget.closest(".recipient-container");
     const recipientContainers = document.getElementsByClassName("recipient-container")
+    const total = recipientContainers.length
+
+    if (total === 1) {
+      window.location.href = url;
+      return;
+    }
 
     let finished = 0
-    const total = recipientContainers.length - 1
 
     Array.from(recipientContainers)
       .forEach(el => {
@@ -23,7 +28,7 @@ export default class extends Controller {
           el.addEventListener("transitionend", () => {
             finished++
 
-            if (finished === total) {
+            if (finished === total - 1) {
               setTimeout(() => {
                 window.location.href = url
               }, 100);
