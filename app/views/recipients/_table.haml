@@ -1,1 +1,2 @@
-= render partial: '/recipients/tr', collection: recipients, as: :recipient
+= turbo_frame_tag(recipients) do
+  = render partial: '/recipients/tr', collection: recipients, as: :recipient

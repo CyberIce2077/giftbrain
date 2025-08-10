@@ -5,6 +5,7 @@
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: max-height 0.5s ease-out;
 }
 
 .box {
@@ -24,6 +25,16 @@
   -webkit-box-orient: vertical;
   line-clamp: 3;
   white-space: normal;
+}
+
+.recipient-container {
+  margin: 0.5em 0 0.5em 0;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: max-height 0.5s ease-out;
+  max-height: 17em;
+  overflow: hidden;
 }
 
 .recipient-name {
