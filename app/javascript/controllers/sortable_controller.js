@@ -1,11 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
-import { Sortable, AutoScroll } from "sortablejs"
+import { Sortable } from "sortablejs"
 
 export default class extends Controller {
   connect() {
     this.previousIds = this.getCurrentIds()
-
-    Sortable.mount(new AutoScroll());
 
     this.sortable = Sortable.create(this.element, {
       animation: 150,
