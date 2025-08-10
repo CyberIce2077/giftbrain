@@ -38,15 +38,15 @@
 
   .nav-menu .is-button {
     width: 80%;
-    margin: 10px 0 10px 0;
+    margin: 10px 0 0 0;
   }
 
   .nav-menu form {
-    width: 100%;
+    width: 88%;
   }
 
-  .nav-menu input[type="submit"] {
-    width: 89%;
+  .nav-menu form .is-button {
+    width: 100%;
     margin: 10px 0 10px 0;
   }
 }
