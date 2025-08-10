@@ -1,12 +1,12 @@
 -# locals: (toogle_menu: (@toogle_menu && request.fullpath == "/"))
 %div{ data: { controller: "navbar", toogle_menu: @toogle_menu } }
   .box-container.center-elements
-    = link_to('/') do
+    = link_to('/', data: { turbo: false }) do
       = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
-    .box-title= link_to('GiftBrain', '/')
-    %button{ data: { action: "click->navbar#toggle" }, class: "is-button hamburger-toggle-menu" }
+    .box-title= link_to('GiftBrain', '/', data: { turbo: false })
+    %button{ data: { action: "click->navbar#toggle" }, class: "is-button is-hamburger-toggle-menu-button" }
       ☰ Menu
-  .nav-menu.center-elements.nav-menu-hidden{ data: { navbar_target: "menu" } }
+  .nav-menu.center-elements{ data: { navbar_target: "menu" } }
     - if policy(Recipient).new?
       = link_to('New Chat', [:new, :recipient], class: 'is-button')
     - if policy(:home).calendar?
@@ -17,3 +17,4 @@
       = button_to("Sign out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'is-button')
     - else
       = link_to('Log in', new_user_session_path, class: 'is-button')
+      %br/

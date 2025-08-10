@@ -11,29 +11,24 @@
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   width: 100%;
+  transition: max-height 1s ease-out;
 }
 
-.nav-menu-hidden {
-  display: flex;
-}
-
-.hamburger-toggle-menu {
+.is-hamburger-toggle-menu-button {
   display: none;
 }
 
 @media screen and (max-width: 440px) {
-  .hamburger-toggle-menu {
+  .is-hamburger-toggle-menu-button {
     display: block;
-  }
-
-  .nav-menu-hidden {
-    display: none;
   }
 
   .nav-menu {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-height: 0px;
+    overflow: hidden;
   }
 
   .nav-menu .is-button {
