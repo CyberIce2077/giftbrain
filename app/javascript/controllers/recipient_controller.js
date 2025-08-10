@@ -9,21 +9,29 @@ export default class extends Controller {
     event.preventDefault()
 
     const url = event.currentTarget.href
-    const self = event.currentTarget.closest(".recipient-container");
+    const recipientContainer = event.currentTarget.closest(".recipient-container");
+    const recipientContainers = document.getElementsByClassName("recipient-container")
 
-    Array.from(document.getElementsByClassName("recipient-container"))
+    let finished = 0
+    const total = recipientContainers.length - 1
+
+    Array.from(recipientContainers)
       .forEach(el => {
-        if (el !== self) {
+        if (el !== recipientContainer) {
           el.style.maxHeight = "0px";
 
-          setTimeout(() => {
-            el.parentElement.remove();
-          }, 500);
+          el.addEventListener("transitionend", () => {
+            finished++
+
+            if (finished === total) {
+              setTimeout(() => {
+                window.location.href = url
+              }, 100);
+            }
+
+            el.parentElement.remove()
+          }, { once: true })
         }
       });
-
-    setTimeout(() => {
-      window.location.href = url
-    }, 500);
   }
 }
