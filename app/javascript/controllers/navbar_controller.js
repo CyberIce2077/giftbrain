@@ -11,6 +11,12 @@ export default class extends Controller {
   }
 
   toggle() {
-    this.menuTarget.classList.toggle("nav-menu-hidden")
+    const height = "261px"
+
+    if (this.menuTarget.style.maxHeight === height) {
+      this.menuTarget.style.maxHeight = "0px";
+    } else {
+      this.menuTarget.style.maxHeight = height;
+    }
   }
 }

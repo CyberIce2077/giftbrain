@@ -19,6 +19,7 @@
 
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
+    %script{src: "https://challenges.cloudflare.com/turnstile/v0/api.js", async: true, defer: true}
 
   %body.panel
     = turbo_frame_tag('flash')
