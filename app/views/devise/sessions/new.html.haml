@@ -16,4 +16,5 @@
           = f.label :remember_me
       .actions
         = f.submit "Log in", class: "is-button"
+      = turnstile_widget
     = render "devise/shared/links"

@@ -18,7 +18,5 @@ export default class extends Controller {
     } else {
       this.menuTarget.style.maxHeight = height;
     }
-
-    console.log(this.menuTarget.style.maxHeight)
   }
 }
