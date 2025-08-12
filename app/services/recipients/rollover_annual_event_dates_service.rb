@@ -7,8 +7,6 @@ module Recipients
         recipient.update(event_date: recipient.event_date.next_year)
       end
 
-      ::Users::UpdateEventStatsService.new.call
-
       success!
     rescue StandardError => e
       errors.add(:base, e.message)
