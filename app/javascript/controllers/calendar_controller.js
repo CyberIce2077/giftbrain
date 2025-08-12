@@ -50,6 +50,14 @@ export default class extends Controller {
         if (info.el.tagName === "A") {
           info.el.setAttribute("data-turbo", "false");
         }
+
+        const now = new Date();
+        const eventStart = new Date(info.event.start);
+
+        if (eventStart < now) {
+          info.el.style.backgroundColor = "#d3d3d3";
+          info.el.style.color = "#666";
+        }
       }
     });
 
