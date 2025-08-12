@@ -1,5 +1,5 @@
 .box-container
   .box
     %div{ data: { controller: "calendar", turbo_stream: true }, id: "calendar" }
-  %br/
+  .hint.center-element Events that are set to renew automatically will be moved to next year when expired
 = turbo_frame_tag("recipients")
