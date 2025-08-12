@@ -8,8 +8,6 @@ class RecipientsController < ApplicationController
 
     @toogle_menu = recipients.blank?
 
-    ::Users::UpdateEventStatsJob.perform_later(current_user)
-
     render 'recipients/index', locals: { recipients: }
   end
 

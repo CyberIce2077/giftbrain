@@ -4,3 +4,8 @@
   - [default, 1]
   - [generator, 3]
   - [mailers, 1]
+:scheduler:
+  :schedule:
+    rollover_annual_event_dates:
+      cron: 10 0 * * *
+      class: Recipients::RolloverAnnualEventDatesJob

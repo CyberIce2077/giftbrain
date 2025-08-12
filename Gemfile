@@ -63,6 +63,7 @@ gem "haml"
 gem "devise"
 gem "pry"
 gem "sidekiq"
+gem "sidekiq-scheduler"
 gem "http"
 gem 'redis', '~> 5.4'
 gem "pundit"
