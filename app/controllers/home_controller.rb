@@ -6,7 +6,8 @@ class HomeController < ApplicationController
   def calendar
     authorize :home
 
-    recipients = policy_scope(Recipient).order(id: :desc).where(event_date: params[:start]..params[:end])
+    recipients = policy_scope(Recipient).where(event_date: params[:start]..params[:end])
+                                        .order(id: :desc)
 
     respond_to do |format|
       format.html { render 'home/calendar' }

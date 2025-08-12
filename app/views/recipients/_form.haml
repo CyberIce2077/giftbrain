@@ -17,6 +17,10 @@
       = f.text_area :description, maxlength: 300, class: "is-textarea"
       %hr/
 
+      = f.check_box :repeat_annually
+      = f.label :repeat_annually, "Repeat every year"
+      %hr/
+
       = f.submit "Save", class: 'is-button'
       - if recipient.persisted?
         = link_to('Cancel', [recipient])

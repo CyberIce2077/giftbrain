@@ -8,6 +8,8 @@ class RecipientsController < ApplicationController
 
     @toogle_menu = recipients.blank?
 
+    ::Users::UpdateEventStatsJob.perform_later(current_user)
+
     render 'recipients/index', locals: { recipients: }
   end
 
@@ -100,6 +102,6 @@ class RecipientsController < ApplicationController
   end
 
   def recipient_attrs
-    %i[name description event_date]
+    %i[name description event_date repeat_annually]
   end
 end
