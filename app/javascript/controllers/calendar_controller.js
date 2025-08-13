@@ -4,11 +4,23 @@ import { Calendar } from "fullcalendar";
 // Connects to data-controller="calendar"
 export default class extends Controller {
   connect() {
+    const dataset = this.element.dataset;
+    let initialDate;
+
+    if (dataset.startYear && dataset.startMonth) {
+      const year = parseInt(dataset.startYear);
+      const month = parseInt(dataset.startMonth) - 1;
+      initialDate = new Date(year, month, 1);
+    } else {
+      initialDate = new Date();
+    }
+
     const calendarEl = this.element;
     let selectedBackgroundEventId = "selected-date-highlight";
 
     const calendar = new Calendar(calendarEl, {
       initialView: "dayGridMonth",
+      initialDate: initialDate,
       firstDay: 1,
       height: "auto",
       events: (fetchInfo, success) => {
