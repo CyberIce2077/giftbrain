@@ -1,3 +1,4 @@
+-# locals: (recipient:, back_url: request.referer || root_path)
 .box-container
   .box
     .recipient-name= recipient.name
@@ -5,7 +6,7 @@
       Ideas count:
       = recipient.ideas_count
       |
-      = link_to("Return", "/", data: { turbo: false }, class: 'is-button')
+      = link_to("Back", back_url, data: { turbo: false }, class: 'is-button')
     .box-description= recipient.description
   .progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
     .progress-bar{ data: { progress_target: "bar" } }

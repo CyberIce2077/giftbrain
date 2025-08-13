@@ -55,8 +55,6 @@ export default class extends Controller {
       },
       eventClick: function (info) {
         if (info.event.url === "") return;
-        window.open(info.event.url, "_blank");
-        info.jsEvent.preventDefault();
       },
       eventDidMount: function (info) {
         if (info.el.tagName === "A") {
