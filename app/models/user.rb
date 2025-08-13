@@ -19,14 +19,16 @@ class User < ApplicationRecord
     end
   end
 
-  # TODO: fix devise deliver_later
-  # def send_devise_notification(notification, *args)
-  #   if new_record? || changed?
-  #     pending_notifications << [notification, args]
-  #   else
-  #     devise_mailer.send(notification, self, *args).deliver_later(queue: :mailers)
-  #   end
-  # end
+  def send_devise_notification(notification, *args)
+    # NOTE: Deliver later will only fail in development because of eager_load = false
+    message = devise_mailer.send(notification, self, *args)
+
+    if Rails.env.development?
+      message.deliver_now
+    else
+      message.deliver_later(queue: :mailers)
+    end
+  end
 
   private
 
