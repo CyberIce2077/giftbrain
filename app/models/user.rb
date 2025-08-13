@@ -19,13 +19,14 @@ class User < ApplicationRecord
     end
   end
 
-  def send_devise_notification(notification, *args)
-    if new_record? || changed?
-      pending_notifications << [notification, args]
-    else
-      devise_mailer.send(notification, self, *args).deliver_later(queue: :mailers)
-    end
-  end
+  # TODO: fix devise deliver_later
+  # def send_devise_notification(notification, *args)
+  #   if new_record? || changed?
+  #     pending_notifications << [notification, args]
+  #   else
+  #     devise_mailer.send(notification, self, *args).deliver_later(queue: :mailers)
+  #   end
+  # end
 
   private
 
