@@ -59,12 +59,11 @@ module Ai
         - Do NOT include markdown, comments, or text before/after the JSON.
         - Each gift idea object must have:
             - "name": The name of the gift
-            - "description": A short one-line description of the gift
 
         Example format:
         [
-          { "name": "Moon Lamp", "description": "A dimmable night light shaped like the moon." },
-          { "name": "Retro Game Console", "description": "Nostalgic entertainment in a pocket-sized device." }
+          { "name": "Moon Lamp" },
+          { "name": "Retro Game Console" }
         ]
       PROMPT
     end

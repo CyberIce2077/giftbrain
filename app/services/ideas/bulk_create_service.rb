@@ -10,8 +10,7 @@ module Ideas
 
     def call
       data.each do |json_idea|
-        idea = Idea.create_with(description: json_idea["description"])
-                   .find_or_create_by(name: json_idea["name"])
+        idea = Idea.find_or_create_by(name: json_idea["name"])
 
         recipient_idea = RecipientIdea.create!(recipient:, idea:)
 
