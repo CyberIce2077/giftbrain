@@ -20,7 +20,6 @@
     .box-description
       .hint.center-element
         %p Generating ideas may take a moment
-        %p (Note: The server is running on older hardware)
   - if recipient.ideas_count >= Idea::MAX_IDEA_COUNT
     .box-description
       .hint.center-element= "You have reached the maximum of #{Idea::MAX_IDEA_COUNT} ideas"
@@ -28,3 +27,7 @@
   .box
     .hint.center-element
       You can now move and order the ideas
+- elsif recipient.editable?
+  .box
+    .hint.center-element
+      No ideas yet. Tap “Generate new ideas” to get started!
