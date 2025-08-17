@@ -10,8 +10,8 @@ class HomeController < ApplicationController
                                         .order(id: :desc)
 
     respond_to do |format|
-      format.html { render 'home/calendar' }
-      format.turbo_stream { render 'home/calendar', locals: { recipients: }, layout: false }
+      format.html { render "home/calendar" }
+      format.turbo_stream { render "home/calendar", locals: { recipients: }, layout: false }
       format.json { render json: recipients, each_serializer: RecipientSerializer }
     end
   end

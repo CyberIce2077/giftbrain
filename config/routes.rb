@@ -1,14 +1,14 @@
-require 'sidekiq/web'
-require 'sidekiq-scheduler/web'
+require "sidekiq/web"
+require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks',
-    sessions: 'users/sessions'
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions"
   }
 
   authenticate :user, ->(user) { user.confirmed? && user.admin_role? } do
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => "/sidekiq"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "recipients#index"
 
-  get :about, to: 'home#about'
-  get :calendar, to: 'home#calendar'
+  get :about, to: "home#about"
+  get :calendar, to: "home#calendar"
 
   resources :recipients do
     patch :generate_ideas, on: :member

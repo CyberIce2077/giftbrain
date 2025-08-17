@@ -13,7 +13,7 @@ module Ai
                          stream: false
                        })
 
-        @data = JSON.parse(JSON.parse(response.body.to_s)["response"].gsub(/\A```json\s*|\s*```\z/, ''))
+        @data = JSON.parse(JSON.parse(response.body.to_s)["response"].gsub(/\A```json\s*|\s*```\z/, ""))
 
         raise EmptyDataError if @data.empty?
 

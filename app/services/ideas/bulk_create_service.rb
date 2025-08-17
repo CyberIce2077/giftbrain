@@ -20,7 +20,7 @@ module Ideas
         next
       end
 
-      ideas = recipient.ideas.order('recipient_ideas.priority ASC')
+      ideas = recipient.ideas.order("recipient_ideas.priority ASC")
       reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
       reorder_service.call
 

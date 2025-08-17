@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :lockable, :timeoutable and :trackable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :omniauthable, omniauth_providers: [:google_oauth2]
+         :confirmable, :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :recipients, dependent: :destroy, foreign_key: :creator_id
 
@@ -35,7 +35,7 @@ class User < ApplicationRecord
   def email_not_taken_by_google_user
     user = User.find_by(email:)
 
-    if user&.provider == 'google_oauth2'
+    if user&.provider == "google_oauth2"
       errors.add(:base, "The account is linked to a Google account. Please sign in with Google")
     end
   end

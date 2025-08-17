@@ -71,7 +71,7 @@ module Ai
 
     def sanitized_description
       ActionController::Base.helpers.sanitize(recipient.description.to_s)
-        .gsub(/[^\w\s\-.,:;!?()'"&]/, '')
+        .gsub(/[^\w\s\-.,:;!?()'"&]/, "")
         .squish
     end
 
