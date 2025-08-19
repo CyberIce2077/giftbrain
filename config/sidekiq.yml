@@ -9,3 +9,6 @@
     rollover_annual_event_dates:
       cron: 10 0 * * *
       class: Recipients::RolloverAnnualEventDatesJob
+    send_reminders:
+      cron: 20 0 * * *
+      class: Reminders::SendMailsJob

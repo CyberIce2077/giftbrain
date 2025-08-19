@@ -6,4 +6,11 @@ module ApplicationHelper
 
     content_tag(:div, "", class: "cf-turnstile", data: { sitekey:, theme: "light" })
   end
+
+  # TODO: use decorator
+  def event_due_date(reminder)
+    return "Event is today!" if reminder.same_day_kind?
+
+    "Event is coming after #{reminder.kind}!".humanize
+  end
 end
