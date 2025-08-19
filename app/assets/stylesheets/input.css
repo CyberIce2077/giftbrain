@@ -23,6 +23,13 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.is-link {
+  color: #2d2d2d;
+  border: none;
+  text-decoration: none;
+  background-color: #ffffff00; /* f24e1e */
+}
+
 .is-textarea {
   background-color: #fff6f4;
   color: #2d2d2d;

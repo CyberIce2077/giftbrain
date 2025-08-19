@@ -24,6 +24,8 @@ class RecipientsController < ApplicationController
     recipient = Recipient.new
     authorize(recipient)
 
+    recipient.build_recipient
+
     render "recipients/new", locals: { recipient: }
   end
 
@@ -36,7 +38,7 @@ class RecipientsController < ApplicationController
     if recipient.save
       flash[:notice] = "Created successfully"
 
-      redirect_to [ recipient ]
+      redirect_to [recipient]
     else
       flash[:warning] = recipient.errors.full_messages.to_sentence
 
@@ -48,6 +50,8 @@ class RecipientsController < ApplicationController
     recipient = find_recipient
     authorize(recipient)
 
+    recipient.build_recipient
+
     render "recipients/edit", locals: { recipient: }
   end
 
@@ -58,7 +62,7 @@ class RecipientsController < ApplicationController
     if recipient.update(recipient_params)
       flash[:notice] = "Updated successfully"
 
-      render "recipients/update", locals: { recipient: }
+      redirect_to [recipient]
     else
       flash[:warning] = recipient.errors.full_messages.to_sentence
 
@@ -76,7 +80,7 @@ class RecipientsController < ApplicationController
       flash[:warning] = recipient.errors.full_messages.to_sentence
     end
 
-    redirect_to [ :recipients ]
+    redirect_to [:recipients]
   end
 
   def generate_ideas
@@ -103,6 +107,6 @@ class RecipientsController < ApplicationController
   end
 
   def recipient_attrs
-    %i[name description event_date repeat_annually]
+    [:name, :description, :event_date, :repeat_annually, reminders_attributes: [:id, :kind, :active]]
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_17_201717) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_18_162339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_17_201717) do
     t.index ["event_date"], name: "index_recipients_on_event_date"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.integer "kind", default: 0, null: false
+    t.datetime "sent_at"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_reminders_on_discarded_at"
+    t.index ["recipient_id", "kind"], name: "index_reminders_on_recipient_id_and_kind", unique: true, where: "(discarded_at IS NULL)"
+    t.index ["recipient_id"], name: "index_reminders_on_recipient_id"
+    t.index ["sent_at"], name: "index_reminders_on_sent_at"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -71,4 +84,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_17_201717) do
   add_foreign_key "recipient_ideas", "ideas"
   add_foreign_key "recipient_ideas", "recipients"
   add_foreign_key "recipients", "users", column: "creator_id"
+  add_foreign_key "reminders", "recipients"
 end

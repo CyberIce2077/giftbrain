@@ -12,7 +12,7 @@
     .progress-bar{ data: { progress_target: "bar" } }
   - if recipient.editable?
     .center-elements
-      = link_to('Edit', [:edit, recipient], class: 'is-button', data: { turbo_stream: true })
+      = link_to('Edit', [:edit, recipient], class: 'is-button', data: { turbo: false })
       - if recipient.ideas_count < Idea::MAX_IDEA_COUNT
         = button_to('Generate new ideas', [:generate_ideas, recipient], method: :patch, class: 'is-button')
       = button_to("Delete", [recipient], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
@@ -30,4 +30,4 @@
 - elsif recipient.editable?
   .box
     .hint.center-element
-      No ideas yet. Tap “Generate new ideas” to get started!
+      No ideas yet. Tap "Generate new ideas" to get started!

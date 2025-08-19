@@ -2,9 +2,10 @@ class Recipient < ApplicationRecord
   AVERAGE_GENERATE_DURATION = 10
 
   belongs_to :creator, class_name: "User"
-
   has_many :recipient_ideas, dependent: :destroy
   has_many :ideas, through: :recipient_ideas
+  has_many :reminders, dependent: :destroy
+  accepts_nested_attributes_for :reminders, allow_destroy: false
 
   validates :name, :description, :event_date, presence: true
   validates :name, length: { maximum: 50 }
@@ -34,5 +35,13 @@ class Recipient < ApplicationRecord
     return AVERAGE_GENERATE_DURATION if generation_duration.zero?
 
     generation_duration
+  end
+
+  def build_recipient
+    Reminder.kinds.each_key do |kind|
+      next if reminders.any? { |r| r.kind == kind.to_s }
+
+      reminders.build(kind:, active: %w[same_day one_month].include?(kind))
+    end
   end
 end
