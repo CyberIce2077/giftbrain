@@ -1,16 +1,20 @@
 module Recipients
   class RolloverAnnualEventDatesService < BaseService
     def call
-      Recipient.repeat_annually
-               .where(event_date: ..Time.zone.now.yesterday)
-               .find_each do |recipient|
-        recipient.update(event_date: recipient.event_date.next_year)
+      recipient_scope.find_each do |recipient|
+        recipient.update!(event_date: recipient.event_date.next_year)
       end
 
       success!
     rescue StandardError => e
       errors.add(:base, e.message)
       log_error(e)
+    end
+
+    private
+
+    def recipient_scope
+      Recipient.repeat_annually.where(event_date: ..Time.zone.now.yesterday)
     end
   end
 end

@@ -10,7 +10,7 @@ module Reminders
       reminder_kinds.each do |kind, date|
         reminder_scope(kind, date).find_each do |reminder|
           ReminderMailer.notify(reminder).deliver_later(queue: :mailers)
-          reminder.discard!
+          reminder.update!(sent_at: Time.zone.now)
         end
       end
 
@@ -34,10 +34,10 @@ module Reminders
     def reminder_scope(kind, date)
       Reminder.active
               .public_send(:"#{kind}_kind")
-              .where(recipient: recipients_scope(date))
+              .where(recipient: recipient_scope(date))
     end
 
-    def recipients_scope(date)
+    def recipient_scope(date)
       Recipient.with_subscribed_creator.where(event_date: date)
     end
   end

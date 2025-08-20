@@ -1,7 +1,7 @@
 module Reminders
   class SendMailsJob < ApplicationJob
     def perform
-      ::Reminders::SendMailsService.new.call
+      super { ::Reminders::SendMailsService }
     end
   end
 end
