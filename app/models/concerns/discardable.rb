@@ -6,7 +6,7 @@ module Discardable
   included do
     before_destroy :validate_destroy!
 
-    scope :active, -> { where(discarded_at: nil) }
+    scope :kept, -> { where(discarded_at: nil) }
   end
 
   def discarded?

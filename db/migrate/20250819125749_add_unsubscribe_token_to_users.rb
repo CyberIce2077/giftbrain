@@ -14,7 +14,7 @@ class AddUnsubscribeTokenToUsers < ActiveRecord::Migration[8.0]
 
   def down
     remove_index :users, :unsubscribe_token
-    remove_index :users, :subscribed
     remove_column :users, :unsubscribe_token
+    remove_column :users, :subscribed
   end
 end

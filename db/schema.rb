@@ -48,16 +48,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
   end
 
   create_table "reminders", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.bigint "recipient_id", null: false
     t.integer "kind", default: 0, null: false
-    t.datetime "sent_at"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_reminders_on_discarded_at"
-    t.index ["recipient_id", "kind"], name: "index_reminders_on_recipient_id_and_kind", unique: true, where: "(discarded_at IS NULL)"
+    t.index ["recipient_id", "kind"], name: "index_reminders_on_recipient_id_and_kind", unique: true
     t.index ["recipient_id"], name: "index_reminders_on_recipient_id"
-    t.index ["sent_at"], name: "index_reminders_on_sent_at"
   end
 
   create_table "users", force: :cascade do |t|

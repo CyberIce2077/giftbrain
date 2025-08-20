@@ -3,6 +3,7 @@ module Recipients
     def call
       recipient_scope.find_each do |recipient|
         recipient.update!(event_date: recipient.event_date.next_year)
+        recipient.reminders.find_each(&:restore!)
       end
 
       success!

@@ -4,7 +4,6 @@ class UnsubscribeController < ApplicationController
   skip_after_action :verify_policy_scoped
 
   def index
-    sign_out(current_user) if current_user
     render "unsubscribe/index"
   end
 
