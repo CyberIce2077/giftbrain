@@ -5,11 +5,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: [:google_oauth2]
 
+  before_validation :generate_unsubscribe_token, on: :create
+
   has_many :recipients, dependent: :destroy, foreign_key: :creator_id
 
   enum :role, { user: 0, admin: 1 }, suffix: true
 
+  validates :unsubscribe_token, presence: true
   validate :email_not_taken_by_google_user, on: :create
+
+  scope :subscribed, -> { where(subscribed: true) }
 
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
@@ -37,6 +42,19 @@ class User < ApplicationRecord
 
     if user&.provider == "google_oauth2"
       errors.add(:base, "The account is linked to a Google account. Please sign in with Google")
+    end
+  end
+
+  def generate_unsubscribe_token
+    return if unsubscribe_token.present?
+
+    loop do
+      random_token = SecureRandom.hex(32)
+
+      unless User.exists?(unsubscribe_token: random_token)
+        self.unsubscribe_token = random_token
+        break
+      end
     end
   end
 end

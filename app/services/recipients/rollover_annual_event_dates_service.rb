@@ -1,7 +1,7 @@
 module Recipients
   class RolloverAnnualEventDatesService < BaseService
     def call
-      Recipient.with_repeat_annually
+      Recipient.repeat_annually
                .where(event_date: ..Time.zone.now.yesterday)
                .find_each do |recipient|
         recipient.update(event_date: recipient.event_date.next_year)

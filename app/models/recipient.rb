@@ -13,7 +13,8 @@ class Recipient < ApplicationRecord
 
   enum :status, { draft: 0, pending: 1, processing: 2, finishing: 3, success: 4, failed: 5 }, suffix: true
 
-  scope :with_repeat_annually, -> { where(repeat_annually: true) }
+  scope :repeat_annually, -> { where(repeat_annually: true) }
+  scope :with_subscribed_creator, -> { joins(:creator).merge(User.subscribed) }
 
   def editable?
     draft_status? || failed_status? || success_status?

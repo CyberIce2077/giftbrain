@@ -9,4 +9,4 @@
     .hint
       %a(href="https://giftbrain.app") GiftBrain
       |
-      = link_to("Unsubscribe", [:edit, @recipient])
+      = link_to("Unsubscribe", unsubscribe_index_url({ ut: @user.unsubscribe_token }))

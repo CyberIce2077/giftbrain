@@ -35,4 +35,6 @@ Rails.application.routes.draw do
   resources :recipient_ideas, only: :destroy do
     post :reorder, on: :collection
   end
+
+  resources :unsubscribe, only: %i[index create]
 end

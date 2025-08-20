@@ -34,7 +34,11 @@ module Reminders
     def reminder_scope(kind, date)
       Reminder.active
               .public_send(:"#{kind}_kind")
-              .where(recipient: Recipient.where(event_date: date))
+              .where(recipient: recipients_scope(date))
+    end
+
+    def recipients_scope(date)
+      Recipient.with_subscribed_creator.where(event_date: date)
     end
   end
 end
