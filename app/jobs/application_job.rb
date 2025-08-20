@@ -13,9 +13,7 @@ class ApplicationJob < ActiveJob::Base
   def perform
     raise MissingBlockError unless block_given?
 
-    service = yield
-
-    service = service.new if service.is_a?(Class)
+    service = yield.new
     service.call
 
     raise UnsuccessfulServiceError unless service.success?
