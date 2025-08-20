@@ -7,17 +7,17 @@ class RecipientIdeasController < ApplicationController
     idea = recipient_idea.idea
 
     if recipient_idea.destroy
-      idea_ids = policy_scope(recipient.ideas).order('recipient_ideas.priority ASC').ids
+      idea_ids = policy_scope(recipient.ideas).order("recipient_ideas.priority ASC").ids
       RecipientIdeas::ReorderService.new(recipient, idea_ids).call
 
       recipient.decrement_ideas_count!
 
-      flash[:notice] = 'Idea removed successfully'
+      flash[:notice] = "Idea removed successfully"
     else
       flasj[:warning] = recipient_idea.errors.full_messages.to_sentence
     end
 
-    render 'recipients/recipient_ideas/destroy', locals: { recipient:, idea: }
+    render "recipients/recipient_ideas/destroy", locals: { recipient:, idea: }
   end
 
   def reorder

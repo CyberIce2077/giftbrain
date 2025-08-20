@@ -63,9 +63,10 @@ gem "haml"
 gem "devise"
 gem "pry"
 gem "sidekiq"
+gem "sidekiq-scheduler"
 gem "http"
-gem 'redis', '~> 5.4'
+gem "redis", "~> 5.4"
 gem "pundit"
-gem 'omniauth-google-oauth2'
+gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "active_model_serializers"

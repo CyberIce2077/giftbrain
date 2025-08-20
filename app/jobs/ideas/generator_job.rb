@@ -3,7 +3,10 @@ module Ideas
     queue_as :generator
 
     def perform(recipient)
-      ::Ideas::GeneratorService.new(recipient).call
+      service = ::Ideas::GeneratorService.new(recipient)
+      service.call
+
+      raise UnsuccessfulServiceError unless service.success?
     end
   end
 end

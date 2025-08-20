@@ -4,11 +4,23 @@ import { Calendar } from "fullcalendar";
 // Connects to data-controller="calendar"
 export default class extends Controller {
   connect() {
+    const dataset = this.element.dataset;
+    let initialDate;
+
+    if (dataset.startYear && dataset.startMonth) {
+      const year = parseInt(dataset.startYear);
+      const month = parseInt(dataset.startMonth) - 1;
+      initialDate = new Date(year, month, 1);
+    } else {
+      initialDate = new Date();
+    }
+
     const calendarEl = this.element;
     let selectedBackgroundEventId = "selected-date-highlight";
 
     const calendar = new Calendar(calendarEl, {
       initialView: "dayGridMonth",
+      initialDate: initialDate,
       firstDay: 1,
       height: "auto",
       events: (fetchInfo, success) => {
@@ -43,12 +55,18 @@ export default class extends Controller {
       },
       eventClick: function (info) {
         if (info.event.url === "") return;
-        window.open(info.event.url, "_blank");
-        info.jsEvent.preventDefault();
       },
       eventDidMount: function (info) {
         if (info.el.tagName === "A") {
           info.el.setAttribute("data-turbo", "false");
+        }
+
+        const now = new Date();
+        const eventStart = new Date(info.event.start);
+
+        if (eventStart < now) {
+          info.el.style.backgroundColor = "#d3d3d3";
+          info.el.style.color = "#666";
         }
       }
     });

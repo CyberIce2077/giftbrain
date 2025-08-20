@@ -1,0 +1,57 @@
+!!!
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", content: "text/html; charset=utf-8" }
+    %style
+      :plain
+        body {
+          background-color: #fdfaf6;
+          color: #2d2d2d;
+          display: flex;
+          flex-direction: column;
+        }
+
+        a {
+          color: #4e89ff;
+        }
+
+        .box-container {
+          float: left;
+          margin: 0.5em 0 0.5em 0;
+          width: 100%;
+          background-color: #ffffff;
+          border-radius: 20px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .box {
+          margin: 2em;
+        }
+
+        .box-title {
+          font-size: 2em;
+        }
+
+        .box-description {
+          font-size: 0.9em;
+          margin-top: 1em;
+        }
+
+        .hint {
+          color: #88857f;
+          padding: 5px;
+        }
+
+        .center-element {
+          float: left;
+          width: 100%;
+          text-align: center;
+          padding: 30px 0;
+        }
+
+        .panel {
+          margin: auto;
+          width: 50%;
+        }
+  %body.panel
+    = yield

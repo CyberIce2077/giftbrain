@@ -11,7 +11,7 @@ export default class extends Controller {
   }
 
   toggle() {
-    const height = "261px"
+    const height = "350px"
 
     if (this.menuTarget.style.maxHeight === height) {
       this.menuTarget.style.maxHeight = "0px";

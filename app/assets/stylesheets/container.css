@@ -56,10 +56,10 @@
 .idea-box {
   background-color: #ffffff;
   width: 15em;
-  height: 12em;
+  height: 5em;
   border-radius: 20px;
   padding: 1em;
-  margin: 1em;
+  margin: 0.5em;
   text-align: center;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   transition: transform 0.2s ease;

@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     return if flash.empty?
 
     turbo_stream_response = render_to_string(
-      partial: 'layouts/flash_stream',
+      partial: "layouts/flash_stream",
       formats: [:turbo_stream]
     )
 

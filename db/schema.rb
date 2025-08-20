@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_01_074418) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "ideas", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_ideas_on_name", unique: true
@@ -43,8 +42,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_074418) do
     t.integer "ideas_count", default: 0, null: false
     t.date "event_date"
     t.integer "generation_duration", default: 0, null: false
+    t.boolean "repeat_annually", default: true, null: false
     t.index ["creator_id"], name: "index_recipients_on_creator_id"
     t.index ["event_date"], name: "index_recipients_on_event_date"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.bigint "recipient_id", null: false
+    t.integer "kind", default: 0, null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_reminders_on_discarded_at"
+    t.index ["recipient_id", "kind"], name: "index_reminders_on_recipient_id_and_kind", unique: true
+    t.index ["recipient_id"], name: "index_reminders_on_recipient_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,13 +74,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_074418) do
     t.integer "role", default: 0, null: false
     t.string "provider"
     t.string "uid"
+    t.boolean "subscribed", default: true, null: false
+    t.string "unsubscribe_token", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unsubscribe_token"], name: "index_users_on_unsubscribe_token", unique: true
   end
 
   add_foreign_key "recipient_ideas", "ideas"
   add_foreign_key "recipient_ideas", "recipients"
   add_foreign_key "recipients", "users", column: "creator_id"
+  add_foreign_key "reminders", "recipients"
 end

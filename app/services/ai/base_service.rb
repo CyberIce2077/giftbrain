@@ -2,7 +2,6 @@ module Ai
   class BaseService < BaseService
     class UnsafePromptError < StandardError; end
     class MissingModelError < StandardError; end
-    class NotPermittedModelError < StandardError; end
 
     WEB_SITES = "Amazon, Etsy or Aliexpress"
 
@@ -59,19 +58,18 @@ module Ai
         - Do NOT include markdown, comments, or text before/after the JSON.
         - Each gift idea object must have:
             - "name": The name of the gift
-            - "description": A short one-line description of the gift
 
         Example format:
         [
-          { "name": "Moon Lamp", "description": "A dimmable night light shaped like the moon." },
-          { "name": "Retro Game Console", "description": "Nostalgic entertainment in a pocket-sized device." }
+          { "name": "Moon Lamp" },
+          { "name": "Retro Game Console" }
         ]
       PROMPT
     end
 
     def sanitized_description
       ActionController::Base.helpers.sanitize(recipient.description.to_s)
-        .gsub(/[^\w\s\-.,:;!?()'"&]/, '')
+        .gsub(/[^\w\s\-.,:;!?()'"&]/, "")
         .squish
     end
 
