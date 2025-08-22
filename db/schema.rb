@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_20_134043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,6 +59,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
     t.index ["recipient_id"], name: "index_reminders_on_recipient_id"
   end
 
+  create_table "team_members", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id", "user_id"], name: "index_team_members_on_team_id_and_user_id", unique: true
+    t.index ["team_id"], name: "index_team_members_on_team_id"
+    t.index ["user_id"], name: "index_team_members_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.string "name"
+    t.integer "members_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_teams_on_recipient_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -87,4 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
   add_foreign_key "recipient_ideas", "recipients"
   add_foreign_key "recipients", "users", column: "creator_id"
   add_foreign_key "reminders", "recipients"
+  add_foreign_key "team_members", "teams"
+  add_foreign_key "team_members", "users"
+  add_foreign_key "teams", "recipients"
 end

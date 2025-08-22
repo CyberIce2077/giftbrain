@@ -5,6 +5,9 @@ class Recipient < ApplicationRecord
   has_many :recipient_ideas, dependent: :destroy
   has_many :ideas, through: :recipient_ideas
   has_many :reminders, dependent: :destroy
+  has_one :team, dependent: :destroy
+  has_many :team_members, through: :team
+
   accepts_nested_attributes_for :reminders, allow_destroy: false
 
   validates :name, :description, :event_date, presence: true

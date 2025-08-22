@@ -1,0 +1,17 @@
+-# locals: (team:, recipient: team.recipient, back_url: request.referer || root_path)
+.box-container
+  .box
+    .box-title Team
+    %hr/
+    = form_with model: [recipient, team], data: { turbo: false } do |f|
+      .center-elements
+        = f.label :name, "Name"
+        = f.text_field :name, maxlength: 50, class: "is-input"
+      %hr/
+
+      = f.label :recipient_id, "Target"
+      = f.collection_select :recipient_id, policy_scope(Recipient).order(id: :desc), :id, :name, selected: f.object.recipient_id
+      %hr/
+
+      = f.submit "Save", class: 'is-button'
+      = link_to("Cancel", back_url, data: { turbo: false })

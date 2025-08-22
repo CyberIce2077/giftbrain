@@ -76,11 +76,13 @@ class RecipientsController < ApplicationController
 
     if recipient.destroy
       flash[:notice] = "Deleted successfully"
+
+      redirect_to [:recipients]
     else
       flash[:warning] = recipient.errors.full_messages.to_sentence
-    end
 
-    redirect_to [:recipients]
+      redirect_to [recipient]
+    end
   end
 
   def generate_ideas

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get :calendar, to: "home#calendar"
 
   resources :recipients do
+    resources :teams, only: %i[new create edit update destroy], controller: "recipients/teams"
     patch :generate_ideas, on: :member
     get :event_dates, on: :collection
   end
@@ -37,4 +38,6 @@ Rails.application.routes.draw do
   end
 
   resources :unsubscribe, only: %i[index create]
+
+  resources :teams, only: %i[index show]
 end

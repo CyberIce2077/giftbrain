@@ -1,0 +1,13 @@
+-# locals: (team:, recipient: team.recipient, back_url: request.referer || root_path)
+.box-container
+  .box
+    .recipient-name= team.name
+    .recipient-stats
+      Members count:
+      = team.members_count
+      |
+      = link_to("Back", back_url, data: { turbo: false }, class: 'is-button')
+    %br/
+    .center-elements
+      = link_to('Edit', [:edit, recipient, team], class: 'is-button', data: { turbo: false })
+      = button_to("Delete", [recipient, team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

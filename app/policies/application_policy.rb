@@ -41,7 +41,7 @@ class ApplicationPolicy
   end
 
   def exists?
-    scope.exists?(record.id)
+    user && scope.exists?(record.id)
   end
 
   class Scope

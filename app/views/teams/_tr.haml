@@ -1,0 +1,12 @@
+-# locals: (team:)
+= turbo_frame_tag(team, data: { controller: "recipient" }) do
+  .recipient-container
+    .box
+      .recipient-name= team.name
+      .recipient-stats
+        Members count:
+        = team.members_count
+        - if policy(team).show?
+          |
+          = link_to('Show', [team], class: 'is-button', data: { action: "click->recipient#show", turbo: false })
+      %br/

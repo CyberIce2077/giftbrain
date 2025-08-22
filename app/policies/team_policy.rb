@@ -1,12 +1,12 @@
-class RecipientPolicy < ApplicationPolicy
+class TeamPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.where(creator: user)
+      scope.all
     end
   end
 
   def index?
-    true
+    user
   end
 
   def show?
@@ -14,15 +14,15 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def new?
-    user
+    !exists?
   end
 
   def create?
-    user
+    new?
   end
 
   def edit?
-    exists? && record.editable?
+    exists?
   end
 
   def update?
@@ -31,9 +31,5 @@ class RecipientPolicy < ApplicationPolicy
 
   def destroy?
     edit?
-  end
-
-  def generate_ideas?
-    edit? && record.ideas_count < Idea::MAX_IDEA_COUNT
   end
 end

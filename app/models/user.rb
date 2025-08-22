@@ -8,6 +8,7 @@ class User < ApplicationRecord
   before_validation :generate_unsubscribe_token, on: :create
 
   has_many :recipients, dependent: :destroy, foreign_key: :creator_id
+  has_many :teams, through: :recipients
 
   enum :role, { user: 0, admin: 1 }, suffix: true
 
