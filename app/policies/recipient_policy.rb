@@ -18,7 +18,7 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def create?
-    user
+    new?
   end
 
   def edit?

@@ -1,7 +1,7 @@
 class TeamPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.all
+      scope.joins(:team_members).where(team_members: { user: })
     end
   end
 
@@ -10,7 +10,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user == record.recipient.creator && exists?
   end
 
   def new?
@@ -22,14 +22,14 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def edit?
-    exists?
+    show?
   end
 
   def update?
-    edit?
+    show?
   end
 
   def destroy?
-    edit?
+    show?
   end
 end

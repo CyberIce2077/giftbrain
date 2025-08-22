@@ -1,19 +1,25 @@
 class TeamMemberPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.all
+      scope.where(team: team_scope)
+    end
+
+    private
+
+    def team_scope
+      TeamPolicy::Scope.new(user, Team).resolve
     end
   end
 
   def new?
-    true
+    record.user != record.recipient.creator
   end
 
   def create?
-    true
+    new?
   end
 
   def destroy?
-    record.user != record.recipient.creator
+    new?
   end
 end
