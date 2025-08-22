@@ -3,6 +3,7 @@ class CreateTeamMembers < ActiveRecord::Migration[8.0]
     create_table :team_members do |t|
       t.references :team, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
+      t.integer :status, default: 0, null: false
 
       t.timestamps
     end

@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_134043) do
   create_table "team_members", force: :cascade do |t|
     t.bigint "team_id", null: false
     t.bigint "user_id", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_id", "user_id"], name: "index_team_members_on_team_id_and_user_id", unique: true
@@ -73,8 +74,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_134043) do
     t.bigint "recipient_id", null: false
     t.string "name"
     t.integer "members_count", default: 0, null: false
+    t.string "invitation_token", null: false
+    t.boolean "invitation_token_enabled", default: false, null: false
+    t.datetime "invitation_token_expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["invitation_token"], name: "index_teams_on_invitation_token", unique: true
     t.index ["recipient_id"], name: "index_teams_on_recipient_id", unique: true
   end
 

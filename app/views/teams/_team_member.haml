@@ -5,7 +5,7 @@
       .recipient-name= team_member.user.email
       .recipient-stats
         Status:
-        TODO: Implement status logic
+        = team_member.status.humanize
         |
       .center-elements
         - if policy(team_member).destroy?

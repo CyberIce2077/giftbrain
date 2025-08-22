@@ -12,7 +12,7 @@ module Recipients
       team = Team.new(team_params)
       authorize(team)
 
-      team.team_members.build(user: current_user)
+      team.team_members.build(user: current_user, status: :accepted)
       team.members_count = 1
 
       if team.save
