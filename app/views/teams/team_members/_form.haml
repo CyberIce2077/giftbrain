@@ -1,0 +1,13 @@
+-# locals: (team:, team_member:)
+.box-container
+  .box
+    .box-title Invite someone to your team
+    %hr/
+    = form_with model: [team, team_member], data: { turbo: false } do |f|
+      .center-elements
+        = f.label :email, "Email"
+        = f.text_field :email, maxlength: 50, class: "is-input", placeholder: "example@domain.com"
+      %hr/
+
+      = f.submit "Send invite", class: 'is-button'
+      = link_to("Cancel", [team])

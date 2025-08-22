@@ -1,4 +1,4 @@
--# locals: (team:, recipient: team.recipient, back_url: request.referer || root_path)
+-# locals: (team:, team_members:, recipient: team.recipient, back_url: request.referer || root_path)
 .box-container
   .box
     .recipient-name= team.name
@@ -9,5 +9,8 @@
       = link_to("Back", back_url, data: { turbo: false }, class: 'is-button')
     %br/
     .center-elements
-      = link_to('Edit', [:edit, recipient, team], class: 'is-button', data: { turbo: false })
-      = button_to("Delete", [recipient, team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+      = link_to('Edit', [:edit, team], class: 'is-button')
+      = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
+      = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+
+= render partial: '/teams/team_member', collection: team_members, as: :team_member

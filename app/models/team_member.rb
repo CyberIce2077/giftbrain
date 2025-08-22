@@ -2,5 +2,7 @@ class TeamMember < ApplicationRecord
   belongs_to :team
   belongs_to :user
 
-  validates :team_id, uniqueness: { scope: :user_id }
+  has_one :recipient, through: :team
+
+  validates :user_id, uniqueness: { scope: :team_id }
 end

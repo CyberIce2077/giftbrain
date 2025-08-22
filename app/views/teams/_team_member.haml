@@ -1,0 +1,12 @@
+-# locals: (team_member:)
+= turbo_frame_tag(team_member) do
+  .box-container
+    .box
+      .recipient-name= team_member.user.email
+      .recipient-stats
+        Status:
+        TODO: Implement status logic
+        |
+      .center-elements
+        - if policy(team_member).destroy?
+          = button_to("Remove", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
