@@ -49,6 +49,6 @@ class TeamPolicy < ApplicationPolicy
   private
 
   def member_of_team?(status)
-    record.team_members.exists?(user:, status:)
+    scope.exists?(team_members: { team: record, status: })
   end
 end
