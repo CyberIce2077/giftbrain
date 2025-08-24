@@ -41,6 +41,12 @@ Rails.application.routes.draw do
 
   resources :teams, only: %i[index show edit update destroy] do
     resources :team_members, only: %i[new create], controller: "teams/team_members"
+
+    get :invitations, on: :collection
+    member do
+      patch "invitations/accept", to: "teams#accept"
+      patch "invitations/decline", to: "teams#decline"
+    end
   end
 
   resources :team_members, only: %i[destroy]

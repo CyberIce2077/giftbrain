@@ -1,4 +1,4 @@
--# locals: (team:, team_members:, recipient: team.recipient, back_url: request.referer || root_path)
+-# locals: (team:, team_members:, recipient: team.recipient, copy_target: "#{root_url}teams/invitations?invitation_token=#{team.invitation_token}")
 .box-container
   .box
     .recipient-name= team.name
@@ -6,11 +6,22 @@
       Members count:
       = team.members_count
       |
-      = link_to("Back", back_url, data: { turbo: false }, class: 'is-button')
+      = link_to("Back", [:teams], data: { turbo: false }, class: 'is-button')
     %br/
     .center-elements
-      = link_to('Edit', [:edit, team], class: 'is-button')
-      = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
-      = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
-
+      - if policy(team).edit?
+        = link_to('Edit', [:edit, team], class: 'is-button')
+        = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
+        = button_tag 'Copy invitation URL', type: 'button', class: 'is-button', data: { action: 'click->copy#copy', copy_target: }
+      - if policy(team).destroy?
+        = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
 = render partial: '/teams/team_member', collection: team_members, as: :team_member
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('button[data-action="click->copy#copy"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    navigator.clipboard.writeText(btn.dataset.copyTarget);
+  });
+    });
+  });

@@ -11,7 +11,9 @@ class TeamsController < ApplicationController
     team = find_team
     authorize(team)
 
-    team_members = policy_scope(team.team_members).order(id: :desc)
+    team_members = policy_scope(team.team_members).where
+                                                  .not(user: team.recipient.creator)
+                                                  .order(id: :desc)
 
     render "teams/show", locals: { team:, team_members: }
   end
@@ -53,6 +55,39 @@ class TeamsController < ApplicationController
     end
   end
 
+  def invitations
+    team = policy_scope(Team).find_by!(invitation_token: params[:invitation_token])
+    authorize(team)
+
+    render "teams/invitations", locals: { team: }
+  rescue ActiveRecord::RecordNotFound
+    skip_authorization
+    flash[:warning] = "Incorrect link or you have declined the invitation"
+    redirect_to [:teams]
+  end
+
+  def accept
+    team = find_team
+    authorize(team)
+
+    policy_scope(team.team_members).find_by!(user: current_user).accepted_status!
+
+    flash[:notice] = "You have joined the team!"
+
+    redirect_to [team]
+  end
+
+  def decline
+    team = find_team
+    authorize(team)
+
+    policy_scope(team.team_members).find_by!(user: current_user).declined_status!
+
+    flash[:notice] = "You have declined the invitation"
+
+    redirect_to [:teams]
+  end
+
   private
 
   def find_team
@@ -64,6 +99,6 @@ class TeamsController < ApplicationController
   end
 
   def team_attrs
-    %i[name]
+    %i[name invitation_token_enabled]
   end
 end

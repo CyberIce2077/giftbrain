@@ -37,7 +37,7 @@ module Recipients
     end
 
     def team_attrs
-      %i[name recipient_id]
+      %i[name recipient_id invitation_token_enabled]
     end
   end
 end

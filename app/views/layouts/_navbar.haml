@@ -11,7 +11,7 @@
       = link_to('New Chat', [:new, :recipient], class: 'is-button')
     - if policy(:home).calendar?
       = link_to('Calendar', '/calendar', class: 'is-button')
-    - if policy(:team).index?
+    - if policy(Team).index?
       = link_to('Teams', [:teams], class: 'is-button')
     - if policy(Recipient).index?
       = link_to('Home', '/', data: { turbo: false }, class: 'is-button')

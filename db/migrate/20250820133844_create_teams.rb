@@ -6,7 +6,6 @@ class CreateTeams < ActiveRecord::Migration[8.0]
       t.integer :members_count, default: 0, null: false
       t.string :invitation_token, null: false
       t.boolean :invitation_token_enabled, default: false, null: false
-      t.datetime :invitation_token_expires_at
 
       t.timestamps
     end

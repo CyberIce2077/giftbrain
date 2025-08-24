@@ -10,7 +10,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def show?
-    user == record.recipient.creator && exists?
+    member_of_team?(:accepted)
   end
 
   def new?
@@ -22,14 +22,33 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def edit?
-    show?
+    user == record.recipient.creator &&
+      member_of_team?(:accepted)
   end
 
   def update?
-    show?
+    edit?
   end
 
   def destroy?
-    show?
+    edit?
+  end
+
+  def invitations?
+    member_of_team?(:pending)
+  end
+
+  def accept?
+    invitations?
+  end
+
+  def decline?
+    invitations?
+  end
+
+  private
+
+  def member_of_team?(status)
+    record.team_members.exists?(user:, status:)
   end
 end

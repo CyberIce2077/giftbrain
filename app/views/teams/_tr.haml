@@ -9,4 +9,5 @@
         - if policy(team).show?
           |
           = link_to('Show', [team], class: 'is-button', data: { action: "click->recipient#show", turbo: false })
-      %br/
+        - if policy(team).invitations?
+          = link_to("Open invitation", [:invitations, :teams, { invitation_token: team.invitation_token }], data: { turbo: false }, class: 'is-button')
