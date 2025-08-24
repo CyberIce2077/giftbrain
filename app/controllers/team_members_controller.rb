@@ -6,14 +6,12 @@ class TeamMembersController < ApplicationController
     team = team_member.team
 
     if team_member.destroy
-      team.decrement_members_count!
-
       flash[:notice] = "Deleted successfully"
     else
       flash[:warning] = team_member.errors.full_messages.to_sentence
     end
 
-    render "team_members/destroy", locals: { team_member: }
+    render "team_members/destroy", locals: { team:, team_member: }
   end
 
   private

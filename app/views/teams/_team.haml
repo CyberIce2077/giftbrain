@@ -1,0 +1,14 @@
+-# locals: (team:, copy_target: "#{root_url}teams/invitations?invitation_token=#{team.invitation_token}")
+.box-container
+  .box
+    .recipient-name= team.name
+    .recipient-stats
+      = link_to("Back", [:teams], data: { turbo: false }, class: 'is-button')
+    %br/
+    .center-elements
+      - if policy(team).edit?
+        = link_to('Edit', [:edit, team], data: { turbo: false }, class: 'is-button')
+        = link_to("Add Member", [:new, team, :team_member], data: { turbo: false }, class: 'is-button')
+        = button_tag 'Copy invitation URL', type: 'button', class: 'is-button', data: { action: 'click->copy#copy', copy_target: }
+      - if policy(team).destroy?
+        = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

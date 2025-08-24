@@ -9,10 +9,6 @@
         = f.text_field :name, maxlength: 50, class: "is-input"
       %hr/
 
-      = f.label :recipient_id, "Target"
-      = f.collection_select :recipient_id, policy_scope(Recipient).order(id: :desc), :id, :name, selected: f.object.recipient_id
-      %hr/
-
       = f.check_box :invitation_token_enabled
       = f.label :invitation_token_enabled, "Enable Invitation Token"
       %hr/

@@ -9,11 +9,11 @@ module Recipients
     end
 
     def create
-      team = Team.new(team_params)
+      recipient = find_recipient
+      team = Team.new(team_params.merge(recipient:))
       authorize(team)
 
       team.team_members.build(user: current_user, status: :accepted)
-      team.members_count = 1
 
       if team.save
         flash[:notice] = "Created successfully"
@@ -37,7 +37,7 @@ module Recipients
     end
 
     def team_attrs
-      %i[name recipient_id invitation_token_enabled]
+      %i[name invitation_token_enabled]
     end
   end
 end

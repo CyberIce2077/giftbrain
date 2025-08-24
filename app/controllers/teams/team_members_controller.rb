@@ -16,8 +16,6 @@ module Teams
       authorize(team_member)
 
       if team_member.save
-        team.increment_members_count!
-
         flash[:notice] = "Created successfully"
 
         redirect_to [team_member.team]

@@ -1,2 +1,4 @@
--# locals: (team_member:)
+-# locals: (team:, team_member:)
+= turbo_stream.update(team) do
+  = render partial: "/teams/team", locals: { team: }
 = turbo_stream.remove(team_member)
