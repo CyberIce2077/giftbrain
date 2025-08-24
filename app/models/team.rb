@@ -11,26 +11,13 @@ class Team < ApplicationRecord
     super.presence || recipient.name
   end
 
-  # TODO: extract to concern
-  def increment_members_count!
-    update!(members_count: members_count + 1)
-  end
-
-  def decrement_members_count!
-    update!(members_count: members_count - 1) if members_count > 0
-  end
-
-  def reset_members_count!
-    update!(members_count: recipient_ideas.count)
-  end
-
   private
 
   def generate_invitation_token
     return if invitation_token.present?
 
     loop do
-      random_token = SecureRandom.hex(32)
+      random_token = SecureRandom.hex(16)
 
       unless Team.exists?(invitation_token: random_token)
         self.invitation_token = random_token
