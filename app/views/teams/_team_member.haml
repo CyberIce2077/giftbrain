@@ -1,10 +1,11 @@
 -# locals: (team_member:)
 = turbo_frame_tag(team_member) do
-  .new-box-container
-    .recipient-name= team_member.user.email
-    .recipient-stats
-      Status:
-      = team_member.status.humanize
-      |
-      - if policy(team_member).destroy?
-        = button_to("Remove", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+  .box-container
+    .box
+      .recipient-name= team_member.user.email
+      .recipient-stats
+        Status:
+        = team_member.status.humanize
+        |
+        - if policy(team_member).destroy?
+          = button_to("Remove", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

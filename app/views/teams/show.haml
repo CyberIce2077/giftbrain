@@ -1,24 +1,27 @@
 -# locals: (team:, team_members:, copy_target: "#{root_url}teams/invitations?invitation_token=#{team.invitation_token}")
-.new-box-container
-  .new-box-title-row
-    .new-box-title= team.name
-    = link_to("Back", [:teams], data: { turbo: false }, class: "new-box-back-button")
-  %hr/
-  .box-options
-    - if policy(team).edit?
-      = link_to('Edit', [:edit, team], class: 'is-button')
-      = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
-      = button_tag 'Copy invitation URL', type: 'button', class: 'is-button', data: { action: 'click->copy#copy', copy_target: }
-    - if policy(team).destroy?
-      = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+.box-panel.float-left
+  .detailed-box-container
+    .detailed-box-title-row
+      .detailed-box-title= team.name
+      = link_to("Back", [:teams], data: { turbo: false }, class: "detailed-box-back-button")
+    %hr/
+    .box-options
+      - if policy(team).edit?
+        = link_to('Edit', [:edit, team], class: 'is-button')
+        = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
+        = button_to('Copy invitation URL', '#', type: 'button', class: 'is-button', data: { action: 'click->copy#copy', copy_target: })
+      - if policy(team).destroy?
+        = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
 
-= render partial: '/teams/team_member', collection: team_members, as: :team_member
+.box-panel.float-left
+  = render partial: '/teams/team_member', collection: team_members, as: :team_member
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('button[data-action="click->copy#copy"]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    navigator.clipboard.writeText(btn.dataset.copyTarget);
-  });
+    btn.addEventListener('click', function(event) {
+        event.preventDefault()
+        navigator.clipboard.writeText(btn.dataset.copyTarget);
+      });
     });
   });

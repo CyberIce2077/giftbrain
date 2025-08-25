@@ -45,6 +45,10 @@ a {
   padding: 5px;
 }
 
+.float-left {
+  float: left;
+}
+
 @media screen and (max-width: 1250px) {
   .panel {
     width: 60%;
