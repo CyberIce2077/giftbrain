@@ -8,8 +8,8 @@ html {
 body {
   background-color: #fdfaf6;
   color: #2d2d2d;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .turbo-progress-bar {

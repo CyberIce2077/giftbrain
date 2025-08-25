@@ -1,3 +1,48 @@
+.new-box-container {
+  margin: 0.5em 0 0.5em 0;
+  width: 50%;
+}
+
+.new-box-title-row {
+  width: 100%;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.new-box-title {
+  font-size: 1.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.new-box-back-button {
+  color: #f47c57;
+  font-size: 1.3em;
+  text-align: right;
+  flex-shrink: 0;
+  padding-left: 1em;
+}
+
+.box-options {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.box-options a {
+  display: block;
+}
+
+.box-options button {
+  width: 100%;
+  display: inline-block;
+}
+
 .box-container {
   float: left;
   margin: 0.5em 0 0.5em 0;
