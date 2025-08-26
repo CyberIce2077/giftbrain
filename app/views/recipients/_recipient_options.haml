@@ -8,12 +8,12 @@
       = link_to("Team", [recipient.team], class: "is-button", data: { turbo: false })
     - else
       = link_to("Convert to team", [:new, recipient, :team], class: "is-button", data: { turbo: false })
-    - if recipient.ideas_count < Idea::MAX_IDEA_COUNT
+    - if recipient.recipient_ideas_count < Idea::MAX_IDEA_COUNT
       = button_to("Generate new ideas", [:generate_ideas, recipient], method: :patch, class: "is-button")
     = button_to("Delete", [recipient], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
   - else
     .hint.center-elements Generating ideas may take a moment
-  - if recipient.ideas_count > 0
+  - if recipient.recipient_ideas_count > 0
     .hint.center-elements You can now move and order the ideas
   - elsif recipient.editable?
     .hint.center-elements No ideas yet. Tap "Generate new ideas" to get started!

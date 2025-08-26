@@ -23,18 +23,6 @@ class Recipient < ApplicationRecord
     draft_status? || failed_status? || success_status?
   end
 
-  def increment_ideas_count!
-    update!(ideas_count: ideas_count + 1)
-  end
-
-  def decrement_ideas_count!
-    update!(ideas_count: ideas_count - 1) if ideas_count > 0
-  end
-
-  def reset_ideas_count!
-    update!(ideas_count: recipient_ideas.count)
-  end
-
   def estimated_generation
     return AVERAGE_GENERATE_DURATION if generation_duration.zero?
 

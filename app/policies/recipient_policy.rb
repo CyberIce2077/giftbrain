@@ -34,6 +34,6 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def generate_ideas?
-    edit? && record.ideas_count < Idea::MAX_IDEA_COUNT
+    edit? && record.recipient_ideas_count < Idea::MAX_IDEA_COUNT
   end
 end
