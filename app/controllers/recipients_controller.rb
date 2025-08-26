@@ -60,6 +60,10 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.update(recipient_params)
+      if recipient.saved_change_to_event_date?
+        recipient.reminders.find_each(&:restore!)
+      end
+
       flash[:notice] = "Updated successfully"
 
       redirect_to [recipient]

@@ -37,7 +37,9 @@ Rails.application.routes.draw do
     post :reorder, on: :collection
   end
 
-  resources :unsubscribe, only: %i[index create]
+  namespace :users do
+    resources :unsubscribe, only: %i[index create]
+  end
 
   resources :teams, only: %i[index show edit update destroy] do
     resources :team_members, only: %i[new create], controller: "teams/team_members"

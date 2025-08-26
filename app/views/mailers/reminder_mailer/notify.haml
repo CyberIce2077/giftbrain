@@ -5,6 +5,6 @@
     %p= "You can check the event for '#{@recipient.name}' #{link_to("here", [@recipient])}"
     %p= "Event date: #{@recipient.event_date}"
   .hint
-    %a(href="https://giftbrain.app") GiftBrain
+    = link_to("GiftBrain", root_url)
     |
-    = link_to("Unsubscribe", unsubscribe_index_url({ ut: @user.unsubscribe_token }))
+    = link_to("Unsubscribe", users_unsubscribe_index_url(ut: @user.unsubscribe_token))
