@@ -3,7 +3,7 @@
   .detailed-box-container
     .detailed-box-title-row
       .detailed-box-title= team.name
-      = link_to("Back", [:teams], data: { turbo: false }, class: "detailed-box-back-button")
+      = link_to("Back", [:teams], class: "detailed-box-back-button")
     %hr/
     .box-options
       - if policy(team).edit?

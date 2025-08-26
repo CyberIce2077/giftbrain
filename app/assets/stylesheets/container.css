@@ -4,7 +4,6 @@
 }
 
 .detailed-box-container {
-  /* float: left; */
   margin: 0.5em;
 }
 
@@ -40,6 +39,7 @@
 .box-options a {
   display: block;
   padding: 9px;
+  cursor: pointer;
 }
 
 .box-options form {
@@ -50,19 +50,15 @@
   width: 100%;
   margin-top: 0;
   padding: 10px;
+  cursor: pointer;
 }
 
 .box-container {
-  float: left;
-  margin: 0.5em 0 0.5em 0;
-  width: 100%;
-  background-color: #ffffff;
+  padding: 0.5em;
+  margin: 0.5em;
   border-radius: 20px;
+  background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.box {
-  margin: 2em;
 }
 
 .box-title {
