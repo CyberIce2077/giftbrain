@@ -4,6 +4,7 @@
 }
 
 .detailed-box-container {
+  padding: 0.5em;
   margin: 0.5em;
 }
 
@@ -67,6 +68,7 @@
 
 .box-description {
   font-size: 0.9em;
+  padding: 0 0.5em 0.2em 0.5em;
   margin-top: 1em;
   overflow: hidden;
   display: -webkit-box;
@@ -171,17 +173,5 @@
   to {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-@media screen and (max-width: 780px) {
-  .box {
-    margin: 1em;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .box {
-    margin: 0.5em;
   }
 }

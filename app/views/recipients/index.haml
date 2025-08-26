@@ -1,18 +1,16 @@
 - if current_user
   - if @toogle_menu
-    .box
-      .hint.center-element
-        Ready to find the perfect gift? Start by clicking New Chat to add someone special or
-        - if policy(Recipient).new?
-          = link_to('click here', [:new, :recipient])
+    .hint.center-element
+      Ready to find the perfect gift? Start by clicking New Chat to add someone special or
+      - if policy(Recipient).new?
+        = link_to('click here', [:new, :recipient])
   = render '/recipients/table', recipients:
 - else
   .box-container
-    .box
-      %h1 Welcome to GiftBrain
-      %p
-        GiftBrain is your smart AI-powered assistant for finding the perfect gift.
-        Simply log in and start describing who you're buying for — we'll handle the rest.
-      %p
-        Want to learn more?
-        %a{ href: about_path } Check out how it works.
+    %h1 Welcome to GiftBrain
+    %p
+      GiftBrain is your smart AI-powered assistant for finding the perfect gift.
+      Simply log in and start describing who you're buying for — we'll handle the rest.
+    %p
+      Want to learn more?
+      %a{ href: about_path } Check out how it works.

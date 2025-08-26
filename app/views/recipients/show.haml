@@ -1,7 +1,16 @@
+-# locals: (recipient:, ideas:, back_url: request.referer || root_path)
+
 = turbo_stream_from(recipient)
 
-= turbo_frame_tag(recipient) do
-  = render '/recipients/recipient', recipient:
+.box-panel.float-left
+  .detailed-box-container
+    .detailed-box-title-row
+      .detailed-box-title= recipient.name
+      = link_to("Back", back_url, data: { turbo: false }, class: "detailed-box-back-button")
+    .box-description= recipient.description
+    = turbo_frame_tag(recipient) do
+      = render "recipients/recipient_options", recipient:
 
-= turbo_frame_tag('ideas', class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
-  = render partial: '/recipients/idea', collection: ideas, as: :idea, locals: { recipient: }
+.box-panel.float-left
+  = turbo_frame_tag("ideas", class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
+    = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient: }

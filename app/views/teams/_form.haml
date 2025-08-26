@@ -1,17 +1,16 @@
 -# locals: (team:, recipient: team.recipient)
 .box-container
-  .box
-    .box-title Team
+  .box-title Team
+  %hr/
+  = form_with model: team, data: { turbo: false } do |f|
+    .center-elements
+      = f.label :name, "Name"
+      = f.text_field :name, maxlength: 50, class: "is-input"
     %hr/
-    = form_with model: team, data: { turbo: false } do |f|
-      .center-elements
-        = f.label :name, "Name"
-        = f.text_field :name, maxlength: 50, class: "is-input"
-      %hr/
 
-      = f.check_box :invitation_token_enabled
-      = f.label :invitation_token_enabled, "Enable Invitation Token"
-      %hr/
+    = f.check_box :invitation_token_enabled
+    = f.label :invitation_token_enabled, "Enable Invitation Token"
+    %hr/
 
-      = f.submit "Save", class: 'is-button'
-      = link_to("Cancel", [team])
+    = f.submit "Save", class: 'is-button'
+    = link_to("Cancel", [team])
