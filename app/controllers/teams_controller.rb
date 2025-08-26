@@ -18,28 +18,6 @@ class TeamsController < ApplicationController
     render "teams/show", locals: { team:, team_members: }
   end
 
-  def edit
-    team = find_team
-    authorize(team)
-
-    render "teams/edit", locals: { team: }
-  end
-
-  def update
-    team = find_team
-    authorize(team)
-
-    if team.update(team_params)
-      flash[:notice] = "Updated successfully"
-
-      redirect_to [team]
-    else
-      flash[:warning] = team.errors.full_messages.to_sentence
-
-      render "teams/edit", locals: { team: }
-    end
-  end
-
   def destroy
     team = find_team
     authorize(team)
@@ -47,7 +25,7 @@ class TeamsController < ApplicationController
     if team.destroy
       flash[:notice] = "Deleted successfully"
 
-      redirect_to [:teams]
+      redirect_to teams_url
     else
       flash[:warning] = team.errors.full_messages.to_sentence
 
@@ -56,7 +34,7 @@ class TeamsController < ApplicationController
   end
 
   def invitations
-    team = policy_scope(Team).find_by!(invitation_token: params[:invitation_token])
+    team = find_team
     authorize(team)
 
     render "teams/invitations", locals: { team: }
@@ -99,6 +77,6 @@ class TeamsController < ApplicationController
   end
 
   def team_attrs
-    %i[name invitation_token_enabled]
+    %i[name]
   end
 end

@@ -5,4 +5,4 @@
     - if policy(team).show?
       = link_to('Show', [team], class: "detailed-box-back-button")
     - if policy(team).invitations?
-      = link_to("Open invitation", [:invitations, :teams, { invitation_token: team.invitation_token }], class: "detailed-box-back-button")
+      = link_to("Open invitation", [:invitations, team], class: "detailed-box-back-button")

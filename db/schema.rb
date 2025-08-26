@@ -74,11 +74,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_134043) do
     t.bigint "recipient_id", null: false
     t.string "name"
     t.integer "team_members_count", default: 0, null: false
-    t.string "invitation_token", null: false
-    t.boolean "invitation_token_enabled", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["invitation_token"], name: "index_teams_on_invitation_token", unique: true
     t.index ["recipient_id"], name: "index_teams_on_recipient_id", unique: true
   end
 

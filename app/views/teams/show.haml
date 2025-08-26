@@ -1,4 +1,4 @@
--# locals: (team:, team_members:, copy_target: "#{root_url}teams/invitations?invitation_token=#{team.invitation_token}")
+-# locals: (team:, recipient: team.recipient, team_members:, copy_target: "#{root_url}teams/#{team.id}/invitations")
 .box-panel.float-left
   .detailed-box-container
     .detailed-box-title-row
@@ -7,14 +7,14 @@
     %hr/
     .box-options
       - if policy(team).edit?
-        = link_to('Edit', [:edit, team], class: 'is-button')
+        = link_to('Edit', [:edit, recipient, team], class: 'is-button')
         = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
         = button_to('Copy invitation URL', '#', type: 'button', class: 'is-button', data: { action: 'click->copy#copy', copy_target: })
       - if policy(team).destroy?
         = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
 
 .box-panel.float-left
-  = render partial: '/teams/team_member', collection: team_members, as: :team_member
+  = render partial: '/teams/team_member', collection: team_members, as: :team_member, locals: { team: }
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {

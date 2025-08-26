@@ -1,4 +1,4 @@
--# locals: (team_member:)
+-# locals: (team:, team_member:)
 = turbo_frame_tag(team_member) do
   .box-container
     .detailed-box-title-row
@@ -6,5 +6,5 @@
     %hr/
     .box-options
       Status: #{team_member.status.humanize}
-      - if policy(team_member).destroy?
+      - if policy(team_member).destroy? && policy(team).destroy?
         = button_to("Delete", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

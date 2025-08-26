@@ -5,7 +5,7 @@ module Recipients
       team = Team.new(recipient:)
       authorize(team)
 
-      render "recipients/teams/new", locals: { team: }
+      render "recipients/teams/new", locals: { team:, recipient: }
     end
 
     def create
@@ -22,7 +22,31 @@ module Recipients
       else
         flash[:warning] = team.errors.full_messages.to_sentence
 
-        render "recipients/teams/new", locals: { team: }
+        render "recipients/teams/new", locals: { team:, recipient: }
+      end
+    end
+
+    def edit
+      recipient = find_recipient
+      team = recipient.team
+      authorize(team)
+
+      render "recipients/teams/edit", locals: { team:, recipient: }
+    end
+
+    def update
+      recipient = find_recipient
+      team = recipient.team
+      authorize(team)
+
+      if team.update(team_params)
+        flash[:notice] = "Updated successfully"
+
+        redirect_to [team]
+      else
+        flash[:warning] = team.errors.full_messages.to_sentence
+
+        render "recipients/teams/edit", locals: { team:, recipient: }
       end
     end
 
@@ -37,7 +61,7 @@ module Recipients
     end
 
     def team_attrs
-      %i[name invitation_token_enabled]
+      %i[name]
     end
   end
 end

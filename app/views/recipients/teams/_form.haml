@@ -1,4 +1,4 @@
--# locals: (team:, recipient: team.recipient)
+-# locals: (team:, recipient:, back_url: request.referer || root_path)
 .box-container
   .box-title Team
   %hr/
@@ -8,9 +8,5 @@
       = f.text_field :name, maxlength: 50, class: "is-input"
     %hr/
 
-    = f.check_box :invitation_token_enabled
-    = f.label :invitation_token_enabled, "Enable Invitation Token"
-    %hr/
-
     = f.submit "Save", class: 'is-button'
-    = link_to("Cancel", [recipient])
+    = link_to("Cancel", back_url)
