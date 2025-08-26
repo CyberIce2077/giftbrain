@@ -1,9 +1,11 @@
 - if current_user
   - if @toogle_menu
     .hint.center-element
-      Ready to find the perfect gift? Start by clicking New Chat to add someone special or
+      Ready to find the perfect gift?
+      %br/
+      Start by clicking New Chat to add someone special or
       - if policy(Recipient).new?
-        = link_to('click here', [:new, :recipient])
+        = link_to("click here", [:new, :recipient])
   = render '/recipients/table', recipients:
 - else
   .box-container

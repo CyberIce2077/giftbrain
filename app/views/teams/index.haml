@@ -1,1 +1,5 @@
+-# locals: (teams:)
 = render "teams/table", teams:
+
+- if teams.blank?
+  .hint.center-elements You haven't created any teams yet
