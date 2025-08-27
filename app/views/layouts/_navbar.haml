@@ -1,11 +1,11 @@
 -# locals: (toogle_menu: (@toogle_menu && request.fullpath == "/"))
 .navbar-container{ data: { controller: "navbar", toogle_menu: @toogle_menu } }
-  .navbar-left-container
+  #navbar-left-container
     = link_to("/", data: { turbo: false }) do
       = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
     .box-title= link_to("GiftBrain", "/", data: { turbo: false })
 
-  .navbar-center-container
+  #navbar-center-container
     - if policy(Recipient).new?
       = link_to("New Chat", [:new, :recipient], class: "is-button")
     - if policy(:home).calendar?
@@ -17,7 +17,7 @@
     - if policy(:home).about?
       = link_to("About", "/about", class: "is-button")
 
-  .navbar-right-container
+  #navbar-right-container
     - if current_user
       = button_to("Sign out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "is-button")
     - else
