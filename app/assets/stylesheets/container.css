@@ -78,27 +78,6 @@
   white-space: normal;
 }
 
-.recipient-container {
-  margin: 0.5em 0 0.5em 0;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: max-height 0.5s ease-out;
-  max-height: 17em;
-  overflow: hidden;
-}
-
-.recipient-name {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.recipient-stats {
-  margin-top: 1em;
-}
-
 .idea-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -162,6 +141,15 @@
 
 .idea-links {
   margin-top: 0.65em;
+}
+
+.login-container {
+  padding: 0.5em;
+  margin: 0.5em;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 @keyframes scaleIn {

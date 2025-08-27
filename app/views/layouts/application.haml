@@ -21,10 +21,16 @@
     = javascript_importmap_tags
     %script{src: "https://challenges.cloudflare.com/turnstile/v0/api.js", async: true, defer: true}
 
-  %body
-    = render('layouts/navbar')
-    .panel
-      = turbo_frame_tag('flash')
-      = render('layouts/confirm')
-
+  %body.main-layout
+    = turbo_frame_tag('flash')
+    = render('layouts/confirm')
+    .header{ data: {  } }
+      = link_to("/") do
+        = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
+      .box-title= link_to("GiftBrain", "/")
+      %button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
+        ☰ Menu
+    #sidebar.sidebar
+      = render('layouts/sidebar')
+    #content.content
       = yield

@@ -10,6 +10,13 @@ body {
   color: #2d2d2d;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .turbo-progress-bar {
   background-color: #f1c40f;
   padding: 1px;
