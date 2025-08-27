@@ -5,9 +5,10 @@ export default class extends Controller {
   static targets = ["menu"]
 
   connect() {
-    if (this.element.dataset.toogleMenu === "") {
-      this.toggle()
-    }
+    // if (this.element.dataset.toogleMenu === "") {
+    //   this.toggle()
+    // }
+    console.log("Navbar connected")
   }
 
   toggle() {
