@@ -21,9 +21,10 @@
     = javascript_importmap_tags
     %script{src: "https://challenges.cloudflare.com/turnstile/v0/api.js", async: true, defer: true}
 
-  %body.panel
-    = turbo_frame_tag('flash')
+  %body
     = render('layouts/navbar')
-    = render('layouts/confirm')
+    .panel
+      = turbo_frame_tag('flash')
+      = render('layouts/confirm')
 
-    = yield
+      = yield
