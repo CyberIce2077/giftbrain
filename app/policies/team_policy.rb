@@ -22,8 +22,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def edit?
-    user == record.recipient.creator &&
-      member_of_team?(:accepted)
+    user == record.recipient.creator
   end
 
   def update?

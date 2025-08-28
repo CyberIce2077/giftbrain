@@ -6,7 +6,9 @@
       Start by clicking New Chat to add someone special or
       - if policy(Recipient).new?
         = link_to("click here", [:new, :recipient])
-  = render '/recipients/table', recipients:
+  - else
+    = render "/recipients/table", recipients:
+    = paginate recipients
 - else
   .box-container
     .box-title Welcome to GiftBrain

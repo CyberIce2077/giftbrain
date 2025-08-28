@@ -1,9 +1,9 @@
--# locals: (team:, recipient: team.recipient, team_members:)
+-# locals: (team:, recipient: team.recipient, team_members:, back_url: request.referer || root_path)
 .box-panel.float-left
   .detailed-box-container
     .detailed-box-title-row
       .detailed-box-title= team.name
-      = link_to("Back", [:teams], class: "detailed-box-back-button")
+      = link_to("Back", back_url, class: "detailed-box-back-button")
     %hr/
     .box-options
       - if policy(team).edit?
@@ -19,3 +19,4 @@
       %br/
       Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
   = render partial: '/teams/team_member', collection: team_members, as: :team_member, locals: { team: }
+  = paginate team_members

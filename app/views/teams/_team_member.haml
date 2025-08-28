@@ -6,5 +6,5 @@
     %hr/
     .box-options
       Status: #{team_member.status.humanize}
-      - if policy(team_member).destroy? && policy(team).destroy?
+      - if team_member.user != team.recipient.creator && policy(team).edit?
         = button_to("Delete", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

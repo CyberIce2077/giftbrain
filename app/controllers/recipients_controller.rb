@@ -4,7 +4,7 @@ class RecipientsController < ApplicationController
   def index
     authorize(Recipient)
 
-    recipients = policy_scope(Recipient).order(id: :desc)
+    recipients = policy_scope(Recipient).page(params[:page]).order(id: :desc)
 
     @toogle_menu = recipients.blank?
 

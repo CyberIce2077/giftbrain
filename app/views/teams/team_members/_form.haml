@@ -1,4 +1,4 @@
--# locals: (team:, team_member:)
+-# locals: (team:, team_member:, back_url: request.referer || root_path)
 .box-container
   .box-title Invite someone to your team
   %hr/
@@ -9,4 +9,4 @@
     %hr/
 
     = f.submit "Send invite", class: 'is-button'
-    = link_to("Cancel", [team])
+    = link_to("Cancel", back_url)

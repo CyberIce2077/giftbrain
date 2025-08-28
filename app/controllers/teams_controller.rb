@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   def index
     authorize(Team)
 
-    teams = policy_scope(Team).order(id: :desc)
+    teams = policy_scope(Team).page(params[:page]).order(id: :desc)
 
     render "teams/index", locals: { teams: }
   end
@@ -13,6 +13,7 @@ class TeamsController < ApplicationController
 
     team_members = policy_scope(team.team_members).where
                                                   .not(user: team.recipient.creator)
+                                                  .page(params[:page])
                                                   .order(id: :desc)
 
     render "teams/show", locals: { team:, team_members: }
