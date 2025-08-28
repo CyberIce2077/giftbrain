@@ -91,7 +91,7 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    max-width: 1%;
+    max-width: 0;
     background-color: #ffffff;
     z-index: 100;
     border-radius: 0 20px 20px 0;
@@ -107,5 +107,11 @@
 
   .sidebar-container {
     width: 85%;
+  }
+}
+
+@media screen and (max-width: 362px) {
+  .nav-logo {
+    display: none;
   }
 }

@@ -16,7 +16,7 @@
 .box-panel.float-left
   - if team.team_members_count <= 1
     .hint.center-element
-      This team has no members yet.
+      This team has no members yet
       %br/
       Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
   = render partial: '/teams/team_member', collection: team_members, as: :team_member, locals: { team: }

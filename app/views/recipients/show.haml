@@ -2,7 +2,7 @@
 
 = turbo_stream_from(recipient)
 
-.box-panel.float-left
+.panel
   .detailed-box-container
     .detailed-box-title-row
       .detailed-box-title= recipient.name
@@ -11,6 +11,5 @@
     = turbo_frame_tag(recipient) do
       = render "recipients/recipient_options", recipient:
 
-.box-panel.float-left
-  = turbo_frame_tag("ideas", class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
-    = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient: }
+= turbo_frame_tag("ideas", class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
+  = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient: }
