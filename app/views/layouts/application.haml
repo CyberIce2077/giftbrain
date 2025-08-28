@@ -28,7 +28,7 @@
       = link_to("/") do
         = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
       .box-title= link_to("GiftBrain", "/")
-      %button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
+      %button#menu-button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
         ☰ Menu
     #sidebar-backdrop.sidebar-backdrop{ data: { controller: "sidebar", action: "click->sidebar#invisible" } }
     #sidebar.sidebar{ data: { controller: "sidebar", action: "click->sidebar#visible" } }

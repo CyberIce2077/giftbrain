@@ -1,4 +1,5 @@
-.box-container
-  %div{ data: { controller: "calendar", turbo_stream: true }, id: "calendar" }
-  .hint.center-elements Recurring events are automatically moved to next year after their date passes
-= turbo_frame_tag("recipients")
+.panel
+  .box-container
+    %div{ data: { controller: "calendar", turbo_stream: true }, id: "calendar" }
+    .hint.center-elements Recurring events are automatically moved to next year after their date passes
+  = turbo_frame_tag("recipients")
