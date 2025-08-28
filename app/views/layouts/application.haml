@@ -24,13 +24,13 @@
   %body.main-layout
     = turbo_frame_tag('flash')
     = render('layouts/confirm')
-    .header{ data: {  } }
+    .header
       = link_to("/") do
         = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
       .box-title= link_to("GiftBrain", "/")
       %button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
         ☰ Menu
-    #sidebar.sidebar
-      = render('layouts/sidebar')
-    #content.content
-      = yield
+    #sidebar-backdrop.sidebar-backdrop{ data: { controller: "sidebar", action: "click->sidebar#invisible" } }
+    #sidebar.sidebar{ data: { controller: "sidebar", action: "click->sidebar#visible" } }
+      = render("layouts/sidebar")
+    #content.content= yield

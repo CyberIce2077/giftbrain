@@ -2,15 +2,19 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="sidebar"
 export default class extends Controller {
-  connect() {
-    this.visible()
-  }
-
   visible() {
-    document.getElementById("sidebar").classList.add("visible")
+    const sidebar = document.getElementById("sidebar")
+    const backdrop = document.getElementById("sidebar-backdrop")
+
+    sidebar.classList.add("visible")
+    backdrop.classList.add("visible")
   }
 
   invisible() {
-    document.getElementById("sidebar").classList.remove("visible")
+    const sidebar = document.getElementById("sidebar")
+    const backdrop = document.getElementById("sidebar-backdrop")
+
+    sidebar.classList.remove("visible")
+    backdrop.classList.remove("visible")
   }
 }
