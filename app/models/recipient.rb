@@ -18,6 +18,7 @@ class Recipient < ApplicationRecord
 
   scope :repeat_annually, -> { where(repeat_annually: true) }
   scope :with_subscribed_creator, -> { joins(:creator).merge(User.subscribed) }
+  scope :with_teams, -> { includes(:team) }
 
   def editable?
     draft_status? || failed_status? || success_status?

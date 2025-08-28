@@ -6,9 +6,11 @@ class RecipientsController < ApplicationController
 
     recipients = policy_scope(Recipient).page(params[:page]).order(id: :desc)
 
+    teams = policy_scope(Team).where(recipient: recipients.map(&:id))
+
     @toogle_menu = recipients.blank?
 
-    render "recipients/index", locals: { recipients: }
+    render "recipients/index", locals: { recipients:, teams: }
   end
 
   def show
@@ -16,8 +18,9 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     ideas =  policy_scope(recipient.ideas).order("recipient_ideas.priority ASC")
+    team = recipient.team
 
-    render "recipients/show", locals: { recipient:, ideas: }
+    render "recipients/show", locals: { recipient:, ideas:, team: }
   end
 
   def new

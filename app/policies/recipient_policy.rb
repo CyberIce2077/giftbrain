@@ -1,7 +1,13 @@
 class RecipientPolicy < ApplicationPolicy
-  class Scope < ApplicationPolicy::Scope
+  class Scope < RecipientPolicy::Scope
     def resolve
-      scope.where(creator: user)
+      scope.where(creator: user).or(scope.where(id: team_accepted_scope.pluck(:recipient_id)))
+    end
+
+    private
+
+    def team_accepted_scope
+      TeamPolicy::AcceptedScope.new(user, Team).resolve
     end
   end
 
@@ -22,6 +28,8 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def edit?
+    return unless user == record.creator
+
     exists? && record.editable?
   end
 
@@ -34,6 +42,6 @@ class RecipientPolicy < ApplicationPolicy
   end
 
   def generate_ideas?
-    edit? && record.recipient_ideas_count < Idea::MAX_IDEA_COUNT
+    exists? && record.editable? && record.recipient_ideas_count < Idea::MAX_IDEA_COUNT
   end
 end

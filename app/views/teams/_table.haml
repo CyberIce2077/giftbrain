@@ -1,1 +1,2 @@
-= render partial: '/teams/tr', collection: teams, as: :team
+-# locals: (teams:, team_members:)
+= render partial: '/teams/tr', collection: teams, as: :team, locals: { team_members: }

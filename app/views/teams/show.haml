@@ -11,12 +11,9 @@
         = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
       - if policy(team).destroy?
         = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+    - if team.team_members_count == 1
+      .hint.center-element Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
 
 .box-panel.float-left
-  - if team.team_members_count <= 1
-    .hint.center-element
-      This team has no members yet
-      %br/
-      Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
   = render partial: '/teams/team_member', collection: team_members, as: :team_member, locals: { team: }
   = paginate team_members

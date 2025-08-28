@@ -5,6 +5,12 @@ class TeamPolicy < ApplicationPolicy
     end
   end
 
+  class AcceptedScope < TeamPolicy::Scope
+    def resolve
+      super.where(team_members: { status: :accepted })
+    end
+  end
+
   def index?
     user
   end

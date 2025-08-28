@@ -1,1 +1,2 @@
-= render partial: '/recipients/tr', collection: recipients, as: :recipient
+-# locals: (recipients:, teams:, remote: true)
+= render partial: '/recipients/tr', collection: recipients, as: :recipient, locals: { teams:, remote: }

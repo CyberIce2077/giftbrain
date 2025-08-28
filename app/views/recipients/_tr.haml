@@ -1,8 +1,9 @@
--# locals: (recipient:)
+-# locals: (recipient:, teams:, team: teams.find { |t| t.recipient_id == recipient.id }, remote: true)
 .box-container
   .detailed-box-title-row
     .detailed-box-title= recipient.name
-    - if policy(recipient).show?
-      = link_to('Show', [recipient], data: { turbo: false }, class: "detailed-box-back-button")
+    - if team
+      = link_to("Team", [team], data: { turbo: remote }, class: "detailed-box-back-button")
+    = link_to("Show", [recipient], data: { turbo: false }, class: "detailed-box-back-button")
   .progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
     .progress-bar{ data: { progress_target: "bar" } }

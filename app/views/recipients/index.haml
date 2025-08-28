@@ -1,3 +1,4 @@
+-# locals: (recipients:, teams:)
 - if current_user
   - if @toogle_menu
     .hint.center-element
@@ -7,7 +8,7 @@
       - if policy(Recipient).new?
         = link_to("click here", [:new, :recipient])
   - else
-    = render "/recipients/table", recipients:
+    = render "/recipients/table", recipients:, teams:
     = paginate recipients
 - else
   .box-container
