@@ -1,4 +1,4 @@
--# locals: (team:, team_members:, team_member: team_members.find { |tm| tm.user_id == current_user.id })
+-# locals: (team:, team_members:, team_member: team_members.find { |tm| tm.user_id == current_user.id && tm.team_id == team.id })
 .box-container
   .detailed-box-title-row
     .detailed-box-title= team.name
