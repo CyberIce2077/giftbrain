@@ -9,10 +9,10 @@
   = render '/recipients/table', recipients:
 - else
   .box-container
-    %h1 Welcome to GiftBrain
-    %p
-      GiftBrain is your smart AI-powered assistant for finding the perfect gift.
-      Simply log in and start describing who you're buying for — we'll handle the rest.
-    %p
-      Want to learn more?
-      %a{ href: about_path } Check out how it works.
+    .box-title Welcome to GiftBrain
+    %p GiftBrain is your smart AI-powered assistant for finding the perfect gift
+    %p Simply #{link_to("log in", new_user_session_path, data: { turbo: false })}, to get started
+    %p Describe who you're buying for and GiftBrain will generate personalized ideas
+    %p Want to decide as a group? You can create teams, invite others, and vote together for the best gift ideas
+    %p We'll handle the rest!
+    %p Want to learn more? #{link_to("Check out how it works", about_path)}

@@ -25,7 +25,7 @@
   gap: 10px;
   background-color: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar {
@@ -33,7 +33,7 @@
   grid-area: sidebar;
   background-color: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: max-width 0.5s ease;
   overflow: hidden;
 }
@@ -52,7 +52,7 @@
 .sidebar-close-button {
   display: none;
   position: absolute;
-  top: 0.5em;
+  top: 0.2em;
   right: 0.5em;
   background: none;
   border: none;
@@ -71,10 +71,6 @@
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 99;
-}
-
-.sidebar-backdrop.visible {
-  display: block;
 }
 
 @media screen and (max-width: 700px) {
@@ -107,6 +103,20 @@
 
   .sidebar-container {
     width: 85%;
+  }
+
+  .sidebar-backdrop.visible {
+    display: block;
+  }
+
+  .sidebar-scrollable {
+    padding-top: 0.5em;
+  }
+
+  .sidebar-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
 }
 
