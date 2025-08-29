@@ -4,16 +4,16 @@
 .box-options
   .sidebar-scrollable
     .sidebar-container
-      - if policy(Recipient).new?
-        = link_to("New Chat", [:new, :recipient], class: "is-button")
-      - if policy(:home).calendar?
-        = link_to("Calendar", "/calendar", class: "is-button")
-      - if policy(Team).index?
-        = link_to("Teams", [:teams], class: "is-button")
       - if policy(Recipient).index?
-        = link_to("Home", "/", data: { turbo: false }, class: "is-button")
+        = link_to("Home", "/", data: { turbo: false }, class: "is-button #{'active' if current_page?('/')}")
+      - if policy(Recipient).new?
+        = link_to("New Chat", [:new, :recipient], class: "is-button #{'active' if current_page?(new_recipient_path)}")
+      - if policy(:home).calendar?
+        = link_to("Calendar", "/calendar", class: "is-button #{'active' if current_page?('/calendar')}")
+      - if policy(Team).index?
+        = link_to("Teams", [:teams], class: "is-button #{'active' if current_page?(teams_path)}")
       - if policy(:home).about?
-        = link_to("About", "/about", class: "is-button")
+        = link_to("About", "/about", class: "is-button #{'active' if current_page?('/about')}")
   .sidebar-bottom
     %hr/
     .sidebar-container
