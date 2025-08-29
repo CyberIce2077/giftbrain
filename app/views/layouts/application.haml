@@ -33,4 +33,6 @@
     #sidebar-backdrop.sidebar-backdrop{ data: { controller: "sidebar", action: "click->sidebar#invisible" } }
     #sidebar.sidebar{ data: { controller: "sidebar", action: "click->sidebar#visible" } }
       = render("layouts/sidebar")
-    #content.content= yield
+    #content.content
+      .content-panel
+        = yield

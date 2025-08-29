@@ -20,7 +20,7 @@
 }
 
 .header {
-  margin: 0 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
   grid-area: header;
   display: flex;
   justify-content: center;
@@ -46,6 +46,11 @@
   height: 100%;
   grid-area: content;
   overflow-y: scroll;
+}
+
+.content-panel {
+  width: 90%;
+  margin: auto;
 }
 
 .sidebar-container {
