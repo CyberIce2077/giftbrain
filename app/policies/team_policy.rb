@@ -28,7 +28,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def edit?
-    user == record.recipient.creator
+    user == record.creator
   end
 
   def update?

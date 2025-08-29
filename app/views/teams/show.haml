@@ -1,4 +1,4 @@
--# locals: (team:, recipient: team.recipient, team_members:, back_url: request.referer || root_path)
+-# locals: (team:, recipient:, team_members:, back_url: request.referer || root_path)
 .box-panel.float-left
   .detailed-box-container
     .detailed-box-title-row
@@ -7,13 +7,15 @@
     %hr/
     .box-options
       - if policy(team).edit?
-        = link_to('Edit', [:edit, recipient, team], class: 'is-button')
-        = link_to("Add Member", [:new, team, :team_member], class: 'is-button')
+        = link_to("Edit", [:edit, recipient, team], class: "is-button")
+      - if policy(team.team_members.build).new?
+        = link_to("Add Member", [:new, team, :team_member], class: "is-button")
+      = link_to("Recipient", [recipient], class: "is-button")
       - if policy(team).destroy?
-        = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')
+        = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
     - if team.team_members_count == 1
       .hint.center-element Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
 
 .box-panel.float-left
-  = render partial: '/teams/team_member', collection: team_members, as: :team_member, locals: { team: }
+  = render partial: "/teams/team_member", collection: team_members, as: :team_member, locals: { team: }
   = paginate team_members

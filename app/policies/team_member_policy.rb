@@ -12,14 +12,14 @@ class TeamMemberPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    user == record.creator
   end
 
   def create?
-    true
+    new?
   end
 
   def destroy?
-    record.user != record.recipient.creator
+    record.permitted_to_destroy?(user)
   end
 end

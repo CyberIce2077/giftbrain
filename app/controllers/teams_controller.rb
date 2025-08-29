@@ -15,7 +15,9 @@ class TeamsController < ApplicationController
     team_members =
       policy_scope(team.team_members).page(params[:page]).order(id: :desc)
 
-    render "teams/show", locals: { team:, team_members: }
+    recipient = team.recipient
+
+    render "teams/show", locals: { team:, team_members:, recipient: }
   end
 
   def destroy

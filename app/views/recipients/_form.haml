@@ -1,33 +1,34 @@
 -# locals: (recipient:, back_url: request.referer || root_path)
-.box-container
-  .box-title Describe the target
-  %hr/
-  = form_with model: recipient, data: { turbo: false } do |f|
-    .center-elements
-      = f.label :name, "Name"
-      = f.text_field :name, maxlength: 50, class: "is-input"
+.panel
+  .box-container
+    .box-title Describe the recipient
     %hr/
+    = form_with model: recipient, data: { turbo: false } do |f|
+      .center-elements
+        = f.label :name, "Name"
+        = f.text_field :name, maxlength: 50, class: "is-input"
+      %hr/
 
-    = f.label :event_date, "Event Date"
-    = f.hidden_field :event_date, id: "event-date-input"
-    %div{ data: { controller: "calendar", start_year: recipient.event_date&.year || nil, start_month: recipient.event_date&.month || nil }, id: "calendar" }
-    %hr/
+      = f.label :event_date, "Event Date"
+      = f.hidden_field :event_date, id: "event-date-input"
+      %div{ data: { controller: "calendar", start_year: recipient.event_date&.year || nil, start_month: recipient.event_date&.month || nil }, id: "calendar" }
+      %hr/
 
-    = f.label :description, "Description"
-    = f.text_area :description, maxlength: 300, class: "is-textarea", placeholder: "Tell us more about this target - their interests, background, or anything that will help generate better ideas"
-    %hr/
+      = f.label :description, "Description"
+      = f.text_area :description, maxlength: 300, class: "is-textarea", placeholder: "Tell us more about this recipient - their interests, background, or anything that will help generate better ideas"
+      %hr/
 
-    = f.check_box :repeat_annually
-    = f.label :repeat_annually, "Repeat every year"
-    %hr/
+      = f.check_box :repeat_annually
+      = f.label :repeat_annually, "Repeat every year"
+      %hr/
 
-    = f.label :reminders, "Reminders"
-    %br/
-    = f.fields_for :reminders, recipient.reminders.sort_by { |r| Reminder.kinds[r.kind] } do |rf|
-      = rf.check_box :active
-      = rf.hidden_field :kind
-      = rf.label :active, rf.object.kind.humanize.capitalize
-    %hr/
+      = f.label :reminders, "Reminders"
+      %br/
+      = f.fields_for :reminders, recipient.reminders.sort_by { |r| Reminder.kinds[r.kind] } do |rf|
+        = rf.check_box :active
+        = rf.hidden_field :kind
+        = rf.label :active, rf.object.kind.humanize.capitalize
+      %hr/
 
-    = f.submit "Save", class: 'is-button'
-    = link_to("Cancel", back_url)
+      = f.submit "Save", class: "is-button"
+      = link_to("Cancel", back_url)
