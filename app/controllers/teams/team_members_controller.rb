@@ -10,7 +10,6 @@ module Teams
 
     def create
       team = find_team
-      # TODO: Add error message for when user is not found
       user = User.find_by(email: team_member_params[:email])
       team_member = team.team_members.build(user:)
       authorize(team_member)
