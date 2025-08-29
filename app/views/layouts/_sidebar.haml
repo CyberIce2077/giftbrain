@@ -11,7 +11,7 @@
       - if policy(Team).index?
         = link_to("Teams", [:teams], class: "is-button")
       - if policy(Recipient).index?
-        = link_to("Home", "/", class: "is-button")
+        = link_to("Home", "/", data: { turbo: false }, class: "is-button")
       - if policy(:home).about?
         = link_to("About", "/about", class: "is-button")
   .sidebar-bottom
