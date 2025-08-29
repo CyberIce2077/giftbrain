@@ -1,0 +1,10 @@
+-# locals: (team:, team_member:)
+= turbo_frame_tag(team_member) do
+  .box-container
+    .detailed-box-title-row
+      .detailed-box-title= team_member.user.email
+    %hr/
+    .box-options
+      Status: #{team_member.status.humanize}
+      - if team_member.permitted_to_destroy?(current_user)
+        = button_to("Delete", [team_member], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'is-button')

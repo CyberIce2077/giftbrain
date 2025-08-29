@@ -73,7 +73,7 @@ module Ideas
       recipient.broadcast_update_to(
         recipient,
         target: recipient,
-        partial: "/recipients/recipient",
+        partial: "/recipients/recipient_options",
         locals: { recipient: }
       )
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_26_123749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
     t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "ideas_count", default: 0, null: false
+    t.integer "recipient_ideas_count", default: 0, null: false
     t.date "event_date"
     t.integer "generation_duration", default: 0, null: false
     t.boolean "repeat_annually", default: true, null: false
@@ -57,6 +57,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
     t.index ["discarded_at"], name: "index_reminders_on_discarded_at"
     t.index ["recipient_id", "kind"], name: "index_reminders_on_recipient_id_and_kind", unique: true
     t.index ["recipient_id"], name: "index_reminders_on_recipient_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id", "user_id"], name: "index_team_members_on_team_id_and_user_id", unique: true
+    t.index ["team_id"], name: "index_team_members_on_team_id"
+    t.index ["user_id"], name: "index_team_members_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.string "name"
+    t.integer "team_members_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_teams_on_recipient_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,4 +107,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_19_125749) do
   add_foreign_key "recipient_ideas", "recipients"
   add_foreign_key "recipients", "users", column: "creator_id"
   add_foreign_key "reminders", "recipients"
+  add_foreign_key "team_members", "teams"
+  add_foreign_key "team_members", "users"
+  add_foreign_key "teams", "recipients"
 end

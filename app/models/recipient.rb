@@ -5,6 +5,9 @@ class Recipient < ApplicationRecord
   has_many :recipient_ideas, dependent: :destroy
   has_many :ideas, through: :recipient_ideas
   has_many :reminders, dependent: :destroy
+  has_one :team, dependent: :destroy
+  has_many :team_members, through: :team
+
   accepts_nested_attributes_for :reminders, allow_destroy: false
 
   validates :name, :description, :event_date, presence: true
@@ -15,21 +18,10 @@ class Recipient < ApplicationRecord
 
   scope :repeat_annually, -> { where(repeat_annually: true) }
   scope :with_subscribed_creator, -> { joins(:creator).merge(User.subscribed) }
+  scope :with_teams, -> { includes(:team) }
 
   def editable?
     draft_status? || failed_status? || success_status?
-  end
-
-  def increment_ideas_count!
-    update!(ideas_count: ideas_count + 1)
-  end
-
-  def decrement_ideas_count!
-    update!(ideas_count: ideas_count - 1) if ideas_count > 0
-  end
-
-  def reset_ideas_count!
-    update!(ideas_count: recipient_ideas.count)
   end
 
   def estimated_generation

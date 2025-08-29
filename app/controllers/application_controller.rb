@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: %i[about]
   before_action :verify_turnstile!, only: :create, if: :devise_controller?
 
-  rate_limit to: 10, within: 3.minutes, only: :create
+  rate_limit to: 10, within: 3.minutes, only: :create if Rails.env.production?
 
   include Pundit::Authorization
 

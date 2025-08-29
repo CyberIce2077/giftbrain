@@ -1,0 +1,13 @@
+-# locals: (team:, recipient:, back_url: request.referer || root_path)
+.panel
+  .box-container
+    .box-title Team
+    %hr/
+    = form_with model: [recipient, team], data: { turbo: false } do |f|
+      .center-elements
+        = f.label :name, "Name"
+        = f.text_field :name, maxlength: 50, class: "is-input"
+      %hr/
+
+      = f.submit "Save", class: 'is-button'
+      = link_to("Cancel", back_url)

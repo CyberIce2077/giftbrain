@@ -23,8 +23,6 @@ module Ideas
       reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
       reorder_service.call
 
-      recipient.reset_ideas_count!
-
       success!
     rescue StandardError => e
       errors.add(:base, e.message)

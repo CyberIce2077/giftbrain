@@ -1,7 +1,0 @@
-.box-container.center-element
-  .box
-    Unsubscribe from all events?
-    %br/
-    You will stop receiving emails about all future events
-    - if params[:ut].present?
-      = button_to("Unsubscribe", unsubscribe_index_path, params: { ut: params[:ut] }, data: { turbo_stream: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")

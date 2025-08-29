@@ -1,12 +1,10 @@
 .box-container.center-element
-  .box
-    .box-title= "Hello, #{@user.email} !"
-    .box-description
-      %p= "This is a reminder that #{event_due_date(@reminder)}".humanize
-      %p= "You can check the event for '#{@recipient.name}' #{link_to("here", [@recipient])}"
-      %p= "Event date: #{@recipient.event_date}"
-  .box
-    .hint
-      %a(href="https://giftbrain.app") GiftBrain
-      |
-      = link_to("Unsubscribe", unsubscribe_index_url({ ut: @user.unsubscribe_token }))
+  .box-title= "Hello, #{@user.email} !"
+  .box-description
+    %p= "This is a reminder that #{event_due_date(@reminder)}".humanize
+    %p= "You can check the event for '#{@recipient.name}' #{link_to("here", [@recipient])}"
+    %p= "Event date: #{@recipient.event_date}"
+  .hint
+    = link_to("GiftBrain", root_url)
+    |
+    = link_to("Unsubscribe", users_unsubscribe_index_url(ut: @user.unsubscribe_token))

@@ -1,0 +1,8 @@
+-# locals: (team:, team_members:, team_member: team_members.find { |tm| tm.user_id == current_user.id && tm.team_id == team.id })
+.box-container
+  .detailed-box-title-row
+    .detailed-box-title= team.name
+    - if team_member.accepted_status?
+      = link_to('Show', [team], class: "detailed-box-back-button")
+    - elsif team_member.pending_status?
+      = link_to("Open invitation", [:invitations, team], class: "detailed-box-back-button")

@@ -1,0 +1,7 @@
+.center-element
+  .box-title You've been invited to join "#{team.name}"
+  .box-description
+    Do you want to accept this invitation and become part of the team?
+  .center-elements
+    = button_to("Accept", [:invitations, :accept, team], method: :patch, data: { turbo_stream: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
+    = button_to("Decline", [:invitations, :decline, team], method: :patch, data: { turbo_stream: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")

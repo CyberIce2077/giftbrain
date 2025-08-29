@@ -4,11 +4,13 @@ class RecipientsController < ApplicationController
   def index
     authorize(Recipient)
 
-    recipients = policy_scope(Recipient).order(id: :desc)
+    recipients = policy_scope(Recipient).page(params[:page]).order(id: :desc)
+
+    teams = policy_scope(Team).where(recipient: recipients.map(&:id))
 
     @toogle_menu = recipients.blank?
 
-    render "recipients/index", locals: { recipients: }
+    render "recipients/index", locals: { recipients:, teams: }
   end
 
   def show
@@ -16,8 +18,9 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     ideas =  policy_scope(recipient.ideas).order("recipient_ideas.priority ASC")
+    team = recipient.team
 
-    render "recipients/show", locals: { recipient:, ideas: }
+    render "recipients/show", locals: { recipient:, ideas:, team: }
   end
 
   def new
@@ -60,6 +63,10 @@ class RecipientsController < ApplicationController
     authorize(recipient)
 
     if recipient.update(recipient_params)
+      if recipient.saved_change_to_event_date?
+        recipient.reminders.find_each(&:restore!)
+      end
+
       flash[:notice] = "Updated successfully"
 
       redirect_to [recipient]
@@ -76,11 +83,13 @@ class RecipientsController < ApplicationController
 
     if recipient.destroy
       flash[:notice] = "Deleted successfully"
+
+      redirect_to recipients_url
     else
       flash[:warning] = recipient.errors.full_messages.to_sentence
-    end
 
-    redirect_to [:recipients]
+      redirect_to [recipient]
+    end
   end
 
   def generate_ideas

@@ -1,0 +1,6 @@
+-# locals: (teams:, team_members:)
+- if teams.blank?
+  .hint.center-elements You haven't created any teams yet
+- else
+  = render "teams/table", teams:, team_members:
+  = paginate teams
