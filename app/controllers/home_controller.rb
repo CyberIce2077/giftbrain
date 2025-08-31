@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!, except: %i[about]
+
   def about
     authorize :home
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_26_123749) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_31_152917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -76,6 +76,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_26_123749) do
     t.integer "team_members_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "public_join", default: false, null: false
+    t.string "public_token", null: false
+    t.index ["public_token"], name: "index_teams_on_public_token", unique: true
     t.index ["recipient_id"], name: "index_teams_on_recipient_id", unique: true
   end
 

@@ -9,5 +9,10 @@
         = f.text_field :name, maxlength: 50, class: "is-input"
       %hr/
 
+      = f.check_box :public_join
+      = f.label :public_join, "Allow public joining"
+      .hint This option allows anyone with the link to join the team
+      %hr/
+
       = f.submit "Save", class: 'is-button'
       = link_to("Cancel", back_url)

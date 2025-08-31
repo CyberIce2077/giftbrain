@@ -6,7 +6,8 @@
     = form_with model: [team, team_member], data: { turbo: false } do |f|
       .center-elements
         = f.label :email, "Email"
-        = f.text_field :email, maxlength: 50, class: "is-input", placeholder: "example@domain.com"
+        = f.email_field :email, maxlength: 50, class: "is-input", placeholder: "example@domain.com"
+      .hint Only registered users can be invited to a team
       %hr/
 
       = f.submit "Send invite", class: 'is-button'

@@ -61,7 +61,7 @@ module Recipients
     end
 
     def team_attrs
-      %i[name]
+      %i[name public_join]
     end
   end
 end

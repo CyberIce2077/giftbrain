@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   # allow_browser versions: :modern
 
-  before_action :authenticate_user!, except: %i[about]
+  before_action :authenticate_user!
   before_action :verify_turnstile!, only: :create, if: :devise_controller?
 
   rate_limit to: 10, within: 3.minutes, only: :create if Rails.env.production?

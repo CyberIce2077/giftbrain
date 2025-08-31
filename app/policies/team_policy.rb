@@ -12,7 +12,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def index?
-    user
+    true
   end
 
   def show?
@@ -41,6 +41,10 @@ class TeamPolicy < ApplicationPolicy
 
   def invitations?
     member_of_team?(:pending)
+  end
+
+  def public_join?
+    record.public_join?
   end
 
   def accept?
