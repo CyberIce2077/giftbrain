@@ -56,6 +56,14 @@ class RecipientsController < ApplicationController
     recipient.build_recipient
 
     render "recipients/edit", locals: { recipient: }
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Editing will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def update
@@ -75,6 +83,14 @@ class RecipientsController < ApplicationController
 
       render "recipients/edit", locals: { recipient: }
     end
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Editing will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def destroy
@@ -90,6 +106,14 @@ class RecipientsController < ApplicationController
 
       redirect_to [recipient]
     end
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Deleting will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def generate_ideas

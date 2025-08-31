@@ -7,18 +7,17 @@
     .detailed-box-title-row
       .detailed-box-title= recipient.name
       = link_to("Back", back_url, data: { turbo: false }, class: "detailed-box-back-button")
+    %hr/
     .box-description= recipient.description
-    .box-options
-      - if policy(recipient).edit?
-        = link_to("Edit", [:edit, recipient], class: "is-button", data: { turbo: false })
+    .center-elements
+      = link_to("Edit", [:edit, recipient], class: "is-button", data: { turbo: false })
       - if team
         = link_to("Team", [team], class: "is-button", data: { turbo: false })
       - else
-        = link_to("Convert to team", [:new, recipient, :team], class: "is-button", data: { turbo: false })
-      - if policy(recipient).destroy?
-        = button_to("Delete", [recipient], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
-      = turbo_frame_tag(recipient) do
-        = render "recipients/recipient_options", recipient:
+        = link_to("Convert to a team", [:new, recipient, :team], class: "is-button", data: { turbo: false })
+      = button_to("Delete", [recipient], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
+  = turbo_frame_tag(recipient) do
+    = render "recipients/recipient_options", recipient:
 
 = turbo_frame_tag("ideas", class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
   = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient: }

@@ -1,6 +1,6 @@
 .box-panel.float-left
   .box-container
     %div{ data: { controller: "calendar", turbo_stream: true }, id: "calendar" }
-    .hint.center-elements Recurring events are automatically moved to next year after their date passes
+    .hint.center-elements Events set to repeat are automatically moved to next year
 .box-panel.float-left
   = turbo_frame_tag("recipients")

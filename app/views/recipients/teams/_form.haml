@@ -1,7 +1,7 @@
 -# locals: (team:, recipient:, back_url: request.referer || root_path)
 .panel
   .box-container
-    .box-title Team
+    .box-title Convert to a Team
     %hr/
     = form_with model: [recipient, team], data: { turbo: false } do |f|
       .center-elements
