@@ -12,7 +12,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    user
   end
 
   def show?
