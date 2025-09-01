@@ -13,4 +13,23 @@ module ApplicationHelper
 
     "Event is coming after #{reminder.kind}!".humanize
   end
+
+  def progress_bar(target)
+    content_tag(
+      :div,
+      class: "progress-container",
+      data: {
+        controller: "progress",
+        progress_status_value: target.status,
+        progress_duration_value: target.estimated_generation
+      }
+    ) do
+      content_tag(
+        :div,
+        "",
+        class: "progress-bar #{{"processing" => "green", "finishing" => "green", "success" => "green", "failed" => "red"}[target.status]}",
+        data: { progress_target: "bar" }
+      )
+    end
+  end
 end

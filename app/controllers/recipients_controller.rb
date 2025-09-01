@@ -123,10 +123,7 @@ class RecipientsController < ApplicationController
     recipient.pending_status!
     ::Ideas::GeneratorJob.perform_later(recipient)
 
-    respond_to do |format|
-      format.html { redirect_to [recipient] }
-      format.turbo_stream { render "recipients/generate_ideas", locals: { recipient: } }
-    end
+    render "recipients/generate_ideas", locals: { recipient: }
   end
 
   private

@@ -8,7 +8,7 @@
     .center-elements
       - if policy(team).edit?
         = link_to("Edit", [:edit, recipient, team], class: "is-button")
-      = link_to("Person", [recipient], class: "is-button")
+      = link_to("Recipient", [recipient], class: "is-button")
       - if policy(team).destroy?
         = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
     .box-options

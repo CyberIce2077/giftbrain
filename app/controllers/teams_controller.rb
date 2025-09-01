@@ -96,12 +96,4 @@ class TeamsController < ApplicationController
   def find_team
     policy_scope(Team).find(params[:id])
   end
-
-  def team_params
-    params.require(:team).permit(team_attrs)
-  end
-
-  def team_attrs
-    %i[name]
-  end
 end
