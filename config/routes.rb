@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     member do
       get :invitations
       get :public_join
+      get :copy_public_link
       patch "invitations/accept", to: "teams#accept"
       patch "invitations/decline", to: "teams#decline"
     end

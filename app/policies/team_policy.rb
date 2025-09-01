@@ -47,6 +47,10 @@ class TeamPolicy < ApplicationPolicy
     record.public_join?
   end
 
+  def copy_public_link?
+    public_join?
+  end
+
   def accept?
     invitations?
   end

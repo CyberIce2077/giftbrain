@@ -7,7 +7,12 @@
       .center-elements
         = f.label :email, "Email"
         = f.email_field :email, maxlength: 50, class: "is-input", placeholder: "example@domain.com"
-      .hint Only registered users can be invited to a team
+      .hint
+        %p Only registered users can be invited to the team
+        - if team.public_join?
+          %p You can copy the link and share it with anyone from #{link_to("here", [:copy_public_link, team])}
+        - else
+          %p You can enable public join and share the link with anyone from #{link_to("here", [:edit, team.recipient, team])}
       %hr/
 
       = f.submit "Send invite", class: 'is-button'

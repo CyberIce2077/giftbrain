@@ -6,15 +6,15 @@
   .box-container
     .detailed-box-title-row
       .detailed-box-title= recipient.name
-      = link_to("Back", back_url, data: { turbo: false }, class: "detailed-box-back-button")
+      = link_to("Back", back_url, class: "detailed-box-back-button")
     %hr/
     .box-description= recipient.description
     .center-elements
-      = link_to("Edit", [:edit, recipient], class: "is-button", data: { turbo: false })
+      = link_to("Edit", [:edit, recipient], class: "is-button")
       - if team
-        = link_to("Team", [team], class: "is-button", data: { turbo: false })
+        = link_to("Team", [team], class: "is-button")
       - else
-        = link_to("Convert to a team", [:new, recipient, :team], class: "is-button", data: { turbo: false })
+        = link_to("Convert to a team", [:new, recipient, :team], class: "is-button")
       = button_to("Delete", [recipient], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
   = turbo_frame_tag(recipient) do
     = render "recipients/recipient_options", recipient:

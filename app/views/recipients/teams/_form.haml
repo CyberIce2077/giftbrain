@@ -1,4 +1,4 @@
--# locals: (team:, recipient:, back_url: request.referer || root_path)
+-# locals: (team:, recipient:, back_url: team.persisted? ?  team : recipient)
 .panel
   .box-container
     .box-title Convert to a Team
@@ -14,5 +14,10 @@
       .hint This option allows anyone with the link to join the team
       %hr/
 
+      - if policy(team).copy_public_link?
+        .box-options
+          = link_to("Copy public link", [:copy_public_link, team], class: "is-button")
+          %hr/
+
       = f.submit "Save", class: 'is-button'
-      = link_to("Cancel", back_url)
+      = link_to("Cancel", [back_url])

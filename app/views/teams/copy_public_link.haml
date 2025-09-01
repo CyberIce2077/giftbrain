@@ -1,0 +1,10 @@
+-# locals: (team:, back_url: request.referer || root_path, url: public_join_team_url(team.public_token))
+
+.box-container
+  .detailed-box-title-row
+    .detailed-box-title= team.name
+    = link_to("Back", back_url, class: "detailed-box-back-button")
+  .center-elements
+    %input#copyInput.is-input(type="text" value="#{url}" readonly)
+    %button{ data: { controller: "copy", action: "click->copy#click" }, class: "is-button" } Copy
+  .hint.center-elements Copy and share this link to allow others to join

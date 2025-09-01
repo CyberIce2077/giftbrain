@@ -52,9 +52,21 @@ class TeamsController < ApplicationController
     team = Team.public_join.find_by!(public_token: params[:id])
     authorize(team)
 
+    if team.team_members.exists?(user: current_user)
+      flash[:warning] = "You have already joined this team"
+      redirect_to [:teams] and return
+    end
+
     team.team_members.create!(user: current_user)
 
     redirect_to [:invitations, team]
+  end
+
+  def copy_public_link
+    team = find_team
+    authorize(team)
+
+    render "teams/copy_public_link", locals: { team: }
   end
 
   def accept
