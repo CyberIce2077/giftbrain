@@ -1,0 +1,6 @@
+-# locals(user:)
+.panel
+  .box-container.center-element
+    .box-title Unsubscribe from all events?
+    .hint You will stop receiving emails about all future events
+    = button_to("Unsubscribe", users_unsubscribe_path(user.unsubscribe_token), method: :patch, data: { turbo_stream: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")

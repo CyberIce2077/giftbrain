@@ -7,4 +7,4 @@
   .hint
     = link_to("GiftBrain", root_url)
     |
-    = link_to("Unsubscribe", users_unsubscribe_index_url(ut: @user.unsubscribe_token))
+    = link_to("Unsubscribe", edit_users_unsubscribe_url(@user.unsubscribe_token))

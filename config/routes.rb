@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :users do
-    resources :unsubscribe, only: %i[index create]
+    resources :unsubscribe, only: %i[edit update], param: :unsubscribe_token
   end
 
   resources :teams, only: %i[index show destroy] do

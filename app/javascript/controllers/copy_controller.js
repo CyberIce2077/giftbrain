@@ -10,7 +10,7 @@ export default class extends Controller {
 
     navigator.clipboard.writeText(copyText.value);
 
-    this.showFlash("Link copied!");
+    this.showFlash("Link copied");
   }
 
   showFlash(message) {
