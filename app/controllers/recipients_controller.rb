@@ -17,10 +17,11 @@ class RecipientsController < ApplicationController
     recipient = find_recipient
     authorize(recipient)
 
+    recipient_ideas = recipient.recipient_ideas
     ideas =  policy_scope(recipient.ideas).order("recipient_ideas.priority ASC")
     team = recipient.team
 
-    render "recipients/show", locals: { recipient:, ideas:, team: }
+    render "recipients/show", locals: { recipient:, ideas:, recipient_ideas:, team: }
   end
 
   def new

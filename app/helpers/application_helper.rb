@@ -1,4 +1,6 @@
 module ApplicationHelper
+  AMAZON_AFFILIATE_TAG = "giftbrain0a-20".freeze
+
   def turnstile_widget
     return unless Rails.env.production?
 
@@ -31,5 +33,9 @@ module ApplicationHelper
         data: { progress_target: "bar" }
       )
     end
+  end
+
+  def amazon_search_url(idea)
+    "https://www.amazon.com/s?k=#{ERB::Util.url_encode(idea.name)}&tag=#{AMAZON_AFFILIATE_TAG}"
   end
 end

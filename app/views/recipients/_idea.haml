@@ -1,15 +1,10 @@
--# locals: (idea:, recipient:, recipient_idea: recipient.recipient_ideas.find { |i| i.idea_id == idea.id })
-- amazon_search_url = "https://www.amazon.com/s?k=#{ERB::Util.url_encode(idea.name)}"
-- etsy_search_url   = "https://www.etsy.com/search?q=#{ERB::Util.url_encode(idea.name)}"
-- aliexpress_search_url = "https://www.aliexpress.com/wholesale?SearchText=#{ERB::Util.url_encode(idea.name)}"
+-# locals: (idea:, recipient:, recipient_ideas:, recipient_idea: recipient_ideas.find { |i| i.idea_id == idea.id })
 
 = turbo_frame_tag(idea, data: { idea_id: idea.id }) do
   .idea-box.scale-in
     = button_to("x", [recipient_idea], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'idea-remove-button')
     .idea-name= idea.name
     .idea-links
-      = link_to "Amazon", amazon_search_url, target: "_blank", rel: "noopener"
+      = link_to("Amazon", amazon_search_url(idea), target: "_blank", rel: "noopener")
       |
-      = link_to "Etsy", etsy_search_url, target: "_blank", rel: "noopener"
-      |
-      = link_to "AliExpress", aliexpress_search_url, target: "_blank", rel: "noopener"
+      Coming soon

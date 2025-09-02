@@ -1,4 +1,4 @@
--# locals: (recipient:, ideas:, team:, back_url: request.referer || root_path)
+-# locals: (recipient:, ideas:, team:, recipient_ideas:, back_url: request.referer || root_path)
 
 = turbo_stream_from(recipient)
 
@@ -20,4 +20,4 @@
     = render "recipients/recipient_options", recipient:
 
 = turbo_frame_tag("ideas", class: "idea-wrapper", data: { controller: "sortable", recipient_id: recipient.id }) do
-  = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient: }
+  = render partial: "/recipients/idea", collection: ideas, as: :idea, locals: { recipient:, recipient_ideas: }
