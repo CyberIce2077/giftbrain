@@ -10,8 +10,7 @@
       %hr/
 
       = f.label :event_date, "Event Date"
-      = f.hidden_field :event_date, id: "event-date-input"
-      %div{ data: { controller: "calendar", start_year: recipient.event_date&.year || nil, start_month: recipient.event_date&.month || nil }, id: "calendar" }
+      = f.date_field :event_date, class: "is-input"
       %hr/
 
       = f.label :description, "Description"
