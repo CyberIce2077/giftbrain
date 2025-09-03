@@ -12,6 +12,8 @@ class HomeController < ApplicationController
 
     recipients =
       policy_scope(Recipient).where(event_date: date.beginning_of_month..date.end_of_month)
+                             .page(params[:page])
+                             .order(event_date: :asc)
     teams = policy_scope(Team).where(recipient: recipients)
 
     render "home/calendar", locals: { date:, recipients:, teams: }

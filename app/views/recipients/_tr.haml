@@ -1,7 +1,7 @@
 -# locals: (recipient:, teams:, team: teams.find { |t| t.recipient_id == recipient.id })
 .box-container
   .detailed-box-title-row
-    .detailed-box-title= "#{recipient.event_date.day} #{I18n.t('date.abbr_month_names')[recipient.event_date.month]} | #{recipient.name}"
+    .detailed-box-title= "#{recipient.event_date.strftime("%d")} #{I18n.t('date.abbr_month_names')[recipient.event_date.month]} | #{recipient.name}"
     - if team
       = link_to("Team", [team], class: "detailed-box-back-button")
     = link_to("Show", [recipient], class: "detailed-box-back-button")
