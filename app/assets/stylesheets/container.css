@@ -147,24 +147,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .box-panel {
-    width: 100%;
-  }
-}
-
 .ai-container {
   padding: 0.5em;
   margin: 0.5em;
@@ -183,21 +165,48 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: conic-gradient(
-    from var(--ai-glow-angle, 0deg),
-    #8b5cf6,
-    #f43f5e,
-    #22d3ee,
-    #a78bfa,
-    #f472b6,
-    #8b5cf6
-  );
+  background: conic-gradient(from var(--ai-glow-angle, 0deg),
+      #8b5cf6,
+      #f43f5e,
+      #22d3ee,
+      #a78bfa,
+      #f472b6,
+      #8b5cf6);
   filter: brightness(1) saturate(2);
   animation: aiGlowPulse 2s ease-in-out infinite alternate;
 }
 
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @keyframes aiGlowPulse {
-  0%   { opacity: 0.62; filter: blur(24px) brightness(1.2) saturate(1.8);}
-  50%  { opacity: 0.75; filter: blur(34px) brightness(1.5) saturate(2.4);}
-  100% { opacity: 0.62; filter: blur(24px) brightness(1.2) saturate(1.8);}
+  0% {
+    opacity: 0.62;
+    filter: blur(24px) brightness(1.2) saturate(1.8);
+  }
+
+  50% {
+    opacity: 0.75;
+    filter: blur(34px) brightness(1.5) saturate(2.4);
+  }
+
+  100% {
+    opacity: 0.62;
+    filter: blur(24px) brightness(1.2) saturate(1.8);
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .box-panel {
+    width: 100%;
+  }
 }
