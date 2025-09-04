@@ -6,5 +6,9 @@
       = link_to("<", url_for(date: date.last_month), class: "detailed-box-back-button")
       = link_to("Today", url_for(date: Time.zone.now.to_date), class: "detailed-box-back-button")
       = link_to(">", url_for(date: date.next_month), class: "detailed-box-back-button")
-  = render '/recipients/table', recipients:, teams:
-  = paginate recipients
+  - if recipients.blank?
+    .hint.center-element
+      No events found for this month
+  - else
+    = render '/recipients/table', recipients:, teams:
+    = paginate recipients
