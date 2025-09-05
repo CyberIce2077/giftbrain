@@ -12,9 +12,9 @@ module Ideas
       data.each do |json_idea|
         idea = Idea.find_or_create_by(name: json_idea["name"])
 
-        recipient_idea =
-          RecipientIdea.create!(recipient:, idea:, affiliate_links: build_affiliate_links(idea))
+        recipient_idea = RecipientIdea.create!(recipient:, idea:)
 
+        ::RecipientIdeas::GenerateAffiliateLinksJob.perform_later(recipient_idea)
         update_ideas_view(idea, recipient_idea)
       rescue ActiveRecord::RecordInvalid => e
         next
@@ -39,15 +39,6 @@ module Ideas
         partial: "/recipients/idea",
         locals: { idea:, recipient:, recipient_ideas: [recipient_idea] }
       )
-    end
-
-    def build_affiliate_links(idea)
-      service = Affiliate::Aliexpress::ProductsService.new(idea.name)
-      service.call
-
-      return { aliexpress: service.data } if service.success?
-
-      {}
     end
   end
 end

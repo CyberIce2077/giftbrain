@@ -1,11 +1,9 @@
 -# locals: (idea:, recipient:, recipient_ideas:, recipient_idea: recipient_ideas.find { |i| i.idea_id == idea.id })
-
 = turbo_frame_tag(idea, data: { idea_id: idea.id }) do
   .idea-box.scale-in
     = button_to("x", [recipient_idea], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'idea-remove-button')
     .idea-name= idea.name
     .idea-links
       = link_to("Amazon", amazon_search_url(idea), target: "_blank", rel: "noopener")
-      - recipient_idea.affiliate_links.each do |key, value|
-        |
-        = link_to(key.titleize, value, target: "_blank", rel: "noopener")
+      = turbo_frame_tag(recipient_idea) do
+        = render "recipients/idea_affiliate_links", recipient_idea:

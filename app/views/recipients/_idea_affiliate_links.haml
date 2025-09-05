@@ -1,0 +1,4 @@
+-# locals: (recipient_idea:)
+- recipient_idea.affiliate_links.each do |key, value|
+  |
+  = link_to(key.titleize, value, target: "_blank", rel: "noopener")
