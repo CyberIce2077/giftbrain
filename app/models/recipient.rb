@@ -24,12 +24,6 @@ class Recipient < ApplicationRecord
     draft_status? || failed_status? || success_status?
   end
 
-  def estimated_generation
-    return AVERAGE_GENERATE_DURATION if generation_duration.zero?
-
-    generation_duration
-  end
-
   def build_recipient
     Reminder.kinds.each_key do |kind|
       next if reminders.any? { |r| r.kind == kind.to_s }

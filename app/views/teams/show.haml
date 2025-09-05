@@ -16,8 +16,6 @@
         = link_to("Copy public link", [:copy_public_link, team], class: "is-button")
       - if policy(team.team_members.build).new?
         = link_to("Add Member", [:new, team, :team_member], class: "is-button")
-  - if team.team_members_count == 1
-    .hint.center-elements Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
 
 .box-panel.float-left
   = render partial: "/teams/team_member", collection: team_members, as: :team_member, locals: { team: }

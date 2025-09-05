@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_05_090254) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_05_102616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,7 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_05_090254) do
     t.datetime "updated_at", null: false
     t.integer "recipient_ideas_count", default: 0, null: false
     t.date "event_date"
-    t.integer "generation_duration", default: 0, null: false
     t.boolean "repeat_annually", default: true, null: false
     t.index ["creator_id"], name: "index_recipients_on_creator_id"
     t.index ["event_date"], name: "index_recipients_on_event_date"
@@ -74,7 +73,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_05_090254) do
   create_table "teams", force: :cascade do |t|
     t.bigint "recipient_id", null: false
     t.string "name"
-    t.integer "team_members_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "public_join", default: false, null: false

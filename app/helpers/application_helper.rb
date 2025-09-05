@@ -23,7 +23,7 @@ module ApplicationHelper
       data: {
         controller: "progress",
         progress_status_value: target.status,
-        progress_duration_value: target.estimated_generation
+        progress_duration_value: target.class::AVERAGE_GENERATE_DURATION
       }
     ) do
       content_tag(

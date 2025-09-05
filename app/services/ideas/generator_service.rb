@@ -16,7 +16,6 @@ module Ideas
     end
 
     def call
-      start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
       update_recipient_view(:processing)
 
       AI_SERVICES.each do |ai_service|
@@ -34,8 +33,6 @@ module Ideas
         raise GenerationError, create_service.errors.full_messages.to_sentence
       end
 
-      end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-      recipient.generation_duration = (end_time - start_time).to_i
       update_recipient_view(:success)
 
       success!
