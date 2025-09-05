@@ -28,7 +28,7 @@
     = render('layouts/confirm')
     .header
       = link_to("/", data: { turbo: false }) do
-        = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
+        = image_tag("logo.jpeg", alt: "Logo", class: "nav-logo")
       .box-title= link_to("GiftBrain", "/", data: { turbo: false })
       %button#menu-button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
         ☰ Menu
