@@ -6,5 +6,6 @@
     .idea-name= idea.name
     .idea-links
       = link_to("Amazon", amazon_search_url(idea), target: "_blank", rel: "noopener")
-      |
-      Coming soon
+      - recipient_idea.affiliate_links.each do |key, value|
+        |
+        = link_to(key.titleize, value, target: "_blank", rel: "noopener")

@@ -1,7 +1,10 @@
 module Affiliate
   module Aliexpress
     class ProductsService < BaseService
+      class PromotionLinkError < StandardError; end
+
       URL = "https://api-sg.aliexpress.com/sync".freeze
+
       attr_reader :keywords
 
       def initialize(keywords)
@@ -10,12 +13,37 @@ module Affiliate
       end
 
       def call
-        result = HTTP.get("#{URL}?#{URI.encode_www_form(build_params)}")
+        response = HTTP.get("#{URL}?#{URI.encode_www_form(build_params)}")
 
-        puts result.body.to_s
+        promotion_link = parse_response(response).dig(0, "promotion_link")
+
+        validate_promotion_link!(promotion_link)
+
+        @data = promotion_link
+
+        success!
+      rescue StandardError => e
+        errors.add(:base, e.message)
+        log_error(e)
       end
 
       private
+
+      def validate_promotion_link!(promotion_link)
+        raise PromotionLinkError, "Promotion link is missing" if promotion_link.blank?
+
+        unless promotion_link.start_with?("https://s.click.aliexpress.com")
+          raise PromotionLinkError, "Promotion link is invalid"
+        end
+      end
+
+      def parse_response(response)
+        JSON.parse(response.body.to_s).dig("aliexpress_affiliate_product_query_response",
+                                           "resp_result",
+                                           "result",
+                                           "products",
+                                           "product")
+      end
 
       def build_params
         params = {
@@ -42,7 +70,7 @@ module Affiliate
           sign_params += v.to_s
         end
 
-        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), app_secret, sign_params).upcase
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), app_secret, sign_params).upcase
       end
 
       def app_key

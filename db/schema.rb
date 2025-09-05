@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_152917) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_05_090254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_152917) do
     t.integer "priority", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "affiliate_links", default: {}, null: false
     t.index ["idea_id"], name: "index_recipient_ideas_on_idea_id"
     t.index ["recipient_id", "idea_id"], name: "index_recipient_ideas_on_recipient_id_and_idea_id", unique: true
     t.index ["recipient_id"], name: "index_recipient_ideas_on_recipient_id"

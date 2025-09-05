@@ -7,8 +7,6 @@ module  Ai
         def call
           super
 
-          raise UnpermittedModelError if Rails.env.development?
-
           response = HTTP.headers("Content-Type" => "application/json")
                          .headers("Authorization" => "Bearer #{api_key}")
                          .post(URL, json:
