@@ -1,7 +1,11 @@
 class BaseService
   GENERAL_ERROR_MESSAGE = "Something went wrong!"
 
-  def initialize(*attrs); end
+  attr_accessor :data
+
+  def initialize(*attrs)
+    @data = {}
+  end
 
   def call
     raise StandardError

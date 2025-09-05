@@ -1,6 +1,6 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :data
+    attr_reader :recipient
 
     def initialize(recipient, data)
       super
@@ -36,7 +36,7 @@ module Ideas
         recipient,
         target: "ideas",
         partial: "/recipients/idea",
-        locals: { idea:, recipient:, recipient_idea: }
+        locals: { idea:, recipient:, recipient_ideas: [recipient_idea] }
       )
     end
   end

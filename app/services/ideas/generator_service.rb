@@ -13,7 +13,6 @@ module Ideas
     def initialize(recipient)
       super
       @recipient = recipient
-      @data = {}
     end
 
     def call

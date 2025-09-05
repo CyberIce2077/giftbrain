@@ -19,12 +19,10 @@ module Ai
     ].freeze
 
     attr_reader :recipient
-    attr_accessor :data
 
     def initialize(recipient)
       super
       @recipient = recipient
-      @data = {}
     end
 
     def call
