@@ -8,7 +8,7 @@ module RecipientIdeas
     end
 
     def call
-      service = Affiliate::Aliexpress::ProductsService.new(recipient_idea.name)
+      service = Affiliate::Aliexpress::GenerateAffiliateLinkService.new(recipient_idea.name)
       service.call
 
       if service.success?

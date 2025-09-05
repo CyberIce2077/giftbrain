@@ -1,6 +1,6 @@
 module Affiliate
   module Aliexpress
-    class ProductsService < BaseService
+    class GenerateAffiliateLinkService < BaseService
       class PromotionLinkError < StandardError; end
 
       URL = "https://api-sg.aliexpress.com/sync".freeze
