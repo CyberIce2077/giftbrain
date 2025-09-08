@@ -1,7 +1,8 @@
 class TeamPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.joins(:team_members).where(team_members: { user: })
+      # scope.joins(:team_members).where(team_members: { user: })
+      scope.none
     end
   end
 
@@ -12,7 +13,8 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def index?
-    user
+    # user
+    false
   end
 
   def show?
