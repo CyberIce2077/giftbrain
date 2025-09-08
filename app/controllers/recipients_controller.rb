@@ -138,6 +138,6 @@ class RecipientsController < ApplicationController
   end
 
   def recipient_attrs
-    [:name, :description, :event_date, :repeat_annually, reminders_attributes: [:id, :kind, :active]]
+    [:name, :description, :event_date, :repeat_annually, :ship_to_country, reminders_attributes: [:id, :kind, :active]]
   end
 end

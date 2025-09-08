@@ -5,17 +5,18 @@ module Affiliate
 
       URL = "https://api-sg.aliexpress.com/sync".freeze
 
-      attr_reader :keywords
+      attr_reader :keywords, :ship_to_country
 
-      def initialize(keywords)
+      def initialize(keywords, ship_to_country = "US")
         super
         @keywords = keywords
+        @ship_to_country = ship_to_country
       end
 
       def call
         response = HTTP.get("#{URL}?#{URI.encode_www_form(build_params)}")
 
-        promotion_link = parse_response(response).dig(0, "promotion_link")
+        promotion_link = parse_response(response)
 
         validate_promotion_link!(promotion_link)
 
@@ -42,13 +43,16 @@ module Affiliate
                                            "resp_result",
                                            "result",
                                            "products",
-                                           "product")
+                                           "product",
+                                           0,
+                                           "promotion_link")
       end
 
       def build_params
         params = {
           "method" => "aliexpress.affiliate.product.query",
           "keywords" => keywords,
+          "ship_to_country" => ship_to_country,
           "page_size" => 1,
           "sign_method" => "sha256",
           "app_key" => app_key,

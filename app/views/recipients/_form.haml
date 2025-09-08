@@ -22,6 +22,11 @@
       .hint This option is perfect for birthdays, anniversaries and other yearly traditions
       %hr/
 
+      = f.label :ship_to_country, "Ship to Country"
+      = f.select :ship_to_country, options_for_select(countries_for_select, recipient.new_record? ? current_user_country : recipient.ship_to_country), class: "is-input"
+      .hint Select the country where gifts will be shipped
+      %hr/
+
       = f.label :reminders, "Reminders"
       %br/
       = f.fields_for :reminders, recipient.reminders.sort_by { |r| Reminder.kinds[r.kind] } do |rf|

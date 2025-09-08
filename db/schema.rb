@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_05_102616) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_143754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_05_102616) do
     t.integer "recipient_ideas_count", default: 0, null: false
     t.date "event_date"
     t.boolean "repeat_annually", default: true, null: false
+    t.string "ship_to_country", default: "US", null: false
     t.index ["creator_id"], name: "index_recipients_on_creator_id"
     t.index ["event_date"], name: "index_recipients_on_event_date"
   end

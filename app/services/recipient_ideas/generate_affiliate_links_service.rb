@@ -8,7 +8,7 @@ module RecipientIdeas
     end
 
     def call
-      service = Affiliate::Aliexpress::GenerateAffiliateLinkService.new(recipient_idea.name)
+      service = aliexpress_affiliate_service.new(recipient_idea.name, recipient_idea.ship_to_country)
       service.call
 
       @data = service.data
@@ -32,6 +32,10 @@ module RecipientIdeas
         partial: "/recipients/idea_affiliate_links",
         locals: { recipient_idea: }
       )
+    end
+
+    def aliexpress_affiliate_service
+      Affiliate::Aliexpress::GenerateAffiliateLinkService
     end
   end
 end
