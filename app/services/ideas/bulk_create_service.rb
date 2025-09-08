@@ -24,6 +24,8 @@ module Ideas
       reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
       reorder_service.call
 
+      recipient.update_recipient_view(:success)
+
       success!
     rescue StandardError => e
       errors.add(:base, e.message)

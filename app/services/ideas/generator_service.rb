@@ -16,30 +16,22 @@ module Ideas
     end
 
     def call
-      update_recipient_view(:processing)
+      recipient.update_recipient_view(:processing)
 
       AI_SERVICES.each do |ai_service|
         break if ai_request { ai_service }
       end
 
-      raise GenerationError, "Data is empty" if @data.empty?
+      validate_data_presence!
 
-      update_recipient_view(:finishing)
-
-      create_service = Ideas::BulkCreateService.new(recipient, @data)
-      create_service.call
-
-      unless create_service.success?
-        raise GenerationError, create_service.errors.full_messages.to_sentence
-      end
-
-      update_recipient_view(:success)
+      recipient.update_recipient_view(:finishing)
+      ::Ideas::BulkCreateJob.perform_later(recipient, @data)
 
       success!
     rescue StandardError => e
       errors.add(:base, e.message)
       log_error(e)
-      update_recipient_view(:failed)
+      recipient.update_recipient_view(:failed)
     end
 
     private
@@ -52,26 +44,6 @@ module Ideas
 
       @data = service.data
       service.success?
-    end
-
-    def update_recipient_view(status)
-      case status
-      when :processing
-        recipient.processing_status!
-      when :finishing
-        recipient.finishing_status!
-      when :success
-        recipient.success_status!
-      when :failed
-        recipient.failed_status!
-      end
-
-      recipient.broadcast_update_to(
-        recipient,
-        target: recipient,
-        partial: "/recipients/recipient_options",
-        locals: { recipient: }
-      )
     end
   end
 end

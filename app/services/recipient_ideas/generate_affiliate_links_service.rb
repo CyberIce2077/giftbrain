@@ -11,10 +11,11 @@ module RecipientIdeas
       service = Affiliate::Aliexpress::GenerateAffiliateLinkService.new(recipient_idea.name)
       service.call
 
-      if service.success?
-        recipient_idea.update!(affiliate_links: { aliexpress: service.data })
-        update_idea_view
-      end
+      @data = service.data
+      validate_data_presence!
+
+      recipient_idea.update!(affiliate_links: { aliexpress: service.data })
+      update_idea_view
 
       success!
     rescue StandardError => e

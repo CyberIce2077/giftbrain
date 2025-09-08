@@ -6,7 +6,7 @@ module Ideas
       service = ::Ideas::GeneratorService.new(recipient)
       service.call
 
-      raise UnsuccessfulServiceError unless service.success?
+      validate_successful_service!(service)
     end
   end
 end
