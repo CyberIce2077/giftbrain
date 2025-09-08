@@ -24,17 +24,31 @@ class Recipient < ApplicationRecord
     draft_status? || failed_status? || success_status?
   end
 
-  def estimated_generation
-    return AVERAGE_GENERATE_DURATION if generation_duration.zero?
-
-    generation_duration
-  end
-
   def build_recipient
     Reminder.kinds.each_key do |kind|
       next if reminders.any? { |r| r.kind == kind.to_s }
 
       reminders.build(kind:, active: %w[same_day one_month].include?(kind))
     end
+  end
+
+  def update_recipient_view(status)
+    case status
+    when :processing
+      processing_status!
+    when :finishing
+      finishing_status!
+    when :success
+      success_status!
+    when :failed
+      failed_status!
+    end
+
+    broadcast_update_to(
+      self,
+      target: self,
+      partial: "/recipients/recipient_options",
+      locals: { recipient: self }
+    )
   end
 end

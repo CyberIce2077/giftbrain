@@ -1,7 +1,13 @@
 class BaseService
+  class EmptyDataError < StandardError; end
+
   GENERAL_ERROR_MESSAGE = "Something went wrong!"
 
-  def initialize(*attrs); end
+  attr_accessor :data
+
+  def initialize(*attrs)
+    @data = {}
+  end
 
   def call
     raise StandardError
@@ -29,6 +35,10 @@ class BaseService
 
   def success!
     @success = true
+  end
+
+  def validate_data_presence!
+    raise EmptyDataError, "Data is empty" if data.blank?
   end
 
   private

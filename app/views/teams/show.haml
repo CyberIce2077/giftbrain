@@ -1,20 +1,21 @@
 -# locals: (team:, recipient:, team_members:, back_url: request.referer || root_path)
 .box-panel.float-left
-  .detailed-box-container
+  .box-container
     .detailed-box-title-row
       .detailed-box-title= team.name
       = link_to("Back", back_url, class: "detailed-box-back-button")
     %hr/
-    .box-options
+    .center-elements
       - if policy(team).edit?
         = link_to("Edit", [:edit, recipient, team], class: "is-button")
-      - if policy(team.team_members.build).new?
-        = link_to("Add Member", [:new, team, :team_member], class: "is-button")
       = link_to("Recipient", [recipient], class: "is-button")
       - if policy(team).destroy?
         = button_to("Delete", [team], method: :delete, data: { turbo: false, controller: "confirm", action: "click->confirm#click" }, class: "is-button")
-    - if team.team_members_count == 1
-      .hint.center-element Click #{link_to("Add Member", [:new, team, :team_member])} to invite someone
+    .box-options
+      - if policy(team).copy_public_link?
+        = link_to("Copy public link", [:copy_public_link, team], class: "is-button")
+      - if policy(team.team_members.build).new?
+        = link_to("Add Member", [:new, team, :team_member], class: "is-button")
 
 .box-panel.float-left
   = render partial: "/teams/team_member", collection: team_members, as: :team_member, locals: { team: }

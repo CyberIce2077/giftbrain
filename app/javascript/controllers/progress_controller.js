@@ -16,7 +16,6 @@ export default class extends Controller {
       this.setProgress(100)
     } else if (this.statusValue === "failed") {
       this.setProgress(100)
-      this.barElement.style.backgroundColor = "#e74c3c"
     } else {
       this.setProgress(0)
     }

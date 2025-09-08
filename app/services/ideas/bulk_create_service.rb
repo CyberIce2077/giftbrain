@@ -1,6 +1,6 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient, :data
+    attr_reader :recipient
 
     def initialize(recipient, data)
       super
@@ -14,6 +14,7 @@ module Ideas
 
         recipient_idea = RecipientIdea.create!(recipient:, idea:)
 
+        ::RecipientIdeas::GenerateAffiliateLinksJob.perform_later(recipient_idea)
         update_ideas_view(idea, recipient_idea)
       rescue ActiveRecord::RecordInvalid => e
         next
@@ -22,6 +23,8 @@ module Ideas
       ideas = recipient.ideas.order("recipient_ideas.priority ASC")
       reorder_service = RecipientIdeas::ReorderService.new(recipient, ideas.ids)
       reorder_service.call
+
+      recipient.update_recipient_view(:success)
 
       success!
     rescue StandardError => e
@@ -36,7 +39,7 @@ module Ideas
         recipient,
         target: "ideas",
         partial: "/recipients/idea",
-        locals: { idea:, recipient:, recipient_idea: }
+        locals: { idea:, recipient:, recipient_ideas: [recipient_idea] }
       )
     end
   end

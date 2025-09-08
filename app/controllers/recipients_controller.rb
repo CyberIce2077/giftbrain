@@ -17,10 +17,11 @@ class RecipientsController < ApplicationController
     recipient = find_recipient
     authorize(recipient)
 
+    recipient_ideas = recipient.recipient_ideas
     ideas =  policy_scope(recipient.ideas).order("recipient_ideas.priority ASC")
     team = recipient.team
 
-    render "recipients/show", locals: { recipient:, ideas:, team: }
+    render "recipients/show", locals: { recipient:, ideas:, recipient_ideas:, team: }
   end
 
   def new
@@ -56,6 +57,14 @@ class RecipientsController < ApplicationController
     recipient.build_recipient
 
     render "recipients/edit", locals: { recipient: }
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Editing will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def update
@@ -75,6 +84,14 @@ class RecipientsController < ApplicationController
 
       render "recipients/edit", locals: { recipient: }
     end
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Editing will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def destroy
@@ -90,6 +107,14 @@ class RecipientsController < ApplicationController
 
       redirect_to [recipient]
     end
+  rescue Pundit::NotAuthorizedError => e
+    if recipient.editable?
+      flash[:warning] = "Not authorized"
+    else
+      flash[:warning] = "The AI is thinking… Deleting will be unlocked once it's done!"
+    end
+
+    redirect_to [recipient]
   end
 
   def generate_ideas
@@ -99,10 +124,7 @@ class RecipientsController < ApplicationController
     recipient.pending_status!
     ::Ideas::GeneratorJob.perform_later(recipient)
 
-    respond_to do |format|
-      format.html { redirect_to [recipient] }
-      format.turbo_stream { render "recipients/generate_ideas", locals: { recipient: } }
-    end
+    render "recipients/generate_ideas", locals: { recipient: }
   end
 
   private
@@ -116,6 +138,6 @@ class RecipientsController < ApplicationController
   end
 
   def recipient_attrs
-    [:name, :description, :event_date, :repeat_annually, reminders_attributes: [:id, :kind, :active]]
+    [:name, :description, :event_date, :repeat_annually, :ship_to_country, reminders_attributes: [:id, :kind, :active]]
   end
 end

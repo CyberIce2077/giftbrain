@@ -1,5 +1,5 @@
 .is-button {
-  background-color: #f47c57; /* f24e1e */
+  background-color: #f47c57;
   color: #ffffff;
   text-decoration: none;
   font-size: 14px;
@@ -21,13 +21,6 @@
   display: block;
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.is-link {
-  color: #2d2d2d;
-  border: none;
-  text-decoration: none;
-  background-color: #ffffff00; /* f24e1e */
 }
 
 .is-textarea {
@@ -92,7 +85,7 @@
   box-sizing: border-box;
   color: #1f1f1f;
   cursor: pointer;
-  font-family: 'Roboto', arial, sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 14px;
   height: 40px;
   letter-spacing: 0.25px;
@@ -134,7 +127,7 @@
 .gsi-material-button .gsi-material-button-contents {
   -webkit-flex-grow: 1;
   flex-grow: 1;
-  font-family: 'Roboto', arial, sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;

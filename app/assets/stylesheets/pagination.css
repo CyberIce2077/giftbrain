@@ -27,3 +27,16 @@
   color: #88857f;
   pointer-events: none;
 }
+
+@media screen and (max-width: 426px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination a,
+  .pagination .page.current {
+    font-size: 1em;
+    width: 2em;
+    height: 2em;
+  }
+}

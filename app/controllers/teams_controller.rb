@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  rate_limit to: 10, within: 3.minutes, only: :public_join
+
   def index
     authorize(Team)
 
@@ -46,6 +48,27 @@ class TeamsController < ApplicationController
     redirect_to [:teams]
   end
 
+  def public_join
+    team = Team.public_join.find_by!(public_token: params[:id])
+    authorize(team)
+
+    if team.team_members.exists?(user: current_user)
+      flash[:warning] = "You have already joined this team"
+      redirect_to [:teams] and return
+    end
+
+    team.team_members.create!(user: current_user)
+
+    redirect_to [:invitations, team]
+  end
+
+  def copy_public_link
+    team = find_team
+    authorize(team)
+
+    render "teams/copy_public_link", locals: { team: }
+  end
+
   def accept
     team = find_team
     authorize(team)
@@ -72,13 +95,5 @@ class TeamsController < ApplicationController
 
   def find_team
     policy_scope(Team).find(params[:id])
-  end
-
-  def team_params
-    params.require(:team).permit(team_attrs)
-  end
-
-  def team_attrs
-    %i[name]
   end
 end

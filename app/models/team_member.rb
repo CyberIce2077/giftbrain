@@ -1,5 +1,5 @@
 class TeamMember < ApplicationRecord
-  belongs_to :team, counter_cache: true
+  belongs_to :team
   belongs_to :user
 
   has_one :recipient, through: :team

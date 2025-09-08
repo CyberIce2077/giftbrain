@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :users do
-    resources :unsubscribe, only: %i[index create]
+    resources :unsubscribe, only: %i[edit update], param: :unsubscribe_token
   end
 
   resources :teams, only: %i[index show destroy] do
@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
     member do
       get :invitations
+      get :public_join
+      get :copy_public_link
       patch "invitations/accept", to: "teams#accept"
       patch "invitations/decline", to: "teams#decline"
     end

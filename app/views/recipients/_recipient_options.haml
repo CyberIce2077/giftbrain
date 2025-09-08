@@ -1,12 +1,7 @@
 -# locals: (recipient:)
-- if recipient.editable?
-  - if recipient.recipient_ideas_count < Idea::MAX_IDEA_COUNT
-    = button_to("Generate new ideas", [:generate_ideas, recipient], method: :patch, class: "is-button")
-- else
-  .hint.center-elements Generating ideas may take a moment
-.progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
-  .progress-bar{ data: { progress_target: "bar" } }
-- if recipient.recipient_ideas_count > 0
-  .hint.center-elements You can now move and order the ideas
-- elsif recipient.editable?
-  .hint.center-elements No ideas yet. Tap "Generate new ideas" to get started!
+.ai-container
+  #ai-glow{ data: { controller: "ai-glow" } }
+  .box-options
+    - if recipient.editable? && recipient.recipient_ideas_count < Idea::MAX_IDEA_COUNT
+      = button_to("Generate new ideas", [:generate_ideas, recipient], method: :patch, class: "is-button")
+    = progress_bar(recipient)

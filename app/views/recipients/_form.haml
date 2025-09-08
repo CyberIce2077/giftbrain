@@ -1,7 +1,7 @@
 -# locals: (recipient:, back_url: request.referer || root_path)
 .panel
   .box-container
-    .box-title Describe the recipient
+    .box-title Describe the person
     %hr/
     = form_with model: recipient, data: { turbo: false } do |f|
       .center-elements
@@ -10,16 +10,21 @@
       %hr/
 
       = f.label :event_date, "Event Date"
-      = f.hidden_field :event_date, id: "event-date-input"
-      %div{ data: { controller: "calendar", start_year: recipient.event_date&.year || nil, start_month: recipient.event_date&.month || nil }, id: "calendar" }
+      = f.date_field :event_date, class: "is-input"
       %hr/
 
       = f.label :description, "Description"
-      = f.text_area :description, maxlength: 300, class: "is-textarea", placeholder: "Tell us more about this recipient - their interests, background, or anything that will help generate better ideas"
+      = f.text_area :description, maxlength: 300, class: "is-textarea", placeholder: "Tell us more about this person - their interests, background or anything that will help generate better ideas"
       %hr/
 
       = f.check_box :repeat_annually
       = f.label :repeat_annually, "Repeat every year"
+      .hint This option is perfect for birthdays, anniversaries and other yearly traditions
+      %hr/
+
+      = f.label :ship_to_country, "Ship to Country"
+      = f.select :ship_to_country, options_for_select(countries_for_select, recipient.new_record? ? current_user_country : recipient.ship_to_country), class: "is-input"
+      .hint Select the country where gifts will be shipped
       %hr/
 
       = f.label :reminders, "Reminders"
@@ -28,6 +33,7 @@
         = rf.check_box :active
         = rf.hidden_field :kind
         = rf.label :active, rf.object.kind.humanize.capitalize
+      .hint Choose when to receive reminder emails before the event
       %hr/
 
       = f.submit "Save", class: "is-button"

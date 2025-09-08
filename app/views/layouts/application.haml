@@ -17,6 +17,8 @@
     -# %link{ rel: "icon", href: "/icon.svg", type: "image/svg+xml" }
     %link{ rel: "apple-touch-icon", href: "/icon.png" }
 
+    %link{ rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" }
+
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
     %script{src: "https://challenges.cloudflare.com/turnstile/v0/api.js", async: true, defer: true}
@@ -25,12 +27,14 @@
     = turbo_frame_tag('flash')
     = render('layouts/confirm')
     .header
-      = link_to("/") do
-        = image_tag("logo.jpeg", alt: "Cover Media", class: "nav-logo")
-      .box-title= link_to("GiftBrain", "/")
+      = link_to("/", data: { turbo: false }) do
+        = image_tag("logo.jpeg", alt: "Logo", class: "nav-logo")
+      .box-title= link_to("GiftBrain", "/", data: { turbo: false })
       %button#menu-button{ data: { controller: "sidebar", action: "click->sidebar#visible" }, class: "is-button" }
         ☰ Menu
     #sidebar-backdrop.sidebar-backdrop{ data: { controller: "sidebar", action: "click->sidebar#invisible" } }
     #sidebar.sidebar{ data: { controller: "sidebar", action: "click->sidebar#visible" } }
       = render("layouts/sidebar")
-    #content.content= yield
+    #content.content
+      .content-panel
+        = yield

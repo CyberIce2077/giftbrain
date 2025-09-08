@@ -1,4 +1,6 @@
 module ApplicationHelper
+  AMAZON_AFFILIATE_TAG = "giftbrain0a-20".freeze
+
   def turnstile_widget
     return unless Rails.env.production?
 
@@ -12,5 +14,28 @@ module ApplicationHelper
     return "Event is today!" if reminder.same_day_kind?
 
     "Event is coming after #{reminder.kind}!".humanize
+  end
+
+  def progress_bar(target)
+    content_tag(
+      :div,
+      class: "progress-container",
+      data: {
+        controller: "progress",
+        progress_status_value: target.status,
+        progress_duration_value: target.class::AVERAGE_GENERATE_DURATION
+      }
+    ) do
+      content_tag(
+        :div,
+        "",
+        class: "progress-bar #{{"processing" => "green", "finishing" => "green", "success" => "green", "failed" => "red"}[target.status]}",
+        data: { progress_target: "bar" }
+      )
+    end
+  end
+
+  def amazon_search_url(idea)
+    "https://www.amazon.com/s?k=#{ERB::Util.url_encode(idea.name)}&tag=#{AMAZON_AFFILIATE_TAG}"
   end
 end

@@ -1,9 +1,8 @@
--# locals: (recipient:, teams:, team: teams.find { |t| t.recipient_id == recipient.id }, remote: true)
+-# locals: (recipient:, teams:, team: teams.find { |t| t.recipient_id == recipient.id })
 .box-container
   .detailed-box-title-row
-    .detailed-box-title= recipient.name
+    .detailed-box-title= "#{recipient.event_date.strftime("%d")} #{I18n.t('date.abbr_month_names')[recipient.event_date.month]} | #{recipient.name}"
     - if team
-      = link_to("Team", [team], data: { turbo: remote }, class: "detailed-box-back-button")
-    = link_to("Show", [recipient], data: { turbo: false }, class: "detailed-box-back-button")
-  .progress-container{ data: { controller: "progress", progress_status_value: recipient.status, progress_duration_value: recipient.estimated_generation } }
-    .progress-bar{ data: { progress_target: "bar" } }
+      = link_to("Team", [team], class: "detailed-box-back-button")
+    = link_to("Show", [recipient], class: "detailed-box-back-button")
+  = progress_bar(recipient)

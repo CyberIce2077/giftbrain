@@ -16,6 +16,14 @@ class ApplicationJob < ActiveJob::Base
     service = yield.new
     service.call
 
-    raise UnsuccessfulServiceError unless service.success?
+    validate_successful_service!(service)
+  end
+
+  private
+
+  def validate_successful_service!(service)
+    return if service.success?
+
+    raise UnsuccessfulServiceError, service.errors.full_messages.to_sentence
   end
 end
