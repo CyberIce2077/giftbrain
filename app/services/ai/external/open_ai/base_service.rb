@@ -7,6 +7,8 @@ module  Ai
         def call
           super
 
+          return demo_data if Rails.env.development?
+
           response = HTTP.headers("Content-Type" => "application/json")
                          .headers("Authorization" => "Bearer #{api_key}")
                          .post(URL, json:
@@ -36,6 +38,17 @@ module  Ai
 
         def api_key
           Rails.application.credentials.dig(:openai, :api_key)
+        end
+
+        def demo_data
+          @data = [
+            { "name" => "OpenAI demo response" },
+            { "name" => "Another demo response" },
+            { "name" => "Yet another demo response" },
+            { "name" => "One more demo response" },
+            { "name" => "Final demo response" }
+          ]
+          success!
         end
       end
     end
