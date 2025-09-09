@@ -1,20 +1,23 @@
 module RecipientIdeas
   class GenerateAffiliateLinksService < BaseService
-    attr_reader :recipient_idea
+    attr_reader :recipient_idea, :recipient, :idea
 
     def initialize(recipient_idea)
       super
       @recipient_idea = recipient_idea
+      @recipient = recipient_idea.recipient
+      @idea = recipient_idea.idea
     end
 
     def call
-      service = aliexpress_affiliate_service.new(recipient_idea.name, recipient_idea.ship_to_country)
+      service = aliexpress_affiliate_service.new(idea.name, recipient.ship_to_country)
       service.call
 
       @data = service.data
       validate_data_presence!
 
-      recipient_idea.update!(affiliate_links: { aliexpress: service.data })
+      idea.update!(image: @data["product_main_image_url"])
+      recipient_idea.update!(affiliate_links: { aliexpress: @data["promotion_link"] })
       update_idea_view
 
       success!
@@ -26,11 +29,11 @@ module RecipientIdeas
     private
 
     def update_idea_view
-      recipient_idea.broadcast_prepend_to(
-        recipient_idea.recipient,
-        target: recipient_idea,
-        partial: "/recipients/idea_affiliate_links",
-        locals: { recipient_idea: }
+      idea.broadcast_update_to(
+        recipient,
+        target: idea,
+        partial: "/recipients/idea",
+        locals: { idea:, recipient:, recipient_ideas: [recipient_idea] }
       )
     end
 

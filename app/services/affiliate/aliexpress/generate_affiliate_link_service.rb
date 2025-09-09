@@ -16,11 +16,11 @@ module Affiliate
       def call
         response = HTTP.get("#{URL}?#{URI.encode_www_form(build_params)}")
 
-        promotion_link = parse_response(response)
+        product_response = parse_response(response)
 
-        validate_promotion_link!(promotion_link)
+        validate_product_response!(product_response)
 
-        @data = promotion_link
+        @data = product_response
 
         success!
       rescue StandardError => e
@@ -30,22 +30,29 @@ module Affiliate
 
       private
 
-      def validate_promotion_link!(promotion_link)
-        raise PromotionLinkError, "Promotion link is missing" if promotion_link.blank?
+      def validate_product_response!(product_response)
+        raise PromotionLinkError, "Promotion link is missing" if product_response["promotion_link"].blank?
 
-        unless promotion_link.start_with?("https://s.click.aliexpress.com")
+        unless product_response["promotion_link"].start_with?("https://s.click.aliexpress.com")
           raise PromotionLinkError, "Promotion link is invalid"
         end
       end
 
       def parse_response(response)
-        JSON.parse(response.body.to_s).dig("aliexpress_affiliate_product_query_response",
-                                           "resp_result",
-                                           "result",
-                                           "products",
-                                           "product",
-                                           0,
-                                           "promotion_link")
+        result = JSON.parse(response.body.to_s)
+                     .dig("aliexpress_affiliate_product_query_response",
+                          "resp_result",
+                          "result",
+                          "products",
+                          "product",
+                          0)
+
+        return {} if result.nil?
+
+        {
+          "promotion_link" => result["promotion_link"],
+          "product_main_image_url" => result["product_main_image_url"]
+        }
       end
 
       def build_params

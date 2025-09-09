@@ -82,7 +82,7 @@
 .idea-box {
   background-color: #ffffff;
   width: 15em;
-  height: 5em;
+  min-height: 5em;
   border-radius: 20px;
   padding: 1em;
   margin: 0.5em;
@@ -134,8 +134,11 @@
   color: #e2633f;
 }
 
-.idea-links {
-  margin-top: 0.65em;
+.idea-image {
+  max-width: 100%;
+  max-height: 10em;
+  margin: 0.5em;
+  object-fit: contain;
 }
 
 .login-container {
