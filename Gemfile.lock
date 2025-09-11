@@ -463,6 +463,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  faraday
   geocoder
   haml
   http

@@ -54,4 +54,12 @@ Rails.application.routes.draw do
   end
 
   resources :team_members, only: %i[destroy]
+
+  namespace :affiliate do
+    namespace :aliexpress do
+      scope "/:recipient_idea_id" do
+        resources :products, only: :index
+      end
+    end
+  end
 end

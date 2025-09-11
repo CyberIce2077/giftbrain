@@ -13,8 +13,6 @@ module Ideas
         idea = Idea.find_or_create_by(name: json_idea["name"])
 
         recipient_idea = RecipientIdea.create!(recipient:, idea:)
-
-        ::RecipientIdeas::GenerateAffiliateLinksJob.perform_later(recipient_idea)
         update_ideas_view(idea, recipient_idea)
       rescue ActiveRecord::RecordInvalid => e
         next

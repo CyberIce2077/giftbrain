@@ -3,9 +3,7 @@
   .idea-box.scale-in
     = button_to("x", [recipient_idea], method: :delete, data: { turbo_stream: true, controller: "confirm", action: "click->confirm#click" }, class: 'idea-remove-button')
     .idea-name= idea.name
-    = image_tag(idea.image, class: "idea-image", referrerpolicy: 'no-referrer')
     %div
       = link_to("Amazon", amazon_search_url(idea), target: "_blank", rel: "noopener")
-      - recipient_idea.affiliate_links.each do |key, value|
-        |
-        = link_to(key.titleize, value, target: "_blank", rel: "noopener")
+      |
+      = link_to("Aliexpress", [:affiliate, :aliexpress, :products, recipient_idea_id: recipient_idea.id], data: { turbo_frame: "_top" })

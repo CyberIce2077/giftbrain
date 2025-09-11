@@ -1,0 +1,31 @@
+module Affiliate
+  module Aliexpress
+    class Product
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+
+      DATA_ATTRIBUTES = %i[product_id
+                           product_title
+                           promotion_link
+                           product_main_image_url].freeze
+
+      DATA_ATTRIBUTES.each do |attr|
+        attribute attr, :string
+      end
+
+      class << self
+        def build_from_response(data)
+          new.tap do |product|
+            DATA_ATTRIBUTES.each do |attr|
+              product.public_send("#{attr}=", data[attr.to_s])
+            end
+          end
+        end
+
+        def build_from_collection(data)
+          data.map { |item| build_from_response(item) }
+        end
+      end
+    end
+  end
+end

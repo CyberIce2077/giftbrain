@@ -35,7 +35,7 @@
 
   .pagination a,
   .pagination .page.current {
-    font-size: 1em;
+    font-size: 1.1em;
     width: 2em;
     height: 2em;
   }

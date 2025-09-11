@@ -1,0 +1,7 @@
+-# locals: (recipient:, products:)
+= render "recipients/tr", recipient:, show_text: "Back"
+
+.idea-wrapper
+  = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
+
+= paginate products

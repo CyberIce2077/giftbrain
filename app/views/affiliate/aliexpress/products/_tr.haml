@@ -1,0 +1,5 @@
+-# locals: (product:)
+= link_to(product.promotion_link, target: "_blank", rel: "noopener") do
+  .idea-box
+    .idea-name= product.product_title
+    = image_tag(product.product_main_image_url, class: "idea-image", referrerpolicy: 'no-referrer')
