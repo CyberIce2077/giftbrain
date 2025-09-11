@@ -4,23 +4,17 @@ module Affiliate
       class ListService < BaseService
         class ApiError < StandardError; end
 
-        URL = "https://api-sg.aliexpress.com/sync".freeze
+        attr_reader :recipient_idea, :page_no
 
-        attr_reader :keywords, :ship_to_country, :page_no
-
-        def initialize(keywords:, ship_to_country: "US", page_no: 1)
+        def initialize(recipient_idea, page_no = 1)
           super
-          @keywords = keywords
-          @ship_to_country = ship_to_country
+          @recipient_idea = recipient_idea
           @page_no = page_no
+          @data = { products: [], total_count: 0 }
         end
 
         def call
-          response = aliexpress_client.get do |r|
-            r.params = build_params
-          end
-
-          result = response.body
+          result = client.get(build_params).body
           validate_result!(result)
 
           result = result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result")
@@ -40,55 +34,24 @@ module Affiliate
         private
 
         def validate_result!(result)
+          raise ApiError, "Empty API response" unless result.is_a?(Hash)
+
           return if result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result", "products", "product").present?
 
           raise ApiError, "Invalid API response"
         end
 
-        def aliexpress_client
-          Faraday.new(URL) do |conn|
-            conn.response :json
-            conn.request :json
-            conn.adapter Faraday.default_adapter
-          end
-        end
-
         def build_params
-          params = {
+          {
             "method" => "aliexpress.affiliate.product.query",
-            "keywords" => keywords,
-            "ship_to_country" => ship_to_country,
-            "page_no" => page_no,
-            "page_size" => 20,
-            "sign_method" => "sha256",
-            "app_key" => app_key,
-            "timestamp" => (Time.now.to_f * 1000).to_i
+            "keywords" => recipient_idea.name,
+            "ship_to_country" => recipient_idea.ship_to_country,
+            "page_no" => page_no
           }
-
-          params["sign"] = encrypted_sign(params)
-
-          params
         end
 
-        def encrypted_sign(params)
-          sort_params = params.sort.to_h
-
-          sign_params = ""
-
-          sort_params.each do |k, v|
-            sign_params += k.to_s
-            sign_params += v.to_s
-          end
-
-          OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"), app_secret, sign_params).upcase
-        end
-
-        def app_key
-          Rails.application.credentials.dig(:affiliate, :aliexpress, :app_key)
-        end
-
-        def app_secret
-          Rails.application.credentials.dig(:affiliate, :aliexpress, :app_secret)
+        def client
+          ::Affiliate::AliexpressClient.new
         end
       end
     end

@@ -8,7 +8,7 @@ module Affiliate
         recipient_idea = find_recipient_idea
         recipient = recipient_idea.recipient
 
-        service = list_service.new(keywords: recipient_idea.name, ship_to_country: recipient.ship_to_country, page_no: params[:page] || 1)
+        service = list_service.new(recipient_idea, params[:page] || 1)
         service.call
 
         products = ::Affiliate::Aliexpress::Product.build_from_collection(service.data[:products])
