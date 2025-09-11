@@ -25,8 +25,8 @@ module Affiliate
 
           result = result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result")
 
-          products = result.dig("products", "product")
-          total_count = result.dig("total_record_count")
+          products = result.dig("products", "product").presence || []
+          total_count = result.dig("total_record_count").to_i
 
           @data = { products:, total_count: }
           validate_data_presence!
