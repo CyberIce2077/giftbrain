@@ -42,7 +42,7 @@ module  Ai
 
         def open_ai_client
           Faraday.new(URL) do |c|
-            c.headers['Authorization'] = "Bearer #{api_key}"
+            c.headers["Authorization"] = "Bearer #{api_key}"
             c.request :retry, interval: 0.05, interval_randomness: 0.5, backoff_factor: 2
             c.request :json
             c.response :json
