@@ -16,7 +16,6 @@ module Affiliate
           r.params[key] = value
         end
 
-        r.params["page_size"] = 50
         r.params["sign_method"] = "sha256"
         r.params["app_key"] = app_key
         r.params["timestamp"] = (Time.now.to_f * 1000).to_i

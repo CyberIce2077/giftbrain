@@ -14,17 +14,19 @@ module Affiliate
         end
 
         def call
-          result = client.get(build_params).body
-          validate_result!(result)
+          @data = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+            result = client.get(build_params).body
+            validate_result!(result)
 
-          result = result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result")
+            result = result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result")
 
-          products = result.dig("products", "product").presence || []
-          total_count = result.dig("total_record_count").to_i
+            products = result.dig("products", "product").presence || []
+            total_count = result.dig("total_record_count").to_i
 
-          @data = { products:, total_count: }
+            { products:, total_count: }
+          end
+
           validate_data_presence!
-
           success!
         rescue StandardError => e
           errors.add(:base, e.message)
@@ -46,8 +48,13 @@ module Affiliate
             "method" => "aliexpress.affiliate.product.query",
             "keywords" => recipient_idea.name,
             "ship_to_country" => recipient_idea.ship_to_country,
-            "page_no" => page_no
+            "page_no" => page_no,
+            "page_size" => 50
           }
+        end
+
+        def cache_key
+          "affiliate_aliexpress_products:#{recipient_idea.id}:#{page_no}"
         end
 
         def client
