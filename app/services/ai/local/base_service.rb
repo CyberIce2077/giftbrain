@@ -30,10 +30,10 @@ module Ai
       end
 
       def client
-        Faraday.new(url) do |conn|
-          conn.response :json
-          conn.request :json
-          conn.adapter Faraday.default_adapter
+        Faraday.new(url) do |c|
+          c.request :retry, interval: 0.05, interval_randomness: 0.5, backoff_factor: 2
+          c.request :json
+          c.response :json
         end
       end
 

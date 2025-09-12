@@ -2,16 +2,18 @@ module Affiliate
   class AliexpressClient
     URL = "https://api-sg.aliexpress.com/sync".freeze
 
+    attr_reader :connection
+
     def initialize
-      @connection = Faraday.new(URL) do |conn|
-        conn.response :json
-        conn.request :json
-        conn.adapter Faraday.default_adapter
+      @connection = Faraday.new(URL) do |c|
+        c.request :retry, interval: 0.05, interval_randomness: 0.5, backoff_factor: 2
+        c.request :json
+        c.response :json
       end
     end
 
     def get(params)
-      @connection.get do |r|
+      connection.get do |r|
         params.each do |key, value|
           r.params[key] = value
         end
