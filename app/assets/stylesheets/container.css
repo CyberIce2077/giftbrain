@@ -79,10 +79,6 @@
   justify-content: center;
 }
 
-.idea-wrapper a {
-  text-decoration: none;
-}
-
 .idea-box {
   background-color: #ffffff;
   width: 15em;
@@ -147,6 +143,16 @@
   max-height: 10em;
   margin: 0.5em;
   object-fit: contain;
+}
+
+.product-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-wrapper a {
+  text-decoration: none;
 }
 
 .old-price {

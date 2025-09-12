@@ -7,6 +7,6 @@
 - if products.empty?
   .hint.center-element No products found in Aliexpress for this idea
 - else
-  .idea-wrapper
+  .product-wrapper
     = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
   = paginate products
