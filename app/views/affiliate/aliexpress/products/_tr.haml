@@ -3,3 +3,10 @@
   .idea-box
     .idea-name= product.product_title
     = image_tag(product.product_main_image_url, class: "idea-image", referrerpolicy: 'no-referrer')
+    .center-elements
+      - if product.discount?
+        .discount -#{product.discount}
+        US #{product.app_sale_price}
+        .old-price #{product.original_price}
+      - else
+        US #{product.original_price}

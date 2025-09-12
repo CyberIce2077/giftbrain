@@ -4,10 +4,15 @@ module Affiliate
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      DATA_ATTRIBUTES = %i[product_id
-                           product_title
-                           promotion_link
-                           product_main_image_url].freeze
+      DATA_ATTRIBUTES = %i[
+        product_id
+        product_title
+        promotion_link
+        product_main_image_url
+        app_sale_price
+        original_price
+        discount
+      ].freeze
 
       DATA_ATTRIBUTES.each do |attr|
         attribute attr, :string
@@ -25,6 +30,10 @@ module Affiliate
         def build_from_collection(data)
           data.map { |item| build_from_response(item) }
         end
+      end
+
+      def discount?
+        discount != "0%"
       end
     end
   end

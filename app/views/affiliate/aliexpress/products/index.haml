@@ -2,7 +2,7 @@
 = render "recipients/tr", recipient:, show_text: "Back", show_turbo: false
 
 .hint.center-element
-  Ship to country: #{link_to(countries_for_select.invert[recipient.ship_to_country], [:edit, recipient])}
+  Ship to #{link_to(countries_for_select.invert[recipient.ship_to_country], [:edit, recipient])}
 
 - if products.empty?
   .hint.center-element No products found in Aliexpress for this idea

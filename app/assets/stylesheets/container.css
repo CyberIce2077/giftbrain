@@ -79,6 +79,10 @@
   justify-content: center;
 }
 
+.idea-wrapper a {
+  text-decoration: none;
+}
+
 .idea-box {
   background-color: #ffffff;
   width: 15em;
@@ -143,6 +147,19 @@
   max-height: 10em;
   margin: 0.5em;
   object-fit: contain;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #88857f;
+  font-size: 0.9em;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.discount {
+  color: #e74c3c;
+  font-weight: bold;
 }
 
 .login-container {
