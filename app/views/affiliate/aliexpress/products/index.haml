@@ -1,12 +1,15 @@
--# locals: (recipient:, products:)
+-# locals: (recipient_idea:, recipient:, products:)
 = render "recipients/tr", recipient:, show_text: "Back", show_turbo: false
 
 .hint.center-element
   Ship to #{link_to(countries_for_select.invert[recipient.ship_to_country], [:edit, recipient])}
 
 - if products.empty?
-  .hint.center-element No products found in Aliexpress for this idea
-- else
-  .product-wrapper
-    = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
-  = paginate products
+  .hint.center-element
+    No products found.
+    - if params[:page].present?
+      = link_to("Back to first page?", [:affiliate, :aliexpress, :products, recipient_idea_id: recipient_idea.id])
+
+.product-wrapper
+  = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
+= paginate products, data: { controller: "spinner", action: "click->spinner#start" }

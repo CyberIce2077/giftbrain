@@ -5,7 +5,7 @@
   z-index: 9000;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .spinner {
@@ -16,7 +16,7 @@
     radial-gradient(farthest-side, #f47c57 94%, #0000) top/0.5em 0.5em no-repeat,
     conic-gradient(#0000 30%, #f47c57);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 0.5em), #000 0);
-  animation: spinner-rotate 1s infinite linear;
+  animation: spinner-rotate 0.5s infinite linear;
 }
 
 @keyframes spinner-rotate {
