@@ -216,4 +216,8 @@
   .box-panel {
     width: 100%;
   }
+
+  .idea-box:hover {
+    transform: none;
+  }
 }
