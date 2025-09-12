@@ -1,21 +1,17 @@
 module Ai
   module Local
     class BaseService < Ai::BaseService
-      API_PATH = "api/generate".freeze
-
       def call
         super
 
-        response = HTTP.headers("Content-Type" => "application/json")
-                       .post(url, json: {
-                         model:,
-                         prompt: build_prompt,
-                         stream: false
-                       })
+        response = client.post do |r|
+          r.body = build_params
+        end
 
-        @data = JSON.parse(JSON.parse(response.body.to_s)["response"].gsub(/\A```json\s*|\s*```\z/, ""))
+        result = response.body
 
-        raise EmptyDataError if @data.empty?
+        @data = JSON.parse(result.gsub(/\A```json\s*|\s*```\z/, "")).dig("response")
+        validate_data_presence!
 
         success!
       rescue StandardError => e
@@ -23,10 +19,28 @@ module Ai
         log_error(e)
       end
 
-      def url
-        return "http://localhost:11434/#{API_PATH}" if Rails.env.development?
+      private
 
-        "http://giftbrain-ollama:11434/#{API_PATH}"
+      def build_params
+        {
+          model:,
+          prompt: build_prompt,
+          stream: false
+        }
+      end
+
+      def client
+        Faraday.new(url) do |conn|
+          conn.response :json
+          conn.request :json
+          conn.adapter Faraday.default_adapter
+        end
+      end
+
+      def url
+        return "http://localhost:11434/api/generate" if Rails.env.development?
+
+        "http://giftbrain-ollama:11434/api/generate"
       end
     end
   end

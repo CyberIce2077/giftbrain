@@ -54,7 +54,12 @@ module Affiliate
         end
 
         def cache_key
-          "affiliate_aliexpress_products:#{recipient_idea.id}:#{page_no}"
+          [
+            "affiliate_aliexpress_products",
+            recipient_idea.name.downcase.tr(" ", "_"),
+            recipient_idea.ship_to_country,
+            page_no
+          ].join(":")
         end
 
         def client
