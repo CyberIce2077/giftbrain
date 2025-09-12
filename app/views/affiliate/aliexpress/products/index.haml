@@ -1,7 +1,10 @@
 -# locals: (recipient:, products:)
-= render "recipients/tr", recipient:, show_text: "Back"
+= render "recipients/tr", recipient:, show_text: "Back", show_turbo: false
 
-.idea-wrapper
-  = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
-
-= paginate products
+- if products.empty?
+  .hint.center-element
+    No products found in Aliexpress for this idea
+- else
+  .idea-wrapper
+    = render partial: "/affiliate/aliexpress/products/table", locals: { products: }
+  = paginate products

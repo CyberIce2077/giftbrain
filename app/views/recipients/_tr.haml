@@ -1,8 +1,8 @@
--# locals: (recipient:, show_text: "Show", teams: [], team: teams.find { |t| t.recipient_id == recipient.id })
+-# locals: (recipient:, show_text: "Show", show_turbo: true, teams: [], team: teams.find { |t| t.recipient_id == recipient.id })
 .box-container
   .detailed-box-title-row
     .detailed-box-title= "#{recipient.event_date.strftime("%d")} #{I18n.t('date.abbr_month_names')[recipient.event_date.month]} | #{recipient.name}"
     - if team
       = link_to("Team", [team], class: "detailed-box-back-button")
-    = link_to(show_text, [recipient], class: "detailed-box-back-button")
+    = link_to(show_text, [recipient], data: { turbo: show_turbo }, class: "detailed-box-back-button")
   = progress_bar(recipient)
