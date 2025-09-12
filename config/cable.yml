@@ -4,13 +4,13 @@
 # to make the web console appear.
 development:
   adapter: redis
-  url: redis://localhost:6379/3
+  url: redis://localhost:6379/1
 
 test:
   adapter: test
 
 production:
   adapter: redis
-  url: redis://giftbrain-redis:6379/3
+  url: redis://giftbrain-redis:6379/1
   ssl_params:
     verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>
