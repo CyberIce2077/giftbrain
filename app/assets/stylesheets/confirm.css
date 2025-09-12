@@ -5,10 +5,9 @@
   inset: 0;
   align-items: center;
   justify-content: center;
-  font-family: "Manrope", sans-serif;
 }
 
-.modal--active {
+.modal-active {
   display: flex;
 }
 

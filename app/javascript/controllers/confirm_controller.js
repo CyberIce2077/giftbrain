@@ -25,7 +25,7 @@ export default class extends Controller {
 
     this._cleanupListeners()
 
-    this.modal.classList.add("modal--active")
+    this.modal.classList.add("modal-active")
 
     this.acceptButton.addEventListener("click", this._handleAccept)
     this.cancelButtons.forEach(btn =>
@@ -34,7 +34,7 @@ export default class extends Controller {
   }
 
   _handleAccept() {
-    this.modal.classList.remove("modal--active")
+    this.modal.classList.remove("modal-active")
 
     if (this._turbo_stream) {
       this._form.requestSubmit()
@@ -47,7 +47,7 @@ export default class extends Controller {
   }
 
   _handleCancel() {
-    this.modal.classList.remove("modal--active")
+    this.modal.classList.remove("modal-active")
     this._cleanupListeners()
     this._form = null
   }
