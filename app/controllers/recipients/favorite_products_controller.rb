@@ -2,6 +2,15 @@ module Recipients
   class FavoriteProductsController < ApplicationController
     rate_limit to: 30, within: 3.minutes, only: %i[create destroy] if Rails.env.production?
 
+    def index
+      authorize(FavoriteProduct)
+
+      recipient = find_recipient
+      favorite_products = policy_scope(recipient.favorite_products).order(id: :desc).page(params[:page])
+
+      render "recipients/favorite_products/index", locals: { recipient:, favorite_products: }
+    end
+
     def create
       recipient = find_recipient
       favorite_product = recipient.favorite_products.build(favorite_product_params)
@@ -18,7 +27,7 @@ module Recipients
 
     def destroy
       recipient = find_recipient
-      favorite_product = recipient.favorite_products.find(params[:id])
+      favorite_product = policy_scope(recipient.favorite_products).find(params[:id])
       authorize(favorite_product)
 
       if favorite_product.destroy

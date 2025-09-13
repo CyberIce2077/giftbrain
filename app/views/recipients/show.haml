@@ -11,6 +11,7 @@
     .box-description= recipient.description
     .center-elements
       = link_to("Edit", [:edit, recipient], class: "is-button")
+      = link_to("Favorites", [recipient, :favorite_products], class: "is-button")
       -# - if team
       -#   = link_to("Team", [team], class: "is-button")
       -# - else

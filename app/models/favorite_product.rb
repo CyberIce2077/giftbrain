@@ -5,4 +5,8 @@ class FavoriteProduct < ApplicationRecord
   validates :product_id, uniqueness: { scope: %i[recipient_id provider], message: "is already in favorites" }
 
   enum :provider, { aliexpress: 0 }, suffix: true
+
+  def discount?
+    discount != "0%"
+  end
 end
