@@ -32,8 +32,23 @@ module Affiliate
         end
       end
 
+      def provider = "aliexpress"
+
       def discount?
         discount != "0%"
+      end
+
+      def build_favorite_products_params
+        {
+          product_id:,
+          name: product_title,
+          promotion_link:,
+          image: product_main_image_url,
+          original_price: target_original_price,
+          sale_price: target_sale_price,
+          discount:,
+          provider:
+        }
       end
     end
   end

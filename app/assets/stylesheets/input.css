@@ -71,6 +71,12 @@
   outline-offset: 2px;
 }
 
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .gsi-material-button {
   -moz-user-select: none;
   -webkit-user-select: none;

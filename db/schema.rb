@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_09_080119) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_13_071901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "favorite_products", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.string "product_id", default: "", null: false
+    t.integer "provider", default: 0, null: false
+    t.string "name", default: "", null: false
+    t.string "promotion_link", default: "", null: false
+    t.string "image", default: "", null: false
+    t.string "original_price", default: "", null: false
+    t.string "sale_price", default: "", null: false
+    t.string "discount", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id", "provider", "product_id"], name: "idx_on_recipient_id_provider_product_id_36e51ecbaf", unique: true
+    t.index ["recipient_id"], name: "index_favorite_products_on_recipient_id"
+  end
 
   create_table "ideas", force: :cascade do |t|
     t.string "name"
@@ -107,6 +123,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_09_080119) do
     t.index ["unsubscribe_token"], name: "index_users_on_unsubscribe_token", unique: true
   end
 
+  add_foreign_key "favorite_products", "recipients"
   add_foreign_key "recipient_ideas", "ideas"
   add_foreign_key "recipient_ideas", "recipients"
   add_foreign_key "recipients", "users", column: "creator_id"

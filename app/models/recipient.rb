@@ -7,6 +7,7 @@ class Recipient < ApplicationRecord
   has_many :reminders, dependent: :destroy
   has_one :team, dependent: :destroy
   has_many :team_members, through: :team
+  has_many :favorite_products, dependent: :destroy
 
   accepts_nested_attributes_for :reminders, allow_destroy: false
 

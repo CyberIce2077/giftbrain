@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :recipients do
     resources :teams, only: %i[new create edit update], controller: "recipients/teams"
+    resources :favorite_products, only: %i[create destroy], controller: "recipients/favorite_products"
     patch :generate_ideas, on: :member
     get :event_dates, on: :collection
   end
