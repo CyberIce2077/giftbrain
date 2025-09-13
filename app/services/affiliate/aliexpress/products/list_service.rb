@@ -3,6 +3,7 @@ module Affiliate
     module Products
       class ListService < BaseService
         class ApiError < StandardError; end
+        class EmptyResultError < StandardError; end
 
         attr_reader :recipient_idea, :page_no
 
@@ -24,6 +25,8 @@ module Affiliate
             total_count = result.dig("total_record_count").to_i
 
             { products:, total_count: }
+          rescue EmptyResultError
+            { products: [], total_count: 0 }
           end
 
           validate_data_presence!
@@ -38,14 +41,19 @@ module Affiliate
         def validate_result!(result)
           raise ApiError, "Empty API response" unless result.is_a?(Hash)
 
-          return if result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result", "products", "product").present?
+          if result.dig("aliexpress_affiliate_product_query_response", "resp_result", "resp_msg") == "The result is empty"
+            raise EmptyResultError, "No products found"
+          end
 
-          raise ApiError, "Invalid API response"
+          if result.dig("aliexpress_affiliate_product_query_response", "resp_result", "result", "products", "product").blank?
+            raise ApiError, "Invalid API response"
+          end
         end
 
         def build_params
           {
             "method" => "aliexpress.affiliate.product.query",
+            "target_currency" => "USD",
             "keywords" => recipient_idea.name,
             "ship_to_country" => recipient_idea.ship_to_country,
             "page_no" => page_no,

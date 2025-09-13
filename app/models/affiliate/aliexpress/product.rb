@@ -9,8 +9,8 @@ module Affiliate
         product_title
         promotion_link
         product_main_image_url
-        app_sale_price
-        original_price
+        target_sale_price
+        target_original_price
         discount
       ].freeze
 

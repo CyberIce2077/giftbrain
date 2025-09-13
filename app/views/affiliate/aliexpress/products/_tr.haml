@@ -6,7 +6,7 @@
     .center-elements
       - if product.discount?
         .discount -#{product.discount}
-        US #{product.app_sale_price}
-        .old-price #{product.original_price}
+        US #{product.target_sale_price}
+        .old-price #{product.target_original_price}
       - else
-        US #{product.original_price}
+        US #{product.target_original_price}

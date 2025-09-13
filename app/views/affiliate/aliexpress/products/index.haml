@@ -6,7 +6,7 @@
 
 - if products.empty?
   .hint.center-element
-    No products found.
+    No products found
     - if params[:page].present?
       = link_to("Back to first page?", [:affiliate, :aliexpress, :products, recipient_idea_id: recipient_idea.id])
 
