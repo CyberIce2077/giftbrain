@@ -1,5 +1,5 @@
 -# locals: (recipient:, favorite_products:)
-= render "recipients/tr", recipient:, show_text: "Back"
+= render "recipients/tr", recipient:, show_text: "Back", show_turbo: false
 
 .hint.center-element
   Ship to #{link_to(countries_for_select.invert[recipient.ship_to_country], [:edit, recipient])}
