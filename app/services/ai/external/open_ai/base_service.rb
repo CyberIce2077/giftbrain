@@ -55,11 +55,11 @@ module  Ai
 
         def demo_response
           @data = [
-            { "name" => "Beer mug" },
-            { "name" => "Anime Rem figurine" },
-            { "name" => "Cat poster" },
-            { "name" => "Re Zero anime figurine" },
-            { "name" => "Makeup" }
+            "Beer mug",
+            "Anime Rem figurine",
+            "Cat poster",
+            "Re Zero anime figurine",
+            "Makeup"
           ]
           success!
         end

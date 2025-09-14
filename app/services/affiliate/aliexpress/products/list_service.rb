@@ -5,6 +5,8 @@ module Affiliate
         class ApiError < StandardError; end
         class EmptyResultError < StandardError; end
 
+        PAGE_SIZE = 50.freeze
+
         attr_reader :recipient_idea, :page_no
 
         def initialize(recipient_idea, page_no = 1)
@@ -15,7 +17,7 @@ module Affiliate
         end
 
         def call
-          @data = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+          @data = Rails.cache.fetch(cache_key, expires_in: 3.days) do
             result = client.get(build_params).body
             validate_result!(result)
 
@@ -23,6 +25,8 @@ module Affiliate
 
             products = result.dig("products", "product").presence || []
             total_count = result.dig("total_record_count").to_i
+
+            total_count = products.size if total_count.zero?
 
             { products:, total_count: }
           rescue EmptyResultError
@@ -57,7 +61,7 @@ module Affiliate
             "keywords" => recipient_idea.name,
             "ship_to_country" => recipient_idea.ship_to_country,
             "page_no" => page_no,
-            "page_size" => 50
+            "page_size" => PAGE_SIZE
           }
         end
 
