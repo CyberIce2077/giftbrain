@@ -16,7 +16,7 @@ module Affiliate
         products = ::Affiliate::Aliexpress::Product.build_from_collection(service.data[:products])
         products = Kaminari.paginate_array(products, total_count:)
                            .page(params[:page])
-                           .per(service.class::PAGE_SIZE)
+                           .per(list_service::PAGE_SIZE)
 
         render "affiliate/aliexpress/products/index", locals: { recipient_idea:, recipient:, products:, favorite_products: }
       end
