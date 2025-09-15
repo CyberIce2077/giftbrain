@@ -3,11 +3,11 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="confirm"
 export default class extends Controller {
   connect() {
-    this.modal = document.getElementById("confirm")
+    this.confirm = document.getElementById("confirm")
     this.title = document.getElementById("confirm-title")
     this.body = document.getElementById("confirm-body")
     this.acceptButton = document.getElementById("confirm-accept")
-    this.cancelButtons = this.modal.querySelectorAll(".confirm-cancel")
+    this.cancelButtons = this.confirm.querySelectorAll(".confirm-cancel")
 
     this._handleAccept = this._handleAccept.bind(this)
     this._handleCancel = this._handleCancel.bind(this)
@@ -25,7 +25,7 @@ export default class extends Controller {
 
     this._cleanupListeners()
 
-    this.modal.classList.add("modal--active")
+    this.confirm.classList.add("modal-active")
 
     this.acceptButton.addEventListener("click", this._handleAccept)
     this.cancelButtons.forEach(btn =>
@@ -34,7 +34,7 @@ export default class extends Controller {
   }
 
   _handleAccept() {
-    this.modal.classList.remove("modal--active")
+    this.confirm.classList.remove("modal-active")
 
     if (this._turbo_stream) {
       this._form.requestSubmit()
@@ -47,7 +47,7 @@ export default class extends Controller {
   }
 
   _handleCancel() {
-    this.modal.classList.remove("modal--active")
+    this.confirm.classList.remove("modal-active")
     this._cleanupListeners()
     this._form = null
   }

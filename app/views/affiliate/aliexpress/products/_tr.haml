@@ -1,0 +1,21 @@
+-# locals: (recipient:, product:, favorite_products:, favorite_product: favorite_products.find { |fp| fp.product_id == product.product_id && fp.provider == product.provider })
+= link_to(product.promotion_link, target: "_blank", rel: "noopener") do
+  .idea-box
+    .idea-name= product.product_title
+    = image_tag(product.product_main_image_url, class: "idea-image", referrerpolicy: 'no-referrer')
+    .center-elements
+      - if product.discount?
+        .discount -#{product.discount}
+        US #{product.target_sale_price}
+        .old-price #{product.target_original_price}
+      - else
+        US #{product.target_original_price}
+      = turbo_frame_tag(product.product_id) do
+        - if favorite_product
+          = button_to([recipient, favorite_product], method: :delete, class: "transparent-button") do
+            = image_tag("heart.svg")
+        - else
+          = button_to([recipient, :favorite_products],
+                      params: { favorite_product: product.build_favorite_products_params },
+                      class: "transparent-button") do
+            = image_tag("empty_heart.svg")

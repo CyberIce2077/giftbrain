@@ -1,0 +1,6 @@
+-# locals: { recipient:, favorite_product: }
+= turbo_stream.update(favorite_product.product_id) do
+  = button_to([recipient, :favorite_products],
+              params: { favorite_product: favorite_product.attributes },
+              class: "transparent-button") do
+    = image_tag("empty_heart.svg")

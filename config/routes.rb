@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :recipients do
     resources :teams, only: %i[new create edit update], controller: "recipients/teams"
+    resources :favorite_products, only: %i[index create destroy], controller: "recipients/favorite_products"
     patch :generate_ideas, on: :member
     get :event_dates, on: :collection
   end
@@ -54,4 +55,12 @@ Rails.application.routes.draw do
   end
 
   resources :team_members, only: %i[destroy]
+
+  namespace :affiliate do
+    namespace :aliexpress do
+      scope "/:recipient_idea_id" do
+        resources :products, only: :index
+      end
+    end
+  end
 end

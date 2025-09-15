@@ -82,14 +82,13 @@
 .idea-box {
   background-color: #ffffff;
   width: 15em;
-  height: 5em;
+  min-height: 5em;
   border-radius: 20px;
   padding: 1em;
   margin: 0.5em;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease;
-  animation: scaleIn 0.5s ease-out;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -99,6 +98,10 @@
 
 .idea-box:hover {
   transform: scale(1.03);
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out;
 }
 
 .idea-name {
@@ -114,6 +117,7 @@
   flex: 1 1 auto;
   word-break: break-word;
   max-width: 97%;
+  margin-bottom: 0.3em;
 }
 
 .idea-remove-button {
@@ -134,8 +138,35 @@
   color: #e2633f;
 }
 
-.idea-links {
-  margin-top: 0.65em;
+.idea-image {
+  max-width: 100%;
+  max-height: 10em;
+  margin: 0.5em;
+  object-fit: contain;
+}
+
+.product-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-wrapper a {
+  text-decoration: none;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #88857f;
+  font-size: 0.9em;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.discount {
+  color: #e74c3c;
+  font-weight: bold;
 }
 
 .login-container {
@@ -208,5 +239,9 @@
 @media screen and (max-width: 940px) {
   .box-panel {
     width: 100%;
+  }
+
+  .idea-box:hover {
+    transform: none;
   }
 }

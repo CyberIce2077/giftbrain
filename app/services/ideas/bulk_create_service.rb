@@ -1,22 +1,20 @@
 module Ideas
   class BulkCreateService < BaseService
-    attr_reader :recipient
+    attr_reader :recipient, :names
 
-    def initialize(recipient, data)
+    def initialize(recipient, names)
       super
       @recipient = recipient
-      @data = data
+      @names = names
     end
 
     def call
-      data.each do |json_idea|
-        idea = Idea.find_or_create_by(name: json_idea["name"])
+      names.each do |name|
+        idea = Idea.find_or_create_by(name:)
 
         recipient_idea = RecipientIdea.create!(recipient:, idea:)
-
-        ::RecipientIdeas::GenerateAffiliateLinksJob.perform_later(recipient_idea)
         update_ideas_view(idea, recipient_idea)
-      rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordInvalid
         next
       end
 

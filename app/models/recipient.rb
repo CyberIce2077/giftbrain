@@ -1,12 +1,15 @@
 class Recipient < ApplicationRecord
   AVERAGE_GENERATE_DURATION = 10
 
+  before_validation :strip_whitespace
+
   belongs_to :creator, class_name: "User"
   has_many :recipient_ideas, dependent: :destroy
   has_many :ideas, through: :recipient_ideas
   has_many :reminders, dependent: :destroy
   has_one :team, dependent: :destroy
   has_many :team_members, through: :team
+  has_many :favorite_products, dependent: :destroy
 
   accepts_nested_attributes_for :reminders, allow_destroy: false
 
@@ -50,5 +53,12 @@ class Recipient < ApplicationRecord
       partial: "/recipients/recipient_options",
       locals: { recipient: self }
     )
+  end
+
+  private
+
+  def strip_whitespace
+    self.name = name.to_s.strip
+    self.description = description.to_s.strip
   end
 end

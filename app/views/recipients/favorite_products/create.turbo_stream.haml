@@ -1,0 +1,5 @@
+-# locals: { recipient:, favorite_product: }
+- if favorite_product.persisted?
+  = turbo_stream.update(favorite_product.product_id) do
+    = button_to([recipient, favorite_product], method: :delete, class: "transparent-button") do
+      = image_tag("heart.svg")

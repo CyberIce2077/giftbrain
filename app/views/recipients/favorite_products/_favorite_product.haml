@@ -1,0 +1,15 @@
+-# locals: (recipient:, favorite_product:)
+= link_to(favorite_product.promotion_link, target: "_blank", rel: "noopener") do
+  .idea-box
+    .idea-name= favorite_product.name
+    = image_tag(favorite_product.image, class: "idea-image", referrerpolicy: 'no-referrer')
+    .center-elements
+      - if favorite_product.discount?
+        .discount -#{favorite_product.discount}
+        US #{favorite_product.sale_price}
+        .old-price #{favorite_product.original_price}
+      - else
+        US #{favorite_product.original_price}
+      = turbo_frame_tag(favorite_product.product_id) do
+        = button_to([recipient, favorite_product], method: :delete, class: "transparent-button") do
+          = image_tag("heart.svg")

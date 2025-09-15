@@ -24,8 +24,9 @@
     %script{src: "https://challenges.cloudflare.com/turnstile/v0/api.js", async: true, defer: true}
 
   %body.main-layout
-    = turbo_frame_tag('flash')
-    = render('layouts/confirm')
+    = turbo_frame_tag("flash")
+    = render("layouts/confirm")
+    = render("layouts/spinner")
     .header
       = link_to("/", data: { turbo: false }) do
         = image_tag("logo.jpeg", alt: "Logo", class: "nav-logo")
