@@ -74,6 +74,14 @@ builder:
 ssh:
   user: ice-server
 
+# NOTE: To clear kamal-proxy logs if they grow too large
+# sudo truncate -s 0 $(docker inspect --format='{{.LogPath}}' kamal-proxy)
+logging:
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: 3
+
 accessories:
   # db:
   #   image: postgres:16
