@@ -97,7 +97,7 @@ accessories:
       - ./.kamal/cloudflare/config.yml:/etc/cloudflared/config.yml
     cmd: tunnel --config /etc/cloudflared/config.yml run
   redis:
-    image: redis:latest
+    image: redis:7.0.15
     roles:
       - web
       - job
