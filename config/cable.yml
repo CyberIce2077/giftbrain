@@ -11,6 +11,6 @@ test:
 
 production:
   adapter: redis
-  url: redis://giftbrain-redis:6379/1
+  url: <%= ENV["REDIS_URL"] %>
   ssl_params:
     verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>

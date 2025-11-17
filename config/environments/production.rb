@@ -48,7 +48,7 @@ Rails.application.configure do
 
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :redis_cache_store, {
-    url: "redis://giftbrain-redis:6379/2",
+    url: ENV["REDIS_URL"],
     ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
   }
 

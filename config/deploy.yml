@@ -44,8 +44,12 @@ env:
     # Match this to any external database server to configure Active Record correctly
     # Use giftbrain-db for a db accessory server on same machine via local kamal docker network.
     DB_HOST: 192.168.1.38
+    DB_PORT: 5432
     POSTGRES_USER: giftbrain_production_user
     POSTGRES_DB: giftbrain_production
+
+    # Redis server for caching, Action Cable and Sidekiq
+    REDIS_URL: redis://192.168.1.38:6379/0
 
     # Log everything from Rails
     RAILS_LOG_LEVEL: info
@@ -96,13 +100,13 @@ accessories:
       - ./.kamal/cloudflare/credentials.json:/etc/cloudflared/credentials.json
       - ./.kamal/cloudflare/config.yml:/etc/cloudflared/config.yml
     cmd: tunnel --config /etc/cloudflared/config.yml run
-  redis:
-    image: redis:7.0.15
-    roles:
-      - web
-      - job
-    volumes:
-      - data:/data
+  # redis:
+  #   image: redis:7.0.15
+  #   roles:
+  #     - web
+  #     - job
+  #   volumes:
+  #     - data:/data
   ollama:
     image: ollama/ollama:latest
     roles:

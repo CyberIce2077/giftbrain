@@ -14,8 +14,8 @@ test:
 production:
   primary:
     <<: *default
-    database: giftbrain_production
-    username: giftbrain_production_user
+    database: <%= ENV["POSTGRES_DB"] %>
+    username: <%= ENV["POSTGRES_USER"] %>
     password: <%= ENV["POSTGRES_PASSWORD"] %>
-    host: 192.168.1.38
-    port: 5432
+    host: <%= ENV["DB_HOST"] %>
+    port: <%= ENV["DB_PORT"] %>
